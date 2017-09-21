@@ -19,7 +19,16 @@ int main(int argc,char* argv[])
     Exemple exemple;
     exemple.setX(53);
 
-    cout << "It works !" << endl;
+    if (argc>1){
+        string str(argv[1]);
+        if (str=="hello")
+        {
+            cout <<"Bonjour le monde !"<<endl;
+        }
+        else{}
+    }
+    else {}
+    
 
     return 0;
 }
