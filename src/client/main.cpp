@@ -1,13 +1,7 @@
 #include <iostream>
 
-// Les lignes suivantes ne servent qu'à vérifier que la compilation avec SFML fonctionne
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
-void testSFML() {
-    sf::Texture texture;
-}
-
-// Fin test SFML
 
 #include "state.h"
 
@@ -21,13 +15,19 @@ int main(int argc,char* argv[])
 
     if (argc>1){
         string str(argv[1]);
-        if (str=="hello")
+        if (str=="state")
         {
-            cout <<"Bonjour le monde !"<<endl;
+            cout <<"Debut des tests"<<endl;
+            Element element;
+            
+            
+                   
+                    
+            cout <<"Fin des tests"<<endl;
         }
-        else{}
+        else{cout<<"La commande n'est pas correct"<<endl;}
     }
-    else {}
+    else {cout<<"Il n'y a pas de commande"<<endl;}
     
 
     return 0;
