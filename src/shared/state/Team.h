@@ -23,10 +23,11 @@ namespace state {
   public:
     int getNbCreatures ();
     void setNbCreatures (int nbCreatures = 1);
-    TeamStatus const getTeamStatus ();
+    TeamStatus  getTeamStatus ();
     TypeId const getTypeId ();
     bool const isStatic ();
     Team (TeamStatus id = DRAGONS);
+    void setTeamStatus (TeamStatus teamId);
     // Setters and Getters
   };
 
