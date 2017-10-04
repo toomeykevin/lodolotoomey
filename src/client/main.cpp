@@ -10,17 +10,15 @@ using namespace state;
 
 int main(int argc,char* argv[]) 
 {
-    Exemple exemple;
-    exemple.setX(53);
 
     if (argc>1){
         string str(argv[1]);
         if (str=="state")
         {
             cout <<"Debut des tests"<<endl;
-            Element element;
-            
-            
+            Team *team; //new Team(TeamStatus::UNICORNS);
+           
+           // team->getNbCreatures();            
                    
                     
             cout <<"Fin des tests"<<endl;

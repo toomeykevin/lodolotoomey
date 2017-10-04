@@ -2,5 +2,12 @@
 #ifndef __STATE__H
 #define __STATE__H
 
-#include "state/Exemple.h"
+#include "state/TypeId.h"
+#include "state/Element.h"
+#include "state/TeamStatus.h"
+#include "state/Team.h"
+#include "state/TerritoryTypeId.h"
+#include "state/Territory.h"
+#include "state/ElementTab.h"
+#include "state/State.h"
 #endif
