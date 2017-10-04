@@ -18,7 +18,7 @@ namespace state {
     // Attributes
   private:
     int nbCreatures     = 1;
-    TeamStatus const teamStatus;
+    TeamStatus  teamStatus;
     // Operations
   public:
     int getNbCreatures ();

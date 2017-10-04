@@ -6,23 +6,21 @@
 
 #include "Team.h"
 
+namespace state {
     Team::Team(TeamStatus id){
         teamStatus=id;
     }
+    
     int Team::getNbCreatures(){
-        return NbCreatures;
+        return nbCreatures;
     }
-    void Team::setNbCreatures(int nbCreatures=1){
+    
+    void Team::setNbCreatures (int nbCreatures){
         nbCreatures=nbCreatures;
     }
-
-    TeamStatus Team::getTeamStatus() const{
+    
+    TeamStatus Team::getTeamStatus() const {
         return teamStatus;
     }
-    TypeId Team::getTypeId() const {
-        return typeId;
-    }
-    bool Team::isStatic() const{
-        return True;
-    }
-
+    
+};
