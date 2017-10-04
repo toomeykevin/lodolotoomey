@@ -19,7 +19,7 @@ namespace state {
         nbCreatures=nbCreatures;
     }
     
-    TeamStatus Team::getTeamStatus() const {
+    TeamStatus Team::getTeamStatus() {
         return teamStatus;
     }
     
