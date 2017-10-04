@@ -17,6 +17,7 @@ int main(int argc,char* argv[])
         {
             cout <<"Debut des tests"<<endl;
             Team *team; //new Team(TeamStatus::UNICORNS);
+            Element *Element;
            
            // team->getNbCreatures();            
                    
