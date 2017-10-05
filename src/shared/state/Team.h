@@ -8,6 +8,7 @@ namespace state {
 }
 
 #include "TeamStatus.h"
+#include "TypeId.h"
 #include "Element.h"
 
 namespace state {
@@ -17,17 +18,17 @@ namespace state {
     // Associations
     // Attributes
   private:
-    int nbCreatures     = 1;
-    TeamStatus  teamStatus;
+    int m_nbCreatures     = 1;
+    TeamStatus  m_teamStatus;
     // Operations
   public:
+    Team (int nbCreatures = 1, TeamStatus teamStatus = DRAGONS);
     int getNbCreatures ();
     void setNbCreatures (int nbCreatures = 1);
     TeamStatus  getTeamStatus ();
-    TypeId const getTypeId ();
-    bool const isStatic ();
-    Team (TeamStatus id = DRAGONS);
-    void setTeamStatus (TeamStatus teamId);
+    void setTeamStatus (TeamStatus teamStatus);
+    TypeId getTypeId ();
+    bool  isStatic ();
     // Setters and Getters
   };
 

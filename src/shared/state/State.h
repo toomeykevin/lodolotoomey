@@ -16,8 +16,8 @@ namespace state {
     // Associations
     // Attributes
   private:
-    ElementTab teamBord;
-    ElementTab territoryBoard;
+    ElementTab m_teamBoard;
+    ElementTab m_territoryBoard;
     // Operations
   public:
     ElementTab& getTerritoryBoard ();

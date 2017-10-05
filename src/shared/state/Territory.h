@@ -7,7 +7,8 @@ namespace state {
   class Element;
 }
 
-#include "TerritoryTypeId.h"
+#include "TerritoryStatus.h"
+#include "TypeId.h"
 #include "Element.h"
 
 namespace state {
@@ -17,13 +18,13 @@ namespace state {
     // Associations
     // Attributes
   private:
-    TerritoryTypeId const territoryTypeId;
+    TerritoryStatus m_territoryStatus;
     // Operations
   public:
-    TypeId const getTypeId ();
-    bool const isStatic ();
-    TerritoryTypeId const getTerritoryTypeId ();
-    Territory (TerritoryTypeId id = ACCESSABLE);
+    Territory (TerritoryStatus territoryStatus = ACCESSABLE);
+    TerritoryStatus getTerritoryStatus ();
+    TypeId getTypeId ();
+    bool isStatic ();
     // Setters and Getters
   };
 

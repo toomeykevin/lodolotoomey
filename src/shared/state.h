@@ -6,7 +6,7 @@
 #include "state/Element.h"
 #include "state/TeamStatus.h"
 #include "state/Team.h"
-#include "state/TerritoryTypeId.h"
+#include "state/TerritoryStatus.h"
 #include "state/Territory.h"
 #include "state/ElementTab.h"
 #include "state/State.h"

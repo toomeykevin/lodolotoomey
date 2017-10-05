@@ -11,22 +11,23 @@ namespace state {
   class Element {
     // Associations
     // Attributes
-  private:
-    TypeId const typeId;
   protected:
-    int x;
-    int y;
+    TypeId m_typeId;
+    int m_x;
+    int m_y;
     // Operations
   public:
     Element ();
     ~Element ();
-    virtual TypeId const getTypeId () = 0;
-    virtual bool const isStatic () = 0;
+    virtual TypeId getTypeId () = 0;
+    virtual bool isStatic () = 0;
     // Setters and Getters
-    int getX() const;
-    void setX(int x);
-    int getY() const;
-    void setY(int y);
+    TypeId getM_typeId() const;
+    void setM_typeId(TypeId m_typeId);
+    int getM_x() const;
+    void setM_x(int m_x);
+    int getM_y() const;
+    void setM_y(int m_y);
   };
 
 };

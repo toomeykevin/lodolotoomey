@@ -19,14 +19,14 @@ namespace state {
     // Associations
     // Attributes
   private:
-    std::vector<std::unique_ptr<Element>> board;
-    size_t width;
-    size_t height;
+    std::vector<std::unique_ptr<Element>> m_board;
+    size_t m_width;
+    size_t m_height;
     // Operations
   public:
     ElementTab (size_t width = 5, size_t height = 5);
-    size_t const getWidth ();
-    size_t const getHeight ();
+    size_t getWidth ();
+    size_t getHeight ();
     // Setters and Getters
   };
 

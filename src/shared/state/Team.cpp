@@ -5,21 +5,53 @@
  */
 
 #include "Team.h"
+#include <iostream>
+using namespace std;
 
 namespace state {
-    Team::Team(TeamStatus id){
-        teamStatus=id;
+    Team::Team(int nbCreatures, TeamStatus teamStatus)
+    {
+        m_nbCreatures=nbCreatures;
+        m_teamStatus=teamStatus;
     }
     
     int Team::getNbCreatures(){
+        return m_nbCreatures;
     }
     
     void Team::setNbCreatures (int nbCreatures){
-        nbCreatures=nbCreatures;
+        if (nbCreatures <1 || nbCreatures >8)
+        {
+            cout << "nbCreatures invalide" << endl;
+        }
+        else
+        {
+            m_nbCreatures=nbCreatures;
+        }
     }
     
     TeamStatus Team::getTeamStatus() {
-        return teamStatus;
+        return m_teamStatus;
     }
     
+    void Team::setTeamStatus(TeamStatus teamStatus){
+        if (teamStatus != DRAGONS && teamStatus != UNICORNS)
+        {
+            cout << "TeamStatus invalide" << endl;
+        }
+        else
+        {
+            m_teamStatus = teamStatus;
+        }
+    }
+    
+    TypeId Team::getTypeId()
+    {
+        return m_typeId;
+    }
+    
+    bool Team::isStatic()
+    {
+        return false;
+    }
 };
