@@ -62,6 +62,13 @@ int main(int argc,char* argv[])
                 cout<<"Team::getTeamStatus() failed"<<endl;
             }
            cout<<test<<endl;
+           if (test==true){
+               cout<<"Test worked"<<endl;
+           }
+           else {
+               cout<<"Test failed"<<endl;
+               
+           }
            // team->getNbCreatures();            
                    
                     
