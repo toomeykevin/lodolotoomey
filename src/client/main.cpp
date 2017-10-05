@@ -20,7 +20,6 @@ int main(int argc,char* argv[])
             Team team1; //new Team(TeamStatus::UNICORNS);
             Team team2;
             team2.setNbCreatures(5);
-            team2.getTypeId();
             Territory* territoryI= new Territory(IMPOSSIBLE);
             Territory territoryA;
             //cout<<territoryI->getTerritoryStatus()<<endl;

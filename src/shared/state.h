@@ -2,7 +2,6 @@
 #ifndef __STATE__H
 #define __STATE__H
 
-#include "state/TypeId.h"
 #include "state/Element.h"
 #include "state/TeamStatus.h"
 #include "state/Team.h"

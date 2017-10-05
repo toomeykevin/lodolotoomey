@@ -20,11 +20,6 @@ namespace state{
         return m_territoryStatus;
     }
     
-    TypeId Territory::getTypeId ()
-    {
-        return m_typeId;
-    }
-    
     bool Territory::isStatic ()
     {
         return true;

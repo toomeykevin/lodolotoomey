@@ -8,7 +8,6 @@ namespace state {
 }
 
 #include "TeamStatus.h"
-#include "TypeId.h"
 #include "Element.h"
 
 namespace state {
@@ -27,7 +26,6 @@ namespace state {
     void setNbCreatures (int nbCreatures = 1);
     TeamStatus  getTeamStatus ();
     void setTeamStatus (TeamStatus teamStatus);
-    TypeId getTypeId ();
     bool  isStatic ();
     // Setters and Getters
   };

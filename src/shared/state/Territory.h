@@ -8,7 +8,6 @@ namespace state {
 }
 
 #include "TerritoryStatus.h"
-#include "TypeId.h"
 #include "Element.h"
 
 namespace state {
@@ -23,7 +22,6 @@ namespace state {
   public:
     Territory (TerritoryStatus territoryStatus = ACCESSABLE);
     TerritoryStatus getTerritoryStatus ();
-    TypeId getTypeId ();
     bool isStatic ();
     // Setters and Getters
   };

@@ -45,11 +45,6 @@ namespace state {
         }
     }
     
-    TypeId Team::getTypeId()
-    {
-        return m_typeId;
-    }
-    
     bool Team::isStatic()
     {
         return false;

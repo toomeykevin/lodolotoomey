@@ -3,27 +3,20 @@
 #define STATE__ELEMENT__H
 
 
-#include "TypeId.h"
-
 namespace state {
 
   /// class Element - 
   class Element {
-    // Associations
     // Attributes
   protected:
-    TypeId m_typeId;
     int m_x;
     int m_y;
     // Operations
   public:
     Element ();
     ~Element ();
-    virtual TypeId getTypeId () = 0;
     virtual bool isStatic () = 0;
     // Setters and Getters
-    TypeId getM_typeId() const;
-    void setM_typeId(TypeId m_typeId);
     int getM_x() const;
     void setM_x(int m_x);
     int getM_y() const;

@@ -9,20 +9,10 @@
 using namespace std;
 
 namespace state{
-    Element::Element() : m_typeId(TERRITORY) {}
+    Element::Element() {}
     
     Element::~Element() {}
-    
-    TypeId Element::getM_typeId() const
-    {
-        return m_typeId;
-    }
-    
-    void Element::setM_typeId(TypeId typeId)
-    {
-        m_typeId=typeId;
-    }
-    
+
     int Element::getM_x() const
     {
         return m_x;
