@@ -12,7 +12,6 @@ namespace state {
     }
     
     int Team::getNbCreatures(){
-        return nbCreatures;
     }
     
     void Team::setNbCreatures (int nbCreatures){
