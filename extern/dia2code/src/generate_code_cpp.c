@@ -219,6 +219,7 @@ check_visibility (int *curr_vis, int new_vis)
 static void 
 add_setter_getter(umlclassnode *node, char* typename,char* varname)
 {
+
     int foundGetter = 0;
     int foundSetter = 0;
     char* tmp = strtoupperfirst(varname);
