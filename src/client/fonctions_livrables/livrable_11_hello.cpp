@@ -11,6 +11,6 @@ void livrable_11_hello(string commande){
         cout<<"bonjour le monde"<<endl;
     }
     else{
-        cout<< "la commande n'est pas hello"<< endl; 
+        //cout<< "la commande n'est pas hello"<< endl; 
     }
 }

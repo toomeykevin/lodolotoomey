@@ -69,7 +69,7 @@ void livrable_1final_state(string commande){
             cout <<"Fin des tests"<<endl;
     }
     else{
-        cout<< "la commande n'est pas state"<< endl; 
+        //cout<< "la commande n'est pas state"<< endl; 
     }
 }
 

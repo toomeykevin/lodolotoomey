@@ -10,8 +10,9 @@ using namespace std;
 void livrable_21_render(string commande){
     if (commande=="render"){
         cout<<"la commande est render"<<endl;
+        
     }
     else{
-        cout<< "la commande n'est pas render"<< endl; 
+        //cout<< "la commande n'est pas render"<< endl; 
     }
 }
