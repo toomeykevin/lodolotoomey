@@ -3,9 +3,11 @@
 //#include <SFML/Graphics.hpp>
 
 #include "state.h"
+#include "render.h"
 
 using namespace std;
 using namespace state;
+using namespace render;
 void livrable_11_hello(string commande);
 void livrable_1final_state(string commande);
 void livrable_21_render(string commande);

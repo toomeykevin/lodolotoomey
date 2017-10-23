@@ -13,22 +13,22 @@ namespace state{
     
     Element::~Element() {}
 
-    int Element::getM_x() const
+    int Element::getx() 
     {
         return m_x;
     }
     
-    void Element::setM_x(int x)
+    void Element::setx(int x)
     {
         m_x=x;
     }
     
-    int Element::getM_y() const
+    int Element::gety() 
     {
         return m_y;
     }
     
-    void Element::setM_y(int y)
+    void Element::sety(int y)
     {
         m_y=y;
     }  
