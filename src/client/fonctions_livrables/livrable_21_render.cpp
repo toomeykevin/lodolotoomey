@@ -12,9 +12,7 @@ void livrable_21_render(std::string commande){
     if (commande=="render"){
         std::cout<<"la commande est render"<<std::endl;
         
-        RenderWindow window(VideoMode(800,600,32),"First try", Style::Close | Style::Titlebar);
-        
-        
+        RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
         
         // on fait tourner le programme tant que la fenêtre n'est pas fermée
         while (window.isOpen())
@@ -32,70 +30,105 @@ void livrable_21_render(std::string commande){
             // à chaque tour, on efface l'ancien rendu
             window.clear(Color::Black);
             
-            // Texture des territoires de dragons
-            Texture dragonTerritory;
-            if (!dragonTerritory.loadFromFile("res/tile_dragon.png"))
+            // Texture des territoires
+            Texture territoryTextures;
+            if (!territoryTextures.loadFromFile("res/textures_territoires.png"))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
             }
             
-            // Texture des territoires de licornes
-            Texture unicornTerritory;
-            if (!unicornTerritory.loadFromFile("res/tile_unicorn.png"))
+            // Texture des soldats
+            Texture creatureTextures;
+            if (!creatureTextures.loadFromFile("res/textures_soldats.png"))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
             }
             
-            // Texture des territoires innacessibles
-            Texture inaccessibleTerritory;
-            if (!inaccessibleTerritory.loadFromFile("res/tile_inaccessible.png"))
+            // Texture des bulles
+            Texture bubbleTextures;
+            if (!bubbleTextures.loadFromFile("res/textures_bulles.png"))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
             }
             
             // Vertex tile dragon
+            // création du VertexArray en quad
             VertexArray hexagonDragon(Quads,4);
-            hexagonDragon[0].position = Vector2f(10,10);
-            hexagonDragon[1].position = Vector2f(130,10);
-            hexagonDragon[2].position = Vector2f(130,150);
-            hexagonDragon[3].position = Vector2f(10,150);
-            
-            hexagonDragon[0].texCoords = Vector2f(0,0);
-            hexagonDragon[1].texCoords = Vector2f(120,0);
-            hexagonDragon[2].texCoords = Vector2f(120,140);
-            hexagonDragon[3].texCoords = Vector2f(0,140);
+            // définition des coordonnées des 4 points du quads
+            // ie position de l'hexagone dans la fenêtre
+            hexagonDragon[0].position = Vector2f(0,0);
+            hexagonDragon[1].position = Vector2f(120,0);
+            hexagonDragon[2].position = Vector2f(120,140);
+            hexagonDragon[3].position = Vector2f(0,140);
+            // définition de la partie de la texture correspondant
+            // au territoire des dragons
+            hexagonDragon[0].texCoords = Vector2f(240,0);
+            hexagonDragon[1].texCoords = Vector2f(360,0);
+            hexagonDragon[2].texCoords = Vector2f(360,140);
+            hexagonDragon[3].texCoords = Vector2f(240,140);
             
             // Vertex tile unicorn
+            // création du VertexArray
             VertexArray hexagonUnicorn(Quads,4);
-            hexagonUnicorn[0].position = Vector2f(130,10);
-            hexagonUnicorn[1].position = Vector2f(250,10);
-            hexagonUnicorn[2].position = Vector2f(250,150);
-            hexagonUnicorn[3].position = Vector2f(130,150);
-            
+            // définition des quatres points du quad
+            hexagonUnicorn[0].position = Vector2f(120,0);
+            hexagonUnicorn[1].position = Vector2f(240,0);
+            hexagonUnicorn[2].position = Vector2f(240,140);
+            hexagonUnicorn[3].position = Vector2f(120,140);
+            // définition de la partie de la texture correspondant
+            // au territoire des licornes
             hexagonUnicorn[0].texCoords = Vector2f(0,0);
             hexagonUnicorn[1].texCoords = Vector2f(120,0);
             hexagonUnicorn[2].texCoords = Vector2f(120,140);
             hexagonUnicorn[3].texCoords = Vector2f(0,140);
             
             // Vertex tile inacessible
+            // création du VertexArray
             VertexArray hexagonInaccessible(Quads,4);
-            hexagonInaccessible[0].position = Vector2f(70,115);
-            hexagonInaccessible[1].position = Vector2f(190,115);
-            hexagonInaccessible[2].position = Vector2f(190,255);
-            hexagonInaccessible[3].position = Vector2f(70,255);
+            // définition des 4 points du quad
+            hexagonInaccessible[0].position = Vector2f(60,105);
+            hexagonInaccessible[1].position = Vector2f(180,105);
+            hexagonInaccessible[2].position = Vector2f(180,245);
+            hexagonInaccessible[3].position = Vector2f(60,245);
+            // définition de la partie de la texture correspondant
+            // à un territoire innaccesible
+            hexagonInaccessible[0].texCoords = Vector2f(120,0);
+            hexagonInaccessible[1].texCoords = Vector2f(240,0);
+            hexagonInaccessible[2].texCoords = Vector2f(240,140);
+            hexagonInaccessible[3].texCoords = Vector2f(120,140);
             
-            hexagonInaccessible[0].texCoords = Vector2f(0,0);
-            hexagonInaccessible[1].texCoords = Vector2f(120,0);
-            hexagonInaccessible[2].texCoords = Vector2f(120,140);
-            hexagonInaccessible[3].texCoords = Vector2f(0,140);
+            // Placement du dragon dans son territoire
+            VertexArray dragon(Quads,4);
+            dragon[0].position = Vector2f(35,45);
+            dragon[1].position = Vector2f(85,45);
+            dragon[2].position = Vector2f(85,95);
+            dragon[3].position = Vector2f(35,95);
+            dragon[0].texCoords = Vector2f(50,0);
+            dragon[1].texCoords = Vector2f(100,0);
+            dragon[2].texCoords = Vector2f(100,50);
+            dragon[3].texCoords = Vector2f(50,50);
+            
+            // Placement de la licorne dans son territoire
+            VertexArray unicorn(Quads,4);
+            unicorn[0].position = Vector2f(155,45);
+            unicorn[1].position = Vector2f(205,45);
+            unicorn[2].position = Vector2f(205,95);
+            unicorn[3].position = Vector2f(155,95);
+            unicorn[0].texCoords = Vector2f(0,0);
+            unicorn[1].texCoords = Vector2f(50,0);
+            unicorn[2].texCoords = Vector2f(50,50);
+            unicorn[3].texCoords = Vector2f(0,50);
             
             // on définit ici tout ce qu'on dessine
-            window.draw(hexagonDragon,&dragonTerritory);
-            window.draw(hexagonUnicorn,&unicornTerritory);
-            window.draw(hexagonInaccessible,&inaccessibleTerritory);
+            window.draw(hexagonDragon,&territoryTextures);
+            window.draw(hexagonUnicorn,&territoryTextures);
+            window.draw(hexagonInaccessible,&territoryTextures);
+            window.draw(dragon,&creatureTextures);
+            window.draw(unicorn,&creatureTextures);
+            
             // et on affiche le nouveau rendu
             window.display();
         }
