@@ -14,9 +14,9 @@ namespace render{
     
     TileSet::~TileSet(){}
     Tile& TileSet::getTile (state::Element& e){
-        throw runtime_error("non implenté");
+        throw runtime_error("non implanté");
     }
     Tile& TileSet::getCharTile (char c){
-        throw runtime_error("non implenté");
+        throw runtime_error("non implanté");
     }
 };

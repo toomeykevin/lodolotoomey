@@ -24,4 +24,10 @@ namespace state{
   {
       return m_height;
   }
+  Element* ElementTab::getElement(int i){
+      return m_board[i].get();
+  }
+  void ElementTab::setElement(int i,Element* e){
+      m_board[i]=std::unique_ptr<Element>(e);
+  }
 };

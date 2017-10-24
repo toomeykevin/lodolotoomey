@@ -20,6 +20,10 @@ int main(int argc,char* argv[])
         livrable_1final_state(str);
         livrable_21_render(str);
         cout<<"Si rien ne s'est affiché, la commande n'est pas bonne"<<endl;
+        State etat;
+        ElementTab tabTeam;
+        etat.getTeamBoard();
+        cout<<"hauteur du tableau "<<etat.getTeamBoard().getHeight()<< endl;
     }
     else {cout<<"Il n'y a pas de commande"<<endl;}
     
