@@ -33,18 +33,21 @@ void livrable_21_render(std::string commande){
             window.clear(Color::White);
             
             Texture dragonTerritory;
-            if (!dragonTerritory.loadFromFile("res/texture_dragon.png"))
+            if (!dragonTerritory.loadFromFile("res/tile_dragon.png"))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
             }
             
-            Sprite tileDragon;
-            tileDragon.setTexture(dragonTerritory);
-            tileDragon.setTextureRect(IntRect(0,200,100,100));
+            VertexArray hexagonDragon(Quads,4);
+            hexagonDragon[0].position = Vector2f(10,10);
+            hexagonDragon[1].position = Vector2f(130,10);
+            hexagonDragon[2].position = Vector2f(130,150);
+            hexagonDragon[3].position = Vector2f(10,150);
+            
             
             // on définit ici tout ce qu'on dessine
-            window.draw(tileDragon);
+            window.draw(hexagonDragon,&dragonTerritory);
             // et on affiche le nouveau rendu
             window.display();
         }
