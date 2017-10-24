@@ -16,11 +16,11 @@ namespace state {
     Element ();
     ~Element ();
     virtual bool isStatic () = 0;
+    void setx (int x);
+    int getx ();
+    int gety ();
+    void sety (int y);
     // Setters and Getters
-    int getM_x() const;
-    void setM_x(int m_x);
-    int getM_y() const;
-    void setM_y(int m_y);
   };
 
 };
