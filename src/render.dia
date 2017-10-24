@@ -1732,7 +1732,7 @@
             <dia:boolean val="false"/>
           </dia:attribute>
           <dia:attribute name="inheritance_type">
-            <dia:enum val="2"/>
+            <dia:enum val="1"/>
           </dia:attribute>
           <dia:attribute name="query">
             <dia:boolean val="false"/>
@@ -4636,7 +4636,7 @@
         <dia:point val="9.21783,5.8632"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="-2.73586,5.1132;9.96783,14.1206"/>
+        <dia:rectangle val="-2.73586,5.1132;9.96783,13.3206"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>
@@ -4707,7 +4707,7 @@
         <dia:point val="4.42694,15.0545"/>
       </dia:attribute>
       <dia:attribute name="obj_bb">
-        <dia:rectangle val="0.47288,14.3045;5.17694,16.6573"/>
+        <dia:rectangle val="0.47288,14.3045;5.17694,15.9073"/>
       </dia:attribute>
       <dia:attribute name="meta">
         <dia:composite type="dict"/>

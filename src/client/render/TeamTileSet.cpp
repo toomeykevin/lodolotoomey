@@ -4,26 +4,26 @@
  * and open the template in the editor.
  */
 
-#include "NumberTileSet.h"
+#include "TeamTileSet.h"
 #include <iostream>
 
 using namespace std;
 
 
 namespace render{
-    NumberTileSet::NumberTileSet (){
+    TeamTileSet::TeamTileSet (){
      
     }
-    int NumberTileSet::getCellWidth (){
+    int TeamTileSet::getCellWidth (){
         return 0;    
     }
-    int NumberTileSet::getCellHeight (){
+    int TeamTileSet::getCellHeight (){
         return 0;
     }
-    std::string NumberTileSet::getImageFile (){
-        return "res/textures_bulles.png";
+    std::string TeamTileSet::getImageFile (){
+        return "res/textures_soldats.png";
     }
-    Tile& NumberTileSet::getCharTile (char c){
-        return m_numbers[0];
+    Tile& TeamTileSet::getTile (state::Element& e){
+        return m_teams[0];
     }
 };
