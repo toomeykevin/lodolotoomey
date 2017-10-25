@@ -122,12 +122,36 @@ void livrable_21_render(std::string commande){
             unicorn[2].texCoords = Vector2f(50,50);
             unicorn[3].texCoords = Vector2f(0,50);
             
+            // Placement de la force du dragon
+            VertexArray dragonForce(Quads,4);
+            dragonForce[0].position = Vector2f(73,45);
+            dragonForce[1].position = Vector2f(85,45);
+            dragonForce[2].position = Vector2f(85,57);
+            dragonForce[3].position = Vector2f(73,57);
+            dragonForce[0].texCoords = Vector2f(36,0);
+            dragonForce[1].texCoords = Vector2f(48,0);
+            dragonForce[2].texCoords = Vector2f(48,12);
+            dragonForce[3].texCoords = Vector2f(36,12);
+            
+            // Force de la licorne
+            VertexArray unicornForce(Quads,4);
+            unicornForce[0].position = Vector2f(193,45);
+            unicornForce[1].position = Vector2f(205,45);
+            unicornForce[2].position = Vector2f(205,57);
+            unicornForce[3].position = Vector2f(193,57);
+            unicornForce[0].texCoords = Vector2f(84,0);
+            unicornForce[1].texCoords = Vector2f(96,0);
+            unicornForce[2].texCoords = Vector2f(96,12);
+            unicornForce[3].texCoords = Vector2f(84,12);
+            
             // on définit ici tout ce qu'on dessine
             window.draw(hexagonDragon,&territoryTextures);
             window.draw(hexagonUnicorn,&territoryTextures);
             window.draw(hexagonInaccessible,&territoryTextures);
             window.draw(dragon,&creatureTextures);
             window.draw(unicorn,&creatureTextures);
+            window.draw(dragonForce,&bubbleTextures);
+            window.draw(unicornForce,&bubbleTextures);
             
             // et on affiche le nouveau rendu
             window.display();
