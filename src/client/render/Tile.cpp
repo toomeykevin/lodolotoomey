@@ -18,4 +18,12 @@ namespace render{
     Tile::Tile(int x, int y, int w, int h){
         
     }
+    
+    int Tile::getx(){
+        return x;
+    }
+    
+    int Tile::gety(){
+        return y;
+    }
 };

@@ -15,13 +15,13 @@ namespace render{
      
     }
     int TerritoryTileSet::getCellWidth (){
-        return 0;    
+        return 120;    
     }
     int TerritoryTileSet::getCellHeight (){
-        return 0;
+        return 140;
     }
     std::string TerritoryTileSet::getImageFile (){
-        return "res/tile_dragon.png";
+        return "res/textures_territoires.png";
     }
     Tile& TerritoryTileSet::getTile (state::Element& e){
         return m_territories[0];

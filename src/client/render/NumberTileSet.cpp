@@ -15,10 +15,10 @@ namespace render{
      
     }
     int NumberTileSet::getCellWidth (){
-        return 0;    
+        return 12;    
     }
     int NumberTileSet::getCellHeight (){
-        return 0;
+        return 12;
     }
     std::string NumberTileSet::getImageFile (){
         return "res/textures_bulles.png";

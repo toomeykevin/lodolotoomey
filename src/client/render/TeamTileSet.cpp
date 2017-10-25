@@ -15,10 +15,10 @@ namespace render{
      
     }
     int TeamTileSet::getCellWidth (){
-        return 0;    
+        return 50;    
     }
     int TeamTileSet::getCellHeight (){
-        return 0;
+        return 50;
     }
     std::string TeamTileSet::getImageFile (){
         return "res/textures_soldats.png";

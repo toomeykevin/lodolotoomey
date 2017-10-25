@@ -25,6 +25,12 @@ void livrable_21_render(std::string commande){
                 {
                     window.close();
                 }
+                
+                // fermeture de la fenêtre quand on clique n'importe où sur la fenêtre
+                if (Mouse::isButtonPressed(Mouse::Left))
+                {
+                    window.close();
+                }
             }
             
             // à chaque tour, on efface l'ancien rendu
