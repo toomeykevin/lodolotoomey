@@ -36,7 +36,7 @@ namespace render{
     }
     
     Tile& TerritoryTileSet::getTile (state::Element& e){
-        if (e.isStatic() == true)
+        /*if (e.isStatic() == true)
         {
             Territory* p = (Territory*)&e;
             if (p->getTerritoryStatus() == 3)
@@ -58,7 +58,8 @@ namespace render{
         else
         {
             throw std::runtime_error("Le type de TileSet ne correspond pas à l'élément");
-        }
+        }*/
+        return m_territories[0];
         
     }
 };

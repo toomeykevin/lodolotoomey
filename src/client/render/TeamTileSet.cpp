@@ -29,7 +29,7 @@ namespace render{
     }
     
     Tile& TeamTileSet::getTile (state::Element& e){
-        if (e.isStatic() == false)
+        /*if (e.isStatic() == false)
         {
             Team* p = (Team*)&e;
             if (p->getTeamStatus() == 1)
@@ -46,7 +46,8 @@ namespace render{
         else
         {
             throw std::runtime_error("Le type de TileSet ne correspond pas à l'élément");
-        }
+        }*/
+        return m_teams[0];
     }
     
     
