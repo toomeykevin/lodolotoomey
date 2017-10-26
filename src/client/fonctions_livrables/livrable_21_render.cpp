@@ -6,11 +6,20 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "render/TerritoryTileSet.h"
+#include "render/TeamTileSet.h"
+#include "render/NumberTileSet.h"
+
 using namespace sf;
+using namespace render;
 
 void livrable_21_render(std::string commande){
     if (commande=="render"){
         std::cout<<"la commande est render"<<std::endl;
+        
+        TerritoryTileSet territoires;
+        TeamTileSet teams;
+        NumberTileSet numbers;
         
         RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
         
@@ -38,7 +47,7 @@ void livrable_21_render(std::string commande){
             
             // Texture des territoires
             Texture territoryTextures;
-            if (!territoryTextures.loadFromFile("res/textures_territoires.png"))
+            if (!territoryTextures.loadFromFile(territoires.getImageFile()))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
@@ -46,7 +55,7 @@ void livrable_21_render(std::string commande){
             
             // Texture des soldats
             Texture creatureTextures;
-            if (!creatureTextures.loadFromFile("res/textures_soldats.png"))
+            if (!creatureTextures.loadFromFile(teams.getImageFile()))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
@@ -54,11 +63,33 @@ void livrable_21_render(std::string commande){
             
             // Texture des bulles
             Texture bubbleTextures;
-            if (!bubbleTextures.loadFromFile("res/textures_bulles.png"))
+            if (!bubbleTextures.loadFromFile(numbers.getImageFile()))
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
             }
+            
+            /* Création de la surface pour les territoires
+             
+             
+             
+             */
+            
+            
+            /* Création de la surface pour les personnages
+             
+             
+             
+             */
+            
+            
+            /* Création de la surface pour les bulles des nombres
+             
+             
+             
+             */
+            
+            
             
             // Vertex tile dragon
             // création du VertexArray en quad

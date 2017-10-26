@@ -16,7 +16,10 @@ namespace render{
     }
     
     Tile::Tile(int x, int y, int w, int h){
-        
+        x=x;
+        y=y;
+        m_width=w;
+        m_height=h;
     }
     
     int Tile::getx(){
