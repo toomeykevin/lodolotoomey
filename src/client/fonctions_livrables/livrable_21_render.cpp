@@ -70,7 +70,19 @@ void livrable_21_render(std::string commande){
             }
             
             /* Création de la surface pour les territoires
-             
+             * utilisation de initSurface :
+             * charge la texture adéquate
+             * récupère le nb de cellules de la grille avec initHexas
+             * utilise setSpriteLocation qui va positionner chaque
+             * sprite (ici en fonction des coordonnées i,j dans la liste des
+             * sprites, on pourra les placer dans la fenêtre)
+             * utilise setSpriteTexture qui va permettre d'obtenir la
+             * bonne texture pour chaque sprite. En l'occurrence on va
+             * utiliser getTile(un élément du state = un sprite de la map)
+             * pour récupérer la Tile, et à partir des coordonnées (x,y) du
+             * coin en haut à gauche et de la taille (ici 120x140) va
+             * récupérer dans la texture le bon élément.
+             * 
              
              
              */
