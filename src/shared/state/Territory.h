@@ -20,7 +20,7 @@ namespace state {
     TerritoryStatus m_territoryStatus;
     // Operations
   public:
-    Territory (TerritoryStatus territoryStatus = ACCESSIBLE);
+    Territory (TerritoryStatus territoryStatus = IMPOSSIBLE);
     TerritoryStatus getTerritoryStatus ();
     bool isStatic ();
     // Setters and Getters

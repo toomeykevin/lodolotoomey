@@ -21,7 +21,6 @@ int main(int argc,char* argv[])
         livrable_21_render(str);
         cout<<"Si rien ne s'est affiché, la commande n'est pas bonne"<<endl;
         State etat;
-        etat.getTeamBoard();
         int Etat_Width=etat.getTeamBoard().getWidth();
         int Etat_Height=etat.getTeamBoard().getHeight();
         Team* team11=new Team(10);
@@ -37,7 +36,7 @@ int main(int argc,char* argv[])
                 srand(time(0));
                 int rand1=(rand() %8) +1;
                 srand(time(0));
-                int rand2=(rand() %8) +1;
+                int rand2=(rand() %10) +1;
                 TeamStatus teamStatus;
                 TerritoryStatus territoryStatus;
                 if (rand1<=4){
@@ -46,11 +45,14 @@ int main(int argc,char* argv[])
                 else{
                     teamStatus=DRAGONS;
                 }
-                if (rand2<=6){
-                    territoryStatus=ACCESSIBLE;
+                if (rand2<=2){
+                    territoryStatus=IMPOSSIBLE;
+                }
+                else if(rand2<=6){
+                    territoryStatus=DRAGONS_T;
                 }
                 else{
-                    territoryStatus=IMPOSSIBLE;
+                    territoryStatus=UNICORNS_T;
                 }
                 
                 Team* team=new Team(rand1,teamStatus);
