@@ -22,7 +22,44 @@ int main(int argc,char* argv[])
         cout<<"Si rien ne s'est affiché, la commande n'est pas bonne"<<endl;
         State etat;
         etat.getTeamBoard();
-        cout<<"hauteur du tableau "<<etat.getTeamBoard().getHeight()<< endl;
+        int Etat_Width=etat.getTeamBoard().getWidth();
+        int Etat_Height=etat.getTeamBoard().getHeight();
+        Team* team11=new Team(10);
+        etat.getTeamBoard().setElement(1,1,team11);
+        cout<<"taille du tableau "<<etat.getTeamBoard().getWidth()<< endl;
+        cout<<"nombre de Dragons"<<((Team*)(etat.getTeamBoard().getElement(1,1)))->getNbCreatures()<<endl;
+        srand(time(0));
+        cout<<"rand 1 ou 2 :"<<(rand() %2) +1<<endl;
+        srand(time(0));
+        cout<<"rand 100 : "<<(rand() %100) <<endl;
+        for (int i=0;i<Etat_Width;i++){
+            for (int j=0;j<Etat_Height;j++){
+                srand(time(0));
+                int rand1=(rand() %8) +1;
+                srand(time(0));
+                int rand2=(rand() %8) +1;
+                TeamStatus teamStatus;
+                TerritoryStatus territoryStatus;
+                if (rand1<=4){
+                    teamStatus=UNICORNS;
+                }
+                else{
+                    teamStatus=DRAGONS;
+                }
+                if (rand2<=6){
+                    territoryStatus=ACCESSIBLE;
+                }
+                else{
+                    territoryStatus=IMPOSSIBLE;
+                }
+                
+                Team* team=new Team(rand1,teamStatus);
+                Territory* territory=new Territory(territoryStatus);
+                etat.getTeamBoard().setElement(i,j,team);
+                etat.getTerritoryBoard().setElement(i,j,territory);
+       
+            }
+        }
     }
     else {cout<<"Il n'y a pas de commande"<<endl;}
     

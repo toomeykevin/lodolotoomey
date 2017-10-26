@@ -6,7 +6,7 @@
 namespace state {
 
   enum TerritoryStatus {
-    ACCESSABLE     = 1,
+    ACCESSIBLE     = 1,
     IMPOSSIBLE     = 2
   };
 

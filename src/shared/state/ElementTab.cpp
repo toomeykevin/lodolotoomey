@@ -13,6 +13,11 @@ namespace state{
   {
       m_width=width;
       m_height=height;
+      for (int i=0;i<(int)(height*width);i++){
+          m_board.push_back(NULL);
+      }
+      //cout<<"la taille du tableau m_board"<<m_board.size()<<endl;
+      
   }
   
   size_t ElementTab::getWidth()
@@ -42,6 +47,6 @@ namespace state{
       return *m_board[i*m_width+j];
   }
   void ElementTab::add (Element* e){
-      
+      m_board.push_back(std::unique_ptr<Element>(e));
   }
 };
