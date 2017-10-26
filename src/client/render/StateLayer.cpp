@@ -10,6 +10,8 @@ using namespace std;
 
 
 namespace render{
-    StateLayer::StateLayer (state::State& state): m_state(state){}
+    StateLayer::StateLayer (state::State& state): m_state(state){
+    
+    }
     void StateLayer::initSurface (){}
 };

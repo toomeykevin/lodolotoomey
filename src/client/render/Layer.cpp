@@ -12,9 +12,7 @@ using namespace std;
 
 
 namespace render{
-    Layer::Layer (){
-        
-    }
+    Layer::Layer (){}
     Layer::~Layer (){}
     Surface* Layer::getSurface (){
         return m_surface.get();
@@ -25,6 +23,12 @@ namespace render{
     void Layer::initSurface () {    }
     void printText (int x, int y, std::string& msg, size_t tileMinIndex, size_t tileMaxIndex){
         
+    }
+    TileSet* Layer::getTileSet(){
+        return m_tileSet.get();
+    }
+    void Layer::setTileSet(TileSet* tileSet){
+        m_tileSet=std::shared_ptr<TileSet>(tileSet);
     }
   
 };

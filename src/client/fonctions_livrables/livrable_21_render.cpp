@@ -6,12 +6,15 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "render/TerritoryTileSet.h"
-#include "render/TeamTileSet.h"
-#include "render/NumberTileSet.h"
+#include "render.h"
+#include "state.h"
+//#include "render/TeamTileSet.h"
+//#include "render/NumberTileSet.h"
 
 using namespace sf;
 using namespace render;
+using namespace state;
+using namespace std;
 
 void livrable_21_render(std::string commande){
     if (commande=="render"){
@@ -21,6 +24,57 @@ void livrable_21_render(std::string commande){
         TeamTileSet teams;
         NumberTileSet numbers;
         
+        //Création de l'état au hasard
+        State etat;
+        int Etat_Width=etat.getTeamBoard().getWidth();
+        int Etat_Height=etat.getTeamBoard().getHeight();
+        Team* team11=new Team(10);
+        etat.getTeamBoard().setElement(1,1,team11);
+        cout<<"taille du tableau "<<etat.getTeamBoard().getWidth()<< endl;
+        cout<<"nombre de Dragons"<<((Team*)(etat.getTeamBoard().getElement(1,1)))->getNbCreatures()<<endl;
+        srand(time(0));
+        cout<<"rand 1 ou 2 :"<<(rand() %2) +1<<endl;
+        srand(time(0));
+        cout<<"rand 100 : "<<(rand() %100) <<endl;
+        for (int i=0;i<Etat_Width;i++){
+            for (int j=0;j<Etat_Height;j++){
+                srand(time(0));
+                int rand1=(rand() %8) +1;
+                srand(time(0));
+                int rand2=(rand() %10) +1;
+                TeamStatus teamStatus;
+                TerritoryStatus territoryStatus;
+                if (rand1<=4){
+                    teamStatus=UNICORNS;
+                }
+                else{
+                    teamStatus=DRAGONS;
+                }
+                if (rand2<=2){
+                    territoryStatus=IMPOSSIBLE;
+                }
+                else if(rand2<=6){
+                    territoryStatus=DRAGONS_T;
+                }
+                else{
+                    territoryStatus=UNICORNS_T;
+                }
+                
+                Team* team=new Team(rand1,teamStatus);
+                Territory* territory=new Territory(territoryStatus);
+                etat.getTeamBoard().setElement(i,j,team);
+                etat.getTerritoryBoard().setElement(i,j,territory);
+       
+            }
+        }
+        
+        //instantation du StateLayer
+        StateLayer* slayer1=new StateLayer(etat);
+        slayer1->setTileSet(&territoires);
+        
+        
+        
+        // ouverture de la page du jeu
         RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
         
         // on fait tourner le programme tant que la fenêtre n'est pas fermée
