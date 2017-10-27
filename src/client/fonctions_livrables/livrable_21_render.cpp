@@ -75,6 +75,7 @@ void livrable_21_render(std::string commande){
         TeamTileSet teams;
         NumberTileSet numbers;
         
+        srand(time(0));
         vector<int> randomTab;
         for (int k = 0;k<25;k++)
         {
