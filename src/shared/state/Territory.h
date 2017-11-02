@@ -22,6 +22,7 @@ namespace state {
   public:
     Territory (TerritoryStatus territoryStatus = IMPOSSIBLE);
     TerritoryStatus getTerritoryStatus ();
+    void setTerritoryStatus (TerritoryStatus territoryStatus);
     bool isStatic ();
     // Setters and Getters
   };

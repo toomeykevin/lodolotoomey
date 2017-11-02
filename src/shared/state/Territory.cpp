@@ -20,6 +20,11 @@ namespace state{
         return m_territoryStatus;
     }
     
+    void Territory::setTerritoryStatus (TerritoryStatus territoryStatus)
+    {
+        m_territoryStatus = territoryStatus;
+    }
+    
     bool Territory::isStatic ()
     {
         return true;
