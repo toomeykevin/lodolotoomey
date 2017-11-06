@@ -11,6 +11,7 @@ using namespace render;
 void livrable_11_hello(string commande);
 void livrable_1final_state(string commande);
 void livrable_21_render(string commande);
+void livrable_22_engine(string commande);
 
 int main(int argc,char* argv[]) 
 {
@@ -19,6 +20,7 @@ int main(int argc,char* argv[])
         livrable_11_hello(str); // Appelle aux fonctions gérant les différents livrables
         livrable_1final_state(str);
         livrable_21_render(str);
+        livrable_22_engine(str);
         cout<<"Si rien ne s'est affiché, la commande n'est pas bonne"<<endl;
         
         
