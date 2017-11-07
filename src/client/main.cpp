@@ -4,6 +4,7 @@
 
 #include "state.h"
 #include "render.h"
+#include "engine.h"
 
 using namespace std;
 using namespace state;
