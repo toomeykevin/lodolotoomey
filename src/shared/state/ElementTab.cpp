@@ -29,23 +29,29 @@ namespace state{
   {
       return m_height;
   }
+  
   Element* ElementTab::getElement(int i, int j){
-      return m_board[i].get();
+      return m_board[i*m_width+j].get();
   }
+  
   void ElementTab::setElement(int i, int j,Element* e){
-      m_board[i]=std::unique_ptr<Element>(e);
+      m_board[i*m_width+j]=std::unique_ptr<Element>(e);
   }
+  
   void ElementTab::resize (size_t width, size_t height){
       m_width=width;
       m_height=height;
   }
+  
   void ElementTab::load (std::string& file){
       
   }
+  
   Element& ElementTab::operator() (int i, int j){
       
       return *m_board[i*m_width+j];
   }
+  
   void ElementTab::add (Element* e){
       m_board.push_back(std::unique_ptr<Element>(e));
   }

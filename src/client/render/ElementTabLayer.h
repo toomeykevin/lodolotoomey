@@ -2,7 +2,11 @@
 #ifndef RENDER__ELEMENTTABLAYER__H
 #define RENDER__ELEMENTTABLAYER__H
 
+#include <SFML/Graphics.hpp>
 
+namespace sf {
+  class Texture;
+};
 namespace state {
   class ElementTab;
 };
@@ -19,6 +23,8 @@ namespace render {
   class ElementTabLayer : public render::Layer {
     // Associations
     // Attributes
+  public:
+    sf::Texture m_texture;
   private:
     state::ElementTab& m_tab;
     // Operations

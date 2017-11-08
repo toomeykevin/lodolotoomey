@@ -21,7 +21,7 @@ void livrable_21_render(std::string commande){
     if (commande=="render"){
         std::cout<<"la commande est render"<<std::endl;
 
-        /*
+        
         //Création de l'état au hasard
         State etat;
         int Etat_Width=etat.getTeamBoard().getWidth();
@@ -66,12 +66,10 @@ void livrable_21_render(std::string commande){
             }
         }
         
-        //instantation du StateLayer
-        StateLayer* slayer1=new StateLayer(etat);
-        slayer1->setTileSet(&territoires);
-        */
+        StateLayer Layer1(etat);
+        
              
-        TerritoryTileSet territoires;
+        /*TerritoryTileSet territoires;
         TeamTileSet teams;
         NumberTileSet numbers;
         
@@ -87,7 +85,7 @@ void livrable_21_render(std::string commande){
         {
             int b = (rand()%8) +1;
             randomForce.push_back(b);
-        }
+        }*/
         
         // ouverture de la page du jeu
         RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
@@ -104,16 +102,16 @@ void livrable_21_render(std::string commande){
                     window.close();
                 }
                 
-                // fermeture de la fenêtre quand on clique n'importe où sur la fenêtre
-                if (Mouse::isButtonPressed(Mouse::Left))
-                {
-                    window.close();
-                }
             }
             
             // à chaque tour, on efface l'ancien rendu
             window.clear(Color::Black);
             
+            
+            //Layer1.initSurface();
+            //window.draw(*(Layer1.getSurface()));
+            
+            /*
             // Texture des territoires
             Texture territoryTextures;
             if (!territoryTextures.loadFromFile(territoires.getImageFile()))
@@ -136,41 +134,9 @@ void livrable_21_render(std::string commande){
             {
                 // si ça ne marche pas, on fait une exception
                 throw std::runtime_error("Impossible de lire le fichier");
-            }
-            
-            /* Création de la surface pour les territoires
-             * utilisation de initSurface :
-             * charge la texture adéquate
-             * récupère le nb de cellules de la grille avec initHexas
-             * utilise setSpriteLocation qui va positionner chaque
-             * sprite (ici en fonction des coordonnées i,j dans la liste des
-             * sprites, on pourra les placer dans la fenêtre)
-             * utilise setSpriteTexture qui va permettre d'obtenir la
-             * bonne texture pour chaque sprite. En l'occurrence on va
-             * utiliser getTile(un élément du state = un sprite de la map)
-             * pour récupérer la Tile, et à partir des coordonnées (x,y) du
-             * coin en haut à gauche et de la taille (ici 120x140) va
-             * récupérer dans la texture le bon élément.
-             * 
-             
-             
-             */
-            
-            
-            /* Création de la surface pour les personnages
-             
-             
-             
-             */
-            
-            
-            /* Création de la surface pour les bulles des nombres
-             
-             
-             
-             */
+            }*/
 
-            vector<VertexArray> hexagonTab;
+            /*vector<VertexArray> hexagonTab;
             vector<VertexArray> teamTab;
             vector<VertexArray> numberTab;
             for (int i=0;i<5;i++)
@@ -677,7 +643,7 @@ void livrable_21_render(std::string commande){
             for (unsigned int z=0;z<numberTab.size();z++)
             {
                 window.draw(numberTab[z],&bubbleTextures);
-            }
+            }*/
             
             // et on affiche le nouveau rendu
             window.display();

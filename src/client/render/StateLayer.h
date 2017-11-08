@@ -2,9 +2,13 @@
 #ifndef RENDER__STATELAYER__H
 #define RENDER__STATELAYER__H
 
+#include <SFML/Graphics.hpp>
 
 namespace state {
   class State;
+};
+namespace sf {
+  class Texture;
 };
 namespace render {
   class Layer;
@@ -21,6 +25,7 @@ namespace render {
     // Attributes
   private:
     state::State& m_state;
+    sf::Texture m_texture;
     // Operations
   public:
     StateLayer (state::State& state);

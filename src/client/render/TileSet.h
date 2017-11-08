@@ -26,7 +26,7 @@ namespace render {
     virtual int getCellHeight () = 0;
     virtual std::string getImageFile () = 0;
     virtual Tile& getTile (state::Element& e);
-    virtual Tile& getCharTile (char c);
+    virtual Tile& getCharTile (int c);
     // Setters and Getters
   };
 

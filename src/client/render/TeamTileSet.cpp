@@ -14,22 +14,28 @@ using namespace state;
 namespace render{
     TeamTileSet::TeamTileSet (){
         vector<Tile> m_teams(2);
+        Tile dragon(0,0,120,140);
+        Tile licorne(120,0,120,140);
+        m_teams[0]=dragon;
+        m_teams[1]=licorne;
     }
     
     int TeamTileSet::getCellWidth (){
-        return 50;    
+        return 120;    
     }
     
     int TeamTileSet::getCellHeight (){
-        return 50;
+        return 140;
     }
     
-    std::string TeamTileSet::getImageFile (){
+    std::string TeamTileSet::getImageFile ()
+    {
         return "res/textures_soldats.png";
     }
     
-    Tile& TeamTileSet::getTile (state::Element& e){
-        /*if (e.isStatic() == false)
+    Tile& TeamTileSet::getTile (state::Element& e)
+    {
+        if (e.isStatic() == false)
         {
             Team* p = (Team*)&e;
             if (p->getTeamStatus() == 1)
@@ -46,7 +52,7 @@ namespace render{
         else
         {
             throw std::runtime_error("Le type de TileSet ne correspond pas à l'élément");
-        }*/
+        }
         return m_teams[0];
     }
     

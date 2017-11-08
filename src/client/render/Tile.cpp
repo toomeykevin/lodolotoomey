@@ -29,4 +29,12 @@ namespace render{
     int Tile::gety(){
         return y;
     }
+    
+    int Tile::getWidth(){
+        return m_width;
+    }
+    
+    int Tile::getHeight(){
+        return m_height;
+    }
 };

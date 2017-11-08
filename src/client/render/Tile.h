@@ -19,6 +19,8 @@ namespace render {
     Tile (int x, int y, int w, int h);
     int getx ();
     int gety ();
+    int getHeight ();
+    int getWidth ();
     // Setters and Getters
   };
 

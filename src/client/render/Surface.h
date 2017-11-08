@@ -29,11 +29,14 @@ namespace render {
     sf::VertexArray m_hexas;
     // Operations
   public:
-    void loadTexture (std::string& imageFile);
+    sf::VertexArray getHexas ();
+    void loadTexture (const std::string& imageFile);
     void initHexas (int count);
     void setSpriteLocation (int i, int x, int y);
     void setSpriteTexture (int i, Tile& tex);
-    void draw (sf::RenderTarget& target, sf::RenderStates states);
+    void draw (sf::RenderTarget& target, sf::RenderStates states) const;
+    sf::Texture getTexture ();
+    void setTexture (sf::Texture texture);
     // Setters and Getters
   };
 
