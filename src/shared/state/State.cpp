@@ -9,6 +9,7 @@
 using namespace std;
 
 namespace state{
+  
   ElementTab& State::getTerritoryBoard ()
   {
       return m_territoryBoard;

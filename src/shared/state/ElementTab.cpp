@@ -19,7 +19,7 @@ namespace state{
       //cout<<"la taille du tableau m_board"<<m_board.size()<<endl;
       
   }
-  
+ 
   size_t ElementTab::getWidth()
   {
       return m_width;
@@ -38,7 +38,7 @@ namespace state{
       m_board[i*m_width+j]=std::unique_ptr<Element>(e);
   }
   
-  void ElementTab::resize (size_t width, size_t height){
+  void ElementTab::resize (size_t width, size_t height){ // peut poser probleme
       m_width=width;
       m_height=height;
   }

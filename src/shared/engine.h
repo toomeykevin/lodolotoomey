@@ -7,4 +7,5 @@
 #include "engine/Engine.h"
 #include "engine/AttackCommand.h"
 #include "engine/GestionRenforts.h"
+#include "engine/InitBasicState.h"
 #endif

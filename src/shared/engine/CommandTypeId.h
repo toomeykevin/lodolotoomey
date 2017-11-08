@@ -7,7 +7,8 @@ namespace engine {
 
   enum CommandTypeId {
     RENFORTS     = 1,
-    ATTACK     = 2
+    ATTACK     = 2,
+    INIT     = 0
   };
 
 };

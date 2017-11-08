@@ -18,6 +18,7 @@ namespace engine{
         return RENFORTS;
     }
     void GestionRenforts::execute (state::State& state){// ajouter le joueurs dans state
+    
         
         int renfortTile=0;
         for (int i=0; i<(int)(state.getTeamBoard().getHeight());i++){
