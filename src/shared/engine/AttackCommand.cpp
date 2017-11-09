@@ -26,20 +26,23 @@ namespace engine{
         int defNbCreatures=((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
         int AttWin=0;
         int DefWin=0;
-        srand(time(0));
+        
         for (int k=0;k<attNbCreatures;k++){
             AttWin=AttWin+ (rand() %6) + 1;
         }
-        srand(time(0));
+        
         for (int m=0;m<defNbCreatures;m++){
             DefWin=DefWin+ (rand() %6) + 1;
         }
-        if (AttWin>DefWin){
+        if (AttWin>DefWin && attNbCreatures!=0 && defNbCreatures!=0){
             attackWins(state);
         }
-        else{
+        else if (AttWin<=DefWin && attNbCreatures!=0 && defNbCreatures!=0){
             attackLooses(state);
         } 
+        else{
+            
+        }
     }
     
     void AttackCommand::attackWins (state::State& state){

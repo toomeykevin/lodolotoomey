@@ -24,8 +24,9 @@ namespace engine{
         int renfortTile=0;
         for (int i=0; i<(int)(state.getTeamBoard().getHeight());i++){
             for (int j=0; j<(int)(state.getTeamBoard().getWidth());j++){
-                if (((((Team*)state.getTeamBoard().getElement(i,j))->getTeamStatus())==DRAGONS )&& (renfortTile<m_renforts)){//il faudea mettre le teamstatus du joueur
-                    ((Team*)state.getTeamBoard().getElement(i,j))->setNbCreatures(1);
+                int currentNbCr=((Team*)state.getTeamBoard().getElement(i,j))->getNbCreatures();
+                if (((((Team*)state.getTeamBoard().getElement(i,j))->getTeamStatus())==DRAGONS )&& (renfortTile<m_renforts) && (currentNbCr!=0)){//il faudea mettre le teamstatus du joueur
+                                      ((Team*)state.getTeamBoard().getElement(i,j))->setNbCreatures(1+currentNbCr);
                 }
             }
         }

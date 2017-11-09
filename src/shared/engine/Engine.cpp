@@ -29,9 +29,7 @@ namespace engine{
         m_currentCommands.push_back(std::unique_ptr<Command>(cmd));
     }
     void Engine::update (){
-        cout<<(int)(m_currentCommands.size())<<endl;
         for (int i=0; i<((int)(m_currentCommands.size()));i++){
-            cout<<(m_currentCommands[i]).get()->getTypeId()<<endl;
             if ((m_currentCommands[i]).get()->getTypeId()==RENFORTS){
                 ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState);
             }
