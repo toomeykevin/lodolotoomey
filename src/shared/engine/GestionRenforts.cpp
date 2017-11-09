@@ -13,9 +13,10 @@ using namespace state;
 namespace engine{
     GestionRenforts::GestionRenforts(int i){
         m_renforts=i;
+        m_commandTypeId=RENFORTS;
     }
     CommandTypeId GestionRenforts::getTypeId () const {
-        return RENFORTS;
+        return m_commandTypeId;
     }
     void GestionRenforts::execute (state::State& state){// ajouter le joueurs dans state
     

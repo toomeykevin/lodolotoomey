@@ -12,7 +12,7 @@ using namespace std;
 namespace engine{
     Command::~Command (){}
     CommandTypeId Command::getTypeId () const {
-        return ATTACK;
+        return m_commandTypeId;
     }
     void Command::execute (state::State& state){}
 };

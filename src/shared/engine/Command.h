@@ -14,6 +14,9 @@ namespace engine {
 
   /// class Command - 
   class Command {
+    // Attributes
+  protected:
+    CommandTypeId m_commandTypeId;
     // Operations
   public:
     virtual ~Command ();

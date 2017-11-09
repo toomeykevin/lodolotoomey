@@ -9,14 +9,15 @@
 #include <iostream>
 using namespace std;
 using namespace state;
+using namespace engine;
 
 namespace engine{
     
     InitBasicState::InitBasicState(){
-        
+        m_commandTypeId=INIT;
     }
     CommandTypeId InitBasicState::getTypeId () const {
-        return INIT;
+        return m_commandTypeId;
     }
     void InitBasicState::execute (state::State& state){
         int etat_Width=state.getTeamBoard().getWidth();
@@ -31,7 +32,7 @@ namespace engine{
                     territoryStatus=IMPOSSIBLE;
                     teamStatus=DRAGONS;
                 }
-                else if(j<((int)etat_Height)/2){
+                else if(j<((int)etat_Width)/2){
                     teamStatus=DRAGONS;
                     territoryStatus=DRAGONS_T;
                 }

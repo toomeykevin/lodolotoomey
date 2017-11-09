@@ -16,9 +16,10 @@ namespace engine{
         m_jAtt=jAtt;
         m_iDef=iDef;
         m_jDef=jDef;
+        m_commandTypeId=ATTACK;
     }
     CommandTypeId AttackCommand::getTypeId () const{
-        return ATTACK;
+        return m_commandTypeId;
     }
     void AttackCommand::execute (state::State& state){
         int attNbCreatures=((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();

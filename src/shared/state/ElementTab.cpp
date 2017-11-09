@@ -19,7 +19,9 @@ namespace state{
       //cout<<"la taille du tableau m_board"<<m_board.size()<<endl;
       
   }
- 
+  int ElementTab::getSizeVector(){
+      return m_board.size();
+  }
   size_t ElementTab::getWidth()
   {
       return m_width;

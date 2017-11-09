@@ -29,18 +29,22 @@ void livrable_22_engine(string commande){
         int jAtt=((int)etat.getTeamBoard().getWidth())/2;
         cout<<"coord att : "<<iAtt<<" "<<jAtt<<endl;
         
-        //InitBasicState* initState;
-        //moteur.addCommand((Command*)initState);
-        //moteur.update();
-
+        /*int sizeVector=etat.getTeamBoard().getSizeVector();
+        InitBasicState* initState;
+        moteur.addCommand((Command*)initState);
+        moteur.update();
+*/
         //AttackCommand* cmdAtt=new AttackCommand(2,2,2,3); // 2,2 vs 2,3
         //moteur.addCommand((Command*)cmdAtt);
         //moteur.update();
-        int newnb22=((Team*)etat.getTeamBoard().getElement(2,2))->getNbCreatures();
-        cout<<"nb22 new : "<< newnb22<<endl;
         
-        
-        
+       // cout<<"size  : "<< sizeVector<<endl;
+        //Element* nbC22=etat.getTeamBoard().getElement(2,2);
+        //Element* nbC43=etat.getTeamBoard().getElement(4,3);
+        //Element* nbC33=etat.getTerritoryBoard().getElement(3,3);
+        //cout<<"nbC22  : "<< nbC22<<endl;
+        //cout<<"nbC43  : "<< nbC43<<endl;
+        //cout<<"nbC33  : "<< nbC33<<endl;
     }
     else{
         

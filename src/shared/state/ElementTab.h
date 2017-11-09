@@ -34,6 +34,7 @@ namespace state {
     void load (std::string& file);
     Element& operator() (int i, int j = 0);
     void add (Element* e);
+    int getSizeVector ();
     // Setters and Getters
   };
 
