@@ -108,8 +108,9 @@ void livrable_21_render(std::string commande){
             window.clear(Color::Black);
             
             
-            //Layer1.initSurface();
-            //window.draw(*(Layer1.getSurface()));
+            Layer1.initSurface();
+            surface1 = *(Layer1.getSurface());
+            window.draw(*(Layer1.getSurface()));
             
             /*
             // Texture des territoires

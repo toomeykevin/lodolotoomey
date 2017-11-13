@@ -21,7 +21,7 @@ namespace render{
     void StateLayer::initSurface ()
     {
         TeamTileSet teams;
-        NumberTileSet numbers;
+        //NumberTileSet numbers;
         
         // m_state : deux ElementTab : la liste des teams et les territories
         ElementTab& TeamBoard = m_state.getTeamBoard();
@@ -30,17 +30,17 @@ namespace render{
         
         // crée une nouvelle surface
         Surface surface_team;
-        Surface surface_number;
+        //Surface surface_number;
         
         // charge la texture : loadTexture
         string texture_team = teams.getImageFile();
         surface_team.loadTexture(texture_team);
-        string texture_number = numbers.getImageFile();
-        surface_number.loadTexture(texture_number);
+        //string texture_number = numbers.getImageFile();
+        //surface_number.loadTexture(texture_number);
         
         // initialise la liste des sprites : initHexas
         surface_team.initHexas(20);
-        surface_number.initHexas(20);
+        //surface_number.initHexas(20);
         
         // pour chaque cellule de la grille
         for (int x=0;x<height;x++)
@@ -50,11 +50,13 @@ namespace render{
                 int i=x*width+y;
                 // - la positionne dans la fenêtre
                 surface_team.setSpriteLocation(i,x,y);
-                surface_number.setSpriteLocation(i,x,y);
+                //surface_number.setSpriteLocation(i,x,y);
                 // - prend la partie de texture correspondante
                 surface_team.setSpriteTexture(i,teams.getTile(*(TeamBoard.getElement(x,y))));
-                surface_number.setSpriteTexture(i,numbers.getCharTile(((Team*)TeamBoard.getElement(x,y))->getNbCreatures()));
+                //surface_number.setSpriteTexture(i,numbers.getCharTile(((Team*)(TeamBoard.getElement(x,y)))->getNbCreatures()));
             }
-        }  
+        }
+        
+        m_surface=std::unique_ptr<Surface> (&surface_team);
     }
 };
