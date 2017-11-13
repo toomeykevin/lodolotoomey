@@ -5,6 +5,7 @@
  */
 
 #include "State.h"
+
 #include <iostream>
 using namespace std;
 
@@ -19,4 +20,11 @@ namespace state{
   {
       return m_teamBoard;
   }
+  string State::getPlayer(){
+      return m_player;
+  }
+  void State::setPlayer(string player){
+      m_player=player;
+  }
+  
 };
