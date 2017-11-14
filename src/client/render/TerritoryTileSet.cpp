@@ -38,18 +38,18 @@ namespace render{
     Tile& TerritoryTileSet::getTile (state::Element& e){
         if (e.isStatic() == true)
         {
-            Territory* p = (Territory*)&e;
-            if (p->getTerritoryStatus() == 3)
+            Territory& p = (Territory&) e;
+            if (p.getTerritoryStatus() == 3)
             {
                 // on renvoie l'hexagone inaccessible
                 return m_territories[1];
             }
-            if (p->getTerritoryStatus() == 2)
+            if (p.getTerritoryStatus() == 2)
             {
                 // on renvoit l'hexagone des dragons
                 return m_territories[2];
             }
-            if (p->getTerritoryStatus() == 1)
+            if (p.getTerritoryStatus() == 1)
             {
                 // on renvoit l'hexagone des licornes
                 return m_territories[0];

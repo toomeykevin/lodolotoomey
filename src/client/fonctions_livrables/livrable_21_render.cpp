@@ -109,7 +109,7 @@ void livrable_21_render(std::string commande){
             
             
             Layer1.initSurface();
-            surface1 = *(Layer1.getSurface());
+            //surface1 = *(Layer1.getSurface());
             window.draw(*(Layer1.getSurface()));
             
             /*

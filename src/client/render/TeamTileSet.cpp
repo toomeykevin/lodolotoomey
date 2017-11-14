@@ -12,11 +12,9 @@ using namespace std;
 using namespace state;
 
 namespace render{
-    TeamTileSet::TeamTileSet (){
-        vector<Tile> m_teams(2);
-        Tile dragon(0,0,120,140);
+    TeamTileSet::TeamTileSet (): m_teams(2){
         Tile licorne(120,0,120,140);
-        m_teams[0]=dragon;
+        m_teams[0]=Tile(0,0,120,140);
         m_teams[1]=licorne;
     }
     
@@ -37,13 +35,13 @@ namespace render{
     {
         if (e.isStatic() == false)
         {
-            Team* p = (Team*)&e;
-            if (p->getTeamStatus() == 1)
+            Team& p = (Team&)e;
+            if (p.getTeamStatus() == 1)
             {
                 // on renvoit l'hexagone des dragons
                 return m_teams[0];
             }
-            if (p->getTeamStatus() == 2)
+            if (p.getTeamStatus() == 2)
             {
                 // on renvoit l'hexagone des licornes
                 return m_teams[1];
