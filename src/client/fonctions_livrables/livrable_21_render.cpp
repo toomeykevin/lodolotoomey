@@ -21,8 +21,39 @@ void livrable_21_render(std::string commande){
     if (commande=="render"){
         std::cout<<"la commande est render"<<std::endl;
 
+        // Création d'un état
+        State etat;
+        ElementTab& territory = etat.getTerritoryBoard();
         
-        //Création de l'état au hasard
+        // On resize pour avoir une grille 4x4
+        territory.resize(2,2);
+        
+        // On donne quels sont les éléments du TerritoryBoard
+        //Territory cell1(DRAGONS_T);
+        
+        Territory* t00 = new Territory(DRAGONS_T);
+        Territory* t01 = new Territory(UNICORNS_T);
+        Territory* t10 = new Territory(IMPOSSIBLE);
+        Territory* t11 = new Territory(DRAGONS_T);
+        
+        territory.setElement(0,0,t00);
+        territory.setElement(0,1,t01);
+        territory.setElement(1,0,t10);
+        territory.setElement(1,1,t11);
+        
+        /*cout<<t00->getTerritoryStatus()<<endl;
+        cout<<t01->getTerritoryStatus()<<endl;
+        cout<<t10->getTerritoryStatus()<<endl;
+        cout<<t11->getTerritoryStatus()<<endl;
+        
+        cout<<((Territory*)territory.getElement(0,0))->getTerritoryStatus()<<endl;
+        cout<<((Territory*)territory.getElement(0,1))->getTerritoryStatus()<<endl;
+        cout<<((Territory*)territory.getElement(1,0))->getTerritoryStatus()<<endl;
+        cout<<((Territory*)territory.getElement(1,1))->getTerritoryStatus()<<endl;*/
+
+        ElementTabLayer Layer1(etat.getTerritoryBoard());
+        
+        /*//Création de l'état au hasard
         State etat;
         int Etat_Width=etat.getTeamBoard().getWidth();
         int Etat_Height=etat.getTeamBoard().getHeight();
@@ -66,8 +97,7 @@ void livrable_21_render(std::string commande){
             }
         }
         
-        StateLayer Layer1(etat);
-        
+        StateLayer Layer1(etat);*/
              
         /*TerritoryTileSet territoires;
         TeamTileSet teams;
@@ -109,7 +139,6 @@ void livrable_21_render(std::string commande){
             
             
             Layer1.initSurface();
-            //surface1 = *(Layer1.getSurface());
             window.draw(*(Layer1.getSurface()));
             
             /*

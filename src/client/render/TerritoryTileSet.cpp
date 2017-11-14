@@ -13,29 +13,30 @@ using namespace state;
 
 
 namespace render{
-    TerritoryTileSet::TerritoryTileSet (){
-        vector<Tile> m_territories(3);
-        Tile licorne(0,0,120,140);
-        Tile dragon(240,0,120,140);
-        Tile impossible(120,0,120,140);
-        m_territories[0]=licorne;
-        m_territories[1]=impossible;
-        m_territories[2]=dragon;
+    TerritoryTileSet::TerritoryTileSet () : m_territories(3)
+    {
+        m_territories[0] = Tile(0,0,120,140); // licorne
+        m_territories[1] = Tile(120,0,120,140); // inaccessible
+        m_territories[2] = Tile(240,0,120,140); // dragon
     }
     
-    int TerritoryTileSet::getCellWidth (){
+    int TerritoryTileSet::getCellWidth ()
+    {
         return 120;    
     }
     
-    int TerritoryTileSet::getCellHeight (){
+    int TerritoryTileSet::getCellHeight ()
+    {
         return 140;
     }
     
-    std::string TerritoryTileSet::getImageFile (){
+    std::string TerritoryTileSet::getImageFile ()
+    {
         return "res/textures_territoires.png";
     }
     
-    Tile& TerritoryTileSet::getTile (state::Element& e){
+    Tile& TerritoryTileSet::getTile (state::Element& e)
+    {
         if (e.isStatic() == true)
         {
             Territory& p = (Territory&) e;

@@ -17,16 +17,6 @@ namespace render{
         return m_hexas;
     }
     
-    /*sf::Texture Surface::getTexture()
-    {
-        return m_textures;
-    }
-    
-    void Surface::setTexture(Texture texture)
-    {
-        m_textures = texture;
-    }*/
-    
     void Surface::loadTexture (const std::string& imageFile)
     {
         if (!m_texture.loadFromFile(imageFile))
@@ -48,18 +38,18 @@ namespace render{
         // si ligne paire
         if (y%2==0)
         {
-            quad[0].position = Vector2f(105*x,120*y);
-            quad[1].position = Vector2f(105*(x+1),120*y);
-            quad[2].position = Vector2f(105*(x+1),120*y+140);
-            quad[3].position = Vector2f(105*x,120*y+140);
+            quad[0].position = Vector2f(120*x,105*y);
+            quad[1].position = Vector2f(120*(x+1),105*y);
+            quad[2].position = Vector2f(120*(x+1),105*y+140);
+            quad[3].position = Vector2f(120*x,105*y+140);
         }
         // si ligne impaire, il faut tout décaler de 60 pixels
         if (y%2!=0)
         {
-            quad[0].position = Vector2f(60+105*x,120*y);
-            quad[1].position = Vector2f(60+105*(x+1),120*y);
-            quad[2].position = Vector2f(60+105*(x+1),120*y+140);
-            quad[3].position = Vector2f(60+105*x,120*y+140);
+            quad[0].position = Vector2f(60+120*x,105*y);
+            quad[1].position = Vector2f(60+120*(x+1),105*y);
+            quad[2].position = Vector2f(60+120*(x+1),105*y+140);
+            quad[3].position = Vector2f(60+120*x,105*y+140);
         }
     }
     

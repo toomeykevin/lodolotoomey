@@ -16,8 +16,8 @@ namespace render{
     }
     
     Tile::Tile(int x, int y, int w, int h){
-        x=x;
-        y=y;
+        this->x=x;
+        this->y=y;
         m_width=w;
         m_height=h;
     }

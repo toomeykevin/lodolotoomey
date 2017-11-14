@@ -12,17 +12,19 @@ using namespace std;
 using namespace state;
 
 namespace render{
-    TeamTileSet::TeamTileSet (): m_teams(2){
-        Tile licorne(120,0,120,140);
-        m_teams[0]=Tile(0,0,120,140);
-        m_teams[1]=licorne;
+    TeamTileSet::TeamTileSet (): m_teams(2)
+    {
+        m_teams[0] = Tile(0,0,120,140);
+        m_teams[1] = Tile(120,0,120,140);;
     }
     
-    int TeamTileSet::getCellWidth (){
+    int TeamTileSet::getCellWidth ()
+    {
         return 120;    
     }
     
-    int TeamTileSet::getCellHeight (){
+    int TeamTileSet::getCellHeight ()
+    {
         return 140;
     }
     
@@ -51,7 +53,6 @@ namespace render{
         {
             throw std::runtime_error("Le type de TileSet ne correspond pas à l'élément");
         }
-        return m_teams[0];
     }
     
     

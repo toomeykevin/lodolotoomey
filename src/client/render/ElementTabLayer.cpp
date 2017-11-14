@@ -23,24 +23,21 @@ namespace render{
     
     void ElementTabLayer::initSurface()
     {
-        int n = 4;
-        
-        TerritoryTileSet territories;
+        m_tileSet = std::shared_ptr<TileSet> (new TerritoryTileSet());
         
         // m_state : deux ElementTab : la liste des teams et les territories
-        ElementTab& TerritoryBoard = m_tab;
-        int width = TerritoryBoard.getWidth();
-        int height = TerritoryBoard.getHeight();
+        int width = m_tab.getWidth();
+        int height = m_tab.getHeight();
         
         // crée une nouvelle surface
-        Surface surface_territory;
+        Surface* surface_territory = new Surface();
         
         // charge la texture : loadTexture
-        string texture_territory = territories.getImageFile();
-        surface_territory.loadTexture(texture_territory);
+        string texture_territory = m_tileSet->getImageFile();
+        surface_territory->loadTexture(texture_territory);
         
         // initialise la liste des sprites : initHexas
-        surface_territory.initHexas(n);
+        surface_territory->initHexas(4);
         
         // pour chaque cellule de la grille
         for (int x=0;x<height;x++)
@@ -49,10 +46,20 @@ namespace render{
             {
                 int i=x*width+y;
                 // - la positionne dans la fenêtre
-                surface_territory.setSpriteLocation(i,x,y);
+                surface_territory->setSpriteLocation(i,x,y);
                 // - prend la partie de texture correspondante
-                surface_territory.setSpriteTexture(i,territories.getTile(*(TerritoryBoard.getElement(x,y))));
+                Element* elt = m_tab.getElement(x,y);
+                if (elt==NULL)
+                {
+                    throw std::runtime_error("Element nul");
+                }
+                else
+                {
+                    surface_territory->setSpriteTexture(i,m_tileSet->getTile(*(elt)));
+                }
             }
-        }  
+        }
+        
+        m_surface = std::unique_ptr<Surface> (surface_territory);
     }
 };
