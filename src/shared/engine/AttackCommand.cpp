@@ -26,7 +26,10 @@ namespace engine{
         int defNbCreatures=((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
         int AttWin=0;
         int DefWin=0;
+        TeamStatus DefTeamStatus=((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->getTeamStatus();
+        TeamStatus playerStatus=state.getPlayer();
         
+        // condition sur iAtt-iDef et sur la team
         for (int k=0;k<attNbCreatures;k++){
             AttWin=AttWin+ (rand() %6) + 1;
         }
@@ -34,15 +37,21 @@ namespace engine{
         for (int m=0;m<defNbCreatures;m++){
             DefWin=DefWin+ (rand() %6) + 1;
         }
-        if (AttWin>DefWin && attNbCreatures!=0 && defNbCreatures!=0){
-            attackWins(state);
+        if (abs(m_iAtt-m_iDef)<2 && abs(m_jAtt-m_jDef)<2 && (playerStatus!=DefTeamStatus)){
+            if (AttWin>DefWin && attNbCreatures>1 && defNbCreatures!=0){
+                attackWins(state);
+            }
+            else if (AttWin<=DefWin && attNbCreatures>1 && defNbCreatures!=0){
+                attackLooses(state);
+            } 
+            else{
+                cout << "tu ne peux pas attaquer ce territoire avec le territoire choisi"<< endl;
+            }
         }
-        else if (AttWin<=DefWin && attNbCreatures!=0 && defNbCreatures!=0){
-            attackLooses(state);
-        } 
         else{
-            
+            cout << "tu ne peux pas attaquer ce territoire avec le territoire choisi"<< endl;
         }
+    
     }
     
     void AttackCommand::attackWins (state::State& state){

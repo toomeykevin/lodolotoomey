@@ -37,7 +37,10 @@ namespace state{
   
   Element* ElementTab::getElement(int i, int j)
   {
-      return m_board[i*m_width+j].get();
+      if (i<0 || j<0 || i>=(int)m_height || j>=(int)m_width){
+          return NULL;
+      }
+      else {return m_board[i*m_width+j].get();}
   }
   
   void ElementTab::setElement(int i, int j,Element* e){

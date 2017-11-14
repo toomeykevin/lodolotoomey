@@ -6,14 +6,17 @@
 
 
 #include "RandomAI.h"
+#include "engine/Engine.h"
 
 #include <iostream>
 using namespace std;
 using namespace ai;
+using namespace engine;
 
 namespace ai{
-    void RandomAI::run (engine::Engine& engine, int num){
-        
+    void RandomAI::run (engine::Engine& engine){
+        vector<unique_ptr<Command>> list;
+        listCommands(list,engine.getState());
     }
     RandomAI::RandomAI (){
               

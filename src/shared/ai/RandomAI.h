@@ -22,7 +22,7 @@ namespace ai {
     std::mt19937 randgen;
     // Operations
   public:
-    void run (engine::Engine& engine, int num);
+    void run (engine::Engine& engine);
     RandomAI ();
     // Setters and Getters
   };

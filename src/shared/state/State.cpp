@@ -20,10 +20,10 @@ namespace state{
   {
       return m_teamBoard;
   }
-  string State::getPlayer(){
+  TeamStatus State::getPlayer(){
       return m_player;
   }
-  void State::setPlayer(string player){
+  void State::setPlayer(TeamStatus player){
       m_player=player;
   }
   

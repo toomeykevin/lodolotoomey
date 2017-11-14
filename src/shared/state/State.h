@@ -2,13 +2,13 @@
 #ifndef STATE__STATE__H
 #define STATE__STATE__H
 
-#include <string>
 
 namespace state {
   class ElementTab;
 }
 
 #include "ElementTab.h"
+#include "TeamStatus.h"
 
 namespace state {
 
@@ -19,13 +19,13 @@ namespace state {
   private:
     ElementTab m_teamBoard;
     ElementTab m_territoryBoard;
-    std::string m_player     = "player1";
+    TeamStatus m_player     = DRAGONS;
     // Operations
   public:
     ElementTab& getTerritoryBoard ();
     ElementTab& getTeamBoard ();
-    std::string getPlayer ();
-    void setPlayer (std::string player);
+    TeamStatus getPlayer ();
+    void setPlayer (TeamStatus player);
     // Setters and Getters
   };
 
