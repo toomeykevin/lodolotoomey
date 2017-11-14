@@ -25,7 +25,6 @@ namespace render{
     {
         m_tileSet = std::shared_ptr<TileSet> (new TerritoryTileSet());
         
-        // m_state : deux ElementTab : la liste des teams et les territories
         int width = m_tab.getWidth();
         int height = m_tab.getHeight();
         
