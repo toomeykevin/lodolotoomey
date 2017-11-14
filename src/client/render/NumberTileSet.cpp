@@ -13,39 +13,35 @@ using namespace state;
 
 
 namespace render{
-    NumberTileSet::NumberTileSet (){
-        vector<Tile> m_numbers(8);
-        Tile un(0,0,120,140);
-        Tile deux(120,0,120,140);
-        Tile trois(240,0,120,140);
-        Tile quatre(360,0,120,140);
-        Tile cinq(480,0,120,140);
-        Tile six(600,0,120,140);
-        Tile sept(720,0,120,140);
-        Tile huit(840,0,120,140);
-        m_numbers[0]=un;
-        m_numbers[1]=deux;
-        m_numbers[2]=trois;
-        m_numbers[3]=quatre;
-        m_numbers[4]=cinq;
-        m_numbers[5]=six;
-        m_numbers[6]=sept;
-        m_numbers[7]=huit;
+    NumberTileSet::NumberTileSet () : m_numbers(8)
+    {
+        m_numbers[0] = Tile(0,0,120,140);
+        m_numbers[1] = Tile(120,0,120,140);
+        m_numbers[2] = Tile(240,0,120,140);
+        m_numbers[3] = Tile(360,0,120,140);
+        m_numbers[4] = Tile(480,0,120,140);
+        m_numbers[5] = Tile(600,0,120,140);
+        m_numbers[6] = Tile(720,0,120,140);
+        m_numbers[7] = Tile(840,0,120,140);
     }
     
-    int NumberTileSet::getCellWidth (){
+    int NumberTileSet::getCellWidth ()
+    {
         return 120;    
     }
     
-    int NumberTileSet::getCellHeight (){
+    int NumberTileSet::getCellHeight ()
+    {
         return 140;
     }
     
-    std::string NumberTileSet::getImageFile (){
+    std::string NumberTileSet::getImageFile ()
+    {
         return "res/textures_bulles.png";
     }
     
-    Tile& NumberTileSet::getCharTile (int c){
+    Tile& NumberTileSet::getCharTile (int c)
+    {
         if (c == 1)
         {
             // on renvoit la bulle avec le numéro 1

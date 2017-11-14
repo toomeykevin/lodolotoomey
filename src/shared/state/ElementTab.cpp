@@ -13,11 +13,11 @@ namespace state{
   {
       m_width=width;
       m_height=height;
-      for (int i=0;i<(int)(height*width);i++){
+      for (int i=0;i<(int)(height*width);i++)
+      {
           m_board.push_back(NULL);
       }
       //cout<<"la taille du tableau m_board"<<m_board.size()<<endl;
-      
   }
   
   int ElementTab::getSizeVector()
@@ -43,25 +43,34 @@ namespace state{
       else {return m_board[i*m_width+j].get();}
   }
   
-  void ElementTab::setElement(int i, int j,Element* e){
-      m_board[i*m_width+j]=std::unique_ptr<Element>(e);
+  void ElementTab::setElement(int i, int j, Element* e)
+  {
+      m_board[i*m_width+j] = std::unique_ptr<Element>(e);
   }
   
-  void ElementTab::resize (size_t width, size_t height){ // peut poser probleme
+  void ElementTab::resize (size_t width, size_t height)
+  {
+      m_board.clear();
+      for (int i=0;i<(int)(height*width);i++)
+      {
+          m_board.push_back(NULL);
+      }
       m_width=width;
       m_height=height;
   }
   
-  void ElementTab::load (std::string& file){
-      
+  void ElementTab::load (std::string& file)
+  {
+      throw std::runtime_error("Fonction load pas définie");
   }
   
-  Element& ElementTab::operator() (int i, int j){
-      
+  Element& ElementTab::operator() (int i, int j)
+  {
       return *m_board[i*m_width+j];
   }
   
-  void ElementTab::add (Element* e){
+  void ElementTab::add (Element* e)
+  {
       m_board.push_back(std::unique_ptr<Element>(e));
   }
 };

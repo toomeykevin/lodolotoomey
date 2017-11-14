@@ -21,8 +21,38 @@ void livrable_21_render(std::string commande){
     if (commande=="render"){
         std::cout<<"la commande est render"<<std::endl;
 
+        // Création d'un état
+        State etat;
+        ElementTab& territory = etat.getTerritoryBoard();
         
-        //Création de l'état au hasard
+        // On resize pour avoir une grille 4x4
+        territory.resize(2,2);
+        
+        // On construit le TerritoryBoard
+        Territory* t00 = new Territory(DRAGONS_T);
+        Territory* t01 = new Territory(UNICORNS_T);
+        Territory* t10 = new Territory(IMPOSSIBLE);
+        Territory* t11 = new Territory(DRAGONS_T);
+        
+        territory.setElement(0,0,t00);
+        territory.setElement(0,1,t01);
+        territory.setElement(1,0,t10);
+        territory.setElement(1,1,t11);
+        
+        /*cout<<t00->getTerritoryStatus()<<endl;
+        cout<<t01->getTerritoryStatus()<<endl;
+        cout<<t10->getTerritoryStatus()<<endl;
+        cout<<t11->getTerritoryStatus()<<endl;
+        
+        cout<<((Territory*)territory.getElement(0,0))->getTerritoryStatus()<<endl;
+        cout<<((Territory*)territory.getElement(0,1))->getTerritoryStatus()<<endl;
+        cout<<((Territory*)territory.getElement(1,0))->getTerritoryStatus()<<endl;
+        cout<<((Territory*)territory.getElement(1,1))->getTerritoryStatus()<<endl;*/
+
+        // on crée une couche à partir de l'ElementTabLayer qu'on a construit
+        ElementTabLayer Layer1(etat.getTerritoryBoard());
+        
+        /*//Création de l'état au hasard
         State etat;
         int Etat_Width=etat.getTeamBoard().getWidth();
         int Etat_Height=etat.getTeamBoard().getHeight();
@@ -66,26 +96,7 @@ void livrable_21_render(std::string commande){
             }
         }
         
-        StateLayer Layer1(etat);
-        
-             
-        /*TerritoryTileSet territoires;
-        TeamTileSet teams;
-        NumberTileSet numbers;
-        
-        srand(time(0));
-        vector<int> randomTab;
-        for (int k = 0;k<25;k++)
-        {
-            int a = (rand() %3) + 1;
-            randomTab.push_back(a);
-        }
-        vector<int> randomForce;
-        for (int n = 0;n<25;n++)
-        {
-            int b = (rand()%8) +1;
-            randomForce.push_back(b);
-        }*/
+        StateLayer Layer1(etat);*/
         
         // ouverture de la page du jeu
         RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
@@ -101,551 +112,15 @@ void livrable_21_render(std::string commande){
                 {
                     window.close();
                 }
-                
             }
             
             // à chaque tour, on efface l'ancien rendu
             window.clear(Color::Black);
             
-            
+            // on dessine la surface des territoires
             Layer1.initSurface();
-            //surface1 = *(Layer1.getSurface());
             window.draw(*(Layer1.getSurface()));
-            
-            /*
-            // Texture des territoires
-            Texture territoryTextures;
-            if (!territoryTextures.loadFromFile(territoires.getImageFile()))
-            {
-                // si ça ne marche pas, on fait une exception
-                throw std::runtime_error("Impossible de lire le fichier");
-            }
-            
-            // Texture des soldats
-            Texture creatureTextures;
-            if (!creatureTextures.loadFromFile(teams.getImageFile()))
-            {
-                // si ça ne marche pas, on fait une exception
-                throw std::runtime_error("Impossible de lire le fichier");
-            }
-            
-            // Texture des bulles
-            Texture bubbleTextures;
-            if (!bubbleTextures.loadFromFile(numbers.getImageFile()))
-            {
-                // si ça ne marche pas, on fait une exception
-                throw std::runtime_error("Impossible de lire le fichier");
-            }*/
 
-            /*vector<VertexArray> hexagonTab;
-            vector<VertexArray> teamTab;
-            vector<VertexArray> numberTab;
-            for (int i=0;i<5;i++)
-            {
-                for (int j=0;j<5;j++)
-                {
-                    VertexArray hexagon(Quads,4);
-                    VertexArray team(Quads,4);
-                    VertexArray number(Quads,4);
-                    if (j%2==0)
-                    {
-                        hexagon[0].position = Vector2f(120*i,105*j);
-                        hexagon[1].position = Vector2f(120*(i+1),105*j);
-                        hexagon[2].position = Vector2f(120*(i+1),105*j+140);
-                        hexagon[3].position = Vector2f(120*i,105*j+140);
-                    }
-                    if (j%2!=0)
-                    {
-                        hexagon[0].position = Vector2f(60+120*i,105*j);
-                        hexagon[1].position = Vector2f(60+120*(i+1),105*j);
-                        hexagon[2].position = Vector2f(60+120*(i+1),105*j+140);
-                        hexagon[3].position = Vector2f(60+120*i,105*j+140);
-                    }
-                    
-                    if (randomTab[i*j]==1) // licornes
-                    {
-                        hexagon[0].texCoords = Vector2f(0,0);
-                        hexagon[1].texCoords = Vector2f(120,0);
-                        hexagon[2].texCoords = Vector2f(120,140);
-                        hexagon[3].texCoords = Vector2f(0,140);
-                        
-                        team[0].texCoords = Vector2f(0,0);
-                        team[1].texCoords = Vector2f(50,0);
-                        team[2].texCoords = Vector2f(50,50);
-                        team[3].texCoords = Vector2f(0,50);
-                        
-                        if (j%2==0)
-                        {
-                            team[0].position = Vector2f(120*i+35,105*j+45);
-                            team[1].position = Vector2f(120*i+85,105*j+45);
-                            team[2].position = Vector2f(120*i+85,105*j+95);
-                            team[3].position = Vector2f(120*i+35,105*j+95);
-                        }
-                        if (j%2!=0)
-                        {
-                            team[0].position = Vector2f(60+120*i+35,105*j+45);
-                            team[1].position = Vector2f(60+120*i+85,105*j+45);
-                            team[2].position = Vector2f(60+120*i+85,105*j+95);
-                            team[3].position = Vector2f(60+120*i+35,105*j+95);
-                        }
-                        
-                        teamTab.push_back(team);
-                        
-                        if (randomForce[i*j]==1)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(0,0);
-                            number[1].texCoords = Vector2f(12,0);
-                            number[2].texCoords = Vector2f(12,12);
-                            number[3].texCoords = Vector2f(0,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==2)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(12,0);
-                            number[1].texCoords = Vector2f(24,0);
-                            number[2].texCoords = Vector2f(24,12);
-                            number[3].texCoords = Vector2f(12,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==3)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(24,0);
-                            number[1].texCoords = Vector2f(36,0);
-                            number[2].texCoords = Vector2f(36,12);
-                            number[3].texCoords = Vector2f(24,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==4)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(36,0);
-                            number[1].texCoords = Vector2f(48,0);
-                            number[2].texCoords = Vector2f(48,12);
-                            number[3].texCoords = Vector2f(36,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==5)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(48,0);
-                            number[1].texCoords = Vector2f(60,0);
-                            number[2].texCoords = Vector2f(60,12);
-                            number[3].texCoords = Vector2f(48,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==6)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(60,0);
-                            number[1].texCoords = Vector2f(72,0);
-                            number[2].texCoords = Vector2f(72,12);
-                            number[3].texCoords = Vector2f(60,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==7)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(72,0);
-                            number[1].texCoords = Vector2f(84,0);
-                            number[2].texCoords = Vector2f(84,12);
-                            number[3].texCoords = Vector2f(72,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==8)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(84,0);
-                            number[1].texCoords = Vector2f(96,0);
-                            number[2].texCoords = Vector2f(96,12);
-                            number[3].texCoords = Vector2f(84,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                    }
-                    if (randomTab[i*j]==2) // inaccessible
-                    {
-                        hexagon[0].texCoords = Vector2f(120,0);
-                        hexagon[1].texCoords = Vector2f(240,0);
-                        hexagon[2].texCoords = Vector2f(240,140);
-                        hexagon[3].texCoords = Vector2f(120,140);
-                        
-                    }
-                    if (randomTab[i*j]==3) // dragons
-                    {
-                        hexagon[0].texCoords = Vector2f(240,0);
-                        hexagon[1].texCoords = Vector2f(360,0);
-                        hexagon[2].texCoords = Vector2f(360,140);
-                        hexagon[3].texCoords = Vector2f(240,140);
-                        
-                        team[0].texCoords = Vector2f(50,0);
-                        team[1].texCoords = Vector2f(100,0);
-                        team[2].texCoords = Vector2f(100,50);
-                        team[3].texCoords = Vector2f(50,50);
-                        
-                        if (j%2==0)
-                        {
-                            team[0].position = Vector2f(120*i+35,105*j+45);
-                            team[1].position = Vector2f(120*i+85,105*j+45);
-                            team[2].position = Vector2f(120*i+85,105*j+95);
-                            team[3].position = Vector2f(120*i+35,105*j+95);
-                        }
-                        if (j%2!=0)
-                        {
-                            team[0].position = Vector2f(60+120*i+35,105*j+45);
-                            team[1].position = Vector2f(60+120*i+85,105*j+45);
-                            team[2].position = Vector2f(60+120*i+85,105*j+95);
-                            team[3].position = Vector2f(60+120*i+35,105*j+95);
-                        }
-                        teamTab.push_back(team);
-                        
-                        if (randomForce[i*j]==1)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(0,0);
-                            number[1].texCoords = Vector2f(12,0);
-                            number[2].texCoords = Vector2f(12,12);
-                            number[3].texCoords = Vector2f(0,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==2)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(12,0);
-                            number[1].texCoords = Vector2f(24,0);
-                            number[2].texCoords = Vector2f(24,12);
-                            number[3].texCoords = Vector2f(12,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==3)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(24,0);
-                            number[1].texCoords = Vector2f(36,0);
-                            number[2].texCoords = Vector2f(36,12);
-                            number[3].texCoords = Vector2f(24,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==4)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(36,0);
-                            number[1].texCoords = Vector2f(48,0);
-                            number[2].texCoords = Vector2f(48,12);
-                            number[3].texCoords = Vector2f(36,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==5)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(48,0);
-                            number[1].texCoords = Vector2f(60,0);
-                            number[2].texCoords = Vector2f(60,12);
-                            number[3].texCoords = Vector2f(48,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==6)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(60,0);
-                            number[1].texCoords = Vector2f(72,0);
-                            number[2].texCoords = Vector2f(72,12);
-                            number[3].texCoords = Vector2f(60,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==7)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(72,0);
-                            number[1].texCoords = Vector2f(84,0);
-                            number[2].texCoords = Vector2f(84,12);
-                            number[3].texCoords = Vector2f(72,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                        if (randomForce[i*j]==8)
-                        {
-                            if (j%2==0)
-                            {
-                                number[0].position = Vector2f(120*i+73,105*j+45);
-                                number[1].position = Vector2f(120*i+85,105*j+45);
-                                number[2].position = Vector2f(120*i+85,105*j+57);
-                                number[3].position = Vector2f(120*i+73,105*j+57);
-                            }
-                            if (j%2!=0)
-                            {
-                                number[0].position = Vector2f(60+120*i+73,105*j+45);
-                                number[1].position = Vector2f(60+120*i+85,105*j+45);
-                                number[2].position = Vector2f(60+120*i+85,105*j+57);
-                                number[3].position = Vector2f(60+120*i+73,105*j+57);
-                            }
-                            
-                            number[0].texCoords = Vector2f(84,0);
-                            number[1].texCoords = Vector2f(96,0);
-                            number[2].texCoords = Vector2f(96,12);
-                            number[3].texCoords = Vector2f(84,12);
-                            
-                            numberTab.push_back(number);
-                        }
-                        
-                    }
-                    hexagonTab.push_back(hexagon);
-                }
-            }
-            
-            for (unsigned int l = 0;l<hexagonTab.size();l++)
-            {
-                window.draw(hexagonTab[l],&territoryTextures);
-            }
-            for (unsigned int m =0;m<teamTab.size();m++)
-            {
-                window.draw(teamTab[m],&creatureTextures);
-            }
-            for (unsigned int z=0;z<numberTab.size();z++)
-            {
-                window.draw(numberTab[z],&bubbleTextures);
-            }*/
-            
             // et on affiche le nouveau rendu
             window.display();
         }
