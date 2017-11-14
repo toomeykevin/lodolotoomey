@@ -20,7 +20,7 @@ namespace render{
     
     void StateLayer::initSurface ()
     {
-        TeamTileSet teams;
+        m_tileSet = std::shared_ptr<TileSet> (new TeamTileSet());
         //NumberTileSet numbers;
         
         // m_state : deux ElementTab : la liste des teams et les territories
@@ -33,7 +33,7 @@ namespace render{
         //Surface surface_number;
         
         // charge la texture : loadTexture
-        string texture_team = teams.getImageFile();
+        string texture_team = m_tileSet->getImageFile();
         surface_team.loadTexture(texture_team);
         //string texture_number = numbers.getImageFile();
         //surface_number.loadTexture(texture_number);
@@ -52,8 +52,16 @@ namespace render{
                 surface_team.setSpriteLocation(i,x,y);
                 //surface_number.setSpriteLocation(i,x,y);
                 // - prend la partie de texture correspondante
-                surface_team.setSpriteTexture(i,teams.getTile(*(TeamBoard.getElement(x,y))));
+                Element* elt = TeamBoard.getElement(x,y);
+                if (elt==NULL)
+                {
+                    throw std::runtime_error("Element nul");
+                }
+                else
+                {
+                    surface_team.setSpriteTexture(i,m_tileSet->getTile(*(elt)));
                 //surface_number.setSpriteTexture(i,numbers.getCharTile(((Team*)(TeamBoard.getElement(x,y)))->getNbCreatures()));
+                }
             }
         }
         
