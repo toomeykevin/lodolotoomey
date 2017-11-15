@@ -7,7 +7,8 @@ namespace state {
 
   enum TeamStatus {
     DRAGONS     = 2,
-    UNICORNS     = 1
+    UNICORNS     = 1,
+    NONE     = 3
   };
 
 };

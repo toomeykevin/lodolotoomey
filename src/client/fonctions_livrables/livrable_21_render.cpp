@@ -24,9 +24,11 @@ void livrable_21_render(std::string commande){
         // Création d'un état
         State etat;
         ElementTab& territory = etat.getTerritoryBoard();
+        ElementTab& team = etat.getTeamBoard();
         
         // On resize pour avoir une grille 4x4
         territory.resize(2,2);
+        team.resize(2,2);
         
         // On construit le TerritoryBoard
         Territory* t00 = new Territory(DRAGONS_T);
@@ -38,6 +40,17 @@ void livrable_21_render(std::string commande){
         territory.setElement(0,1,t01);
         territory.setElement(1,0,t10);
         territory.setElement(1,1,t11);
+        
+        // On construit le TeamBoard
+        Team* e00 = new Team(8,DRAGONS);
+        Team* e01 = new Team(3,UNICORNS);
+        Team* e10 = new Team(0,NONE);
+        Team* e11 = new Team(1,DRAGONS);
+        
+        team.setElement(0,0,e00);
+        team.setElement(0,1,e01);
+        team.setElement(1,0,e10);
+        team.setElement(1,1,e11);
         
         /*cout<<t00->getTerritoryStatus()<<endl;
         cout<<t01->getTerritoryStatus()<<endl;
@@ -51,6 +64,8 @@ void livrable_21_render(std::string commande){
 
         // on crée une couche à partir de l'ElementTabLayer qu'on a construit
         ElementTabLayer Layer1(etat.getTerritoryBoard());
+        ElementTabLayer Layer2(etat.getTeamBoard());
+        StateLayer Layer3(etat);
         
         /*//Création de l'état au hasard
         State etat;
@@ -121,6 +136,14 @@ void livrable_21_render(std::string commande){
             Layer1.initSurface();
             window.draw(*(Layer1.getSurface()));
 
+            // on dessine la surface des équipes
+            Layer2.initSurface();
+            window.draw(*(Layer2.getSurface()));
+            
+            // on dessine la surface des chiffres
+            Layer3.initSurface();
+            window.draw(*(Layer3.getSurface()));
+            
             // et on affiche le nouveau rendu
             window.display();
         }

@@ -13,7 +13,7 @@ using namespace state;
 
 
 namespace render{
-    NumberTileSet::NumberTileSet () : m_numbers(8)
+    NumberTileSet::NumberTileSet () : m_numbers(9)
     {
         m_numbers[0] = Tile(0,0,120,140);
         m_numbers[1] = Tile(120,0,120,140);
@@ -23,6 +23,7 @@ namespace render{
         m_numbers[5] = Tile(600,0,120,140);
         m_numbers[6] = Tile(720,0,120,140);
         m_numbers[7] = Tile(840,0,120,140);
+        m_numbers[8] = Tile(960,0,120,140);
     }
     
     int NumberTileSet::getCellWidth ()
@@ -42,6 +43,10 @@ namespace render{
     
     Tile& NumberTileSet::getCharTile (int c)
     {
+        if (c==0)
+        {
+            return m_numbers[8];
+        }
         if (c == 1)
         {
             // on renvoit la bulle avec le numéro 1

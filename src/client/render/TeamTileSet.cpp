@@ -12,10 +12,11 @@ using namespace std;
 using namespace state;
 
 namespace render{
-    TeamTileSet::TeamTileSet (): m_teams(2)
+    TeamTileSet::TeamTileSet (): m_teams(3)
     {
         m_teams[0] = Tile(0,0,120,140);
-        m_teams[1] = Tile(120,0,120,140);;
+        m_teams[1] = Tile(120,0,120,140);
+        m_teams[2] = Tile(240,0,120,140);
     }
     
     int TeamTileSet::getCellWidth ()
@@ -38,15 +39,19 @@ namespace render{
         if (e.isStatic() == false)
         {
             Team& p = (Team&)e;
-            if (p.getTeamStatus() == 1)
-            {
-                // on renvoit l'hexagone des dragons
-                return m_teams[0];
-            }
             if (p.getTeamStatus() == 2)
             {
-                // on renvoit l'hexagone des licornes
+                // on renvoit l'icône des dragons
+                return m_teams[0];
+            }
+            if (p.getTeamStatus() == 1)
+            {
+                // on renvoit l'icône des licornes
                 return m_teams[1];
+            }
+            if (p.getTeamStatus() == 3)
+            {
+                return m_teams[2];
             }
         }
         else
