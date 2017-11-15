@@ -34,12 +34,16 @@ namespace engine{
                 ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState);
             }
             else if((m_currentCommands[i]).get()->getTypeId()==ATTACK){
+                cout<<"attack"<<((AttackCommand*)(m_currentCommands[i]).get())->getIAtt()<<endl;
+                cout<<"attack"<<((AttackCommand*)(m_currentCommands[i]).get())->getJAtt()<<endl;
+                cout<<"attack"<<((AttackCommand*)(m_currentCommands[i]).get())->getIDef()<<endl;
+                cout<<"attack"<<((AttackCommand*)(m_currentCommands[i]).get())->getJDef()<<endl;
                 ((AttackCommand*)(m_currentCommands[i]).get())->execute(m_currentState);
             }
             else {
                 ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState);
             }
-            m_currentCommands.empty();
+            m_currentCommands.clear();
         }
     }
 };

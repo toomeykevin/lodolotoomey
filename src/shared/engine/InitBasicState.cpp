@@ -47,6 +47,8 @@ namespace engine{
                 Territory* territory=new Territory(territoryStatus);
                 state.getTeamBoard().setElement(i,j,team);
                 state.getTerritoryBoard().setElement(i,j,territory);
+                team->setx(i);
+                team->sety(j);
             }
         }
     

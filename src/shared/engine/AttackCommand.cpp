@@ -37,7 +37,7 @@ namespace engine{
         for (int m=0;m<defNbCreatures;m++){
             DefWin=DefWin+ (rand() %6) + 1;
         }
-        if (abs(m_iAtt-m_iDef)<2 && abs(m_jAtt-m_jDef)<2 && (playerStatus!=DefTeamStatus)){
+        if (abs(m_iAtt-m_iDef)<3 && abs(m_jAtt-m_jDef)<3 && (playerStatus!=DefTeamStatus)){
             if (AttWin>DefWin && attNbCreatures>1 && defNbCreatures!=0){
                 attackWins(state);
             }
