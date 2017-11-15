@@ -19,6 +19,7 @@ using namespace ai;
 void livrable_2final_random_ai(string commande){
     if (commande=="random_ai"){
         cout<<"La commande est random_ai. "<<endl;
+        
 
         RandomAI* AIPlayer= new RandomAI();
         Engine moteur;

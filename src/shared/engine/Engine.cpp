@@ -44,6 +44,6 @@ namespace engine{
                 ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState);
             }
             m_currentCommands.clear();
-        }
+            }
     }
 };
