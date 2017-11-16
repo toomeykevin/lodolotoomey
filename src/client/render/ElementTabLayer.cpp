@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 
-
 #include "ElementTabLayer.h"
 #include <iostream>
 #include "Surface.h"
@@ -16,8 +15,6 @@
 using namespace std;
 using namespace state;
 using namespace sf;
-
-
 
 namespace render{
     ElementTabLayer::ElementTabLayer(state::ElementTab& tab) : m_tab(tab) {}
@@ -39,7 +36,7 @@ namespace render{
             surface_territory->loadTexture(texture_territory);
 
             // initialise la liste des sprites : initHexas
-            surface_territory->initHexas(4);
+            surface_territory->initHexas(width*height);
 
             // pour chaque cellule de la grille
             for (int x=0;x<height;x++)
@@ -79,7 +76,7 @@ namespace render{
             surface_team->loadTexture(texture_team);
 
             // initialise la liste des sprites : initHexas
-            surface_team->initHexas(4);
+            surface_team->initHexas(width*height);
 
             // pour chaque cellule de la grille
             for (int x=0;x<height;x++)

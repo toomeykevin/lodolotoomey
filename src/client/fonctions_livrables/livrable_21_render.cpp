@@ -7,18 +7,17 @@
 #include <cstdlib>
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "render.h"
 #include "state.h"
+#include "render.h"
 
-using namespace sf;
-using namespace render;
-using namespace state;
 using namespace std;
+using namespace sf;
+using namespace state;
+using namespace render;
 
 void livrable_21_render(std::string commande){
-    if (commande=="render"){
-        std::cout<<"la commande est render"<<std::endl;
-
+    if (commande == "render")
+    {
         // Création d'un état
         State etat;
         ElementTab& territory = etat.getTerritoryBoard();
@@ -34,6 +33,11 @@ void livrable_21_render(std::string commande){
         Territory* t10 = new Territory(IMPOSSIBLE);
         Territory* t11 = new Territory(DRAGONS_T);
         
+        t00->setx(0); t00->sety(0);
+        t01->setx(0); t01->sety(1);
+        t10->setx(1); t10->sety(0);
+        t11->setx(1); t11->sety(1);
+        
         territory.setElement(0,0,t00);
         territory.setElement(0,1,t01);
         territory.setElement(1,0,t10);
@@ -45,18 +49,24 @@ void livrable_21_render(std::string commande){
         Team* e10 = new Team(0,NONE);
         Team* e11 = new Team(1,DRAGONS);
         
+        e00->setx(0); e00->sety(0);
+        e01->setx(0); e01->sety(1);
+        e10->setx(1); e10->sety(0);
+        e11->setx(1); e11->sety(1);
+        
         team.setElement(0,0,e00);
         team.setElement(0,1,e01);
         team.setElement(1,0,e10);
         team.setElement(1,1,e11);
 
-        // on crée une couche à partir de l'ElementTabLayer qu'on a construit
+        // on crée les 3 couches à partir de l'état qu'on vient de construire
         ElementTabLayer Layer1(etat.getTerritoryBoard());
         ElementTabLayer Layer2(etat.getTeamBoard());
         StateLayer Layer3(etat);
 
         // ouverture de la page du jeu
-        RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
+        RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons",
+                Style::Close | Style::Titlebar);
         
         // on fait tourner le programme tant que la fenêtre n'est pas fermée
         while (window.isOpen())
@@ -91,7 +101,5 @@ void livrable_21_render(std::string commande){
         }
         
     }
-    else{
-        //cout<< "la commande n'est pas render"<< endl; 
-    }
+    else{}
 }

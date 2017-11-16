@@ -45,11 +45,11 @@ namespace engine{
                 attackLooses(state);
             } 
             else{
-                cout << "tu ne peux pas attaquer ce territoire avec le territoire choisi"<< endl;
+                cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
             }
         }
         else{
-            cout << "tu ne peux pas attaquer ce territoire avec le territoire choisi"<< endl;
+            cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
         }
     
     }

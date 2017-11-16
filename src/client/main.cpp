@@ -17,21 +17,19 @@ void livrable_2final_random_ai(string commande);
 
 int main(int argc,char* argv[]) 
 {
-    if (argc>1){
+    if (argc>1)
+    {
         string str(argv[1]); // commande entrée lors de l'execution
-        livrable_11_hello(str); // Appelle aux fonctions gérant les différents livrables
+        livrable_11_hello(str); // Appel aux fonctions des différents livrables
         livrable_1final_state(str);
         livrable_21_render(str);
         livrable_22_engine(str);
         livrable_2final_random_ai(str);
-        cout<<"Si rien ne s'est affiché, la commande n'est pas bonne"<<endl;
-        
-        
+        cout<<"Si rien ne s'est affiché, la commande n'est pas valable."<<endl;
     }
-    
-    
-    else {cout<<"Il n'y a pas de commande"<<endl;}
-    
-
+    else
+    {
+        cout<<"Il n'y a pas de commande"<<endl;
+    }
     return 0;
 }

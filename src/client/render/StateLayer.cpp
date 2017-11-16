@@ -33,7 +33,7 @@ namespace render{
         surface_number->loadTexture(texture_number);
         
         // initialise la liste des sprites : initHexas
-        surface_number->initHexas(4);
+        surface_number->initHexas(width*height);
         
         // pour chaque cellule de la grille
         for (int x=0;x<height;x++)

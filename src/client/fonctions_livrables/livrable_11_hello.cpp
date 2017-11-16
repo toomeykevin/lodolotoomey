@@ -3,14 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 #include <iostream>
+
 using namespace std;
 
-void livrable_11_hello(string commande){
-    if (commande=="hello"){
-        cout<<"bonjour le monde"<<endl;
+void livrable_11_hello(string commande)
+{
+    if (commande == "hello")
+    {
+        cout<<"Hello World"<<endl;
     }
-    else{
-        //cout<< "la commande n'est pas hello"<< endl; 
-    }
+    else{}
 }

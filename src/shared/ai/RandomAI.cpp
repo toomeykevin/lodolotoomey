@@ -18,54 +18,57 @@ using namespace state;
 
 namespace ai{
     
-    void RandomAI::run (engine::Engine& engine){
+    void RandomAI::run (engine::Engine& engine)
+    {
         int l=1;
 
         vector<unique_ptr<Command>> list;
+        
+        cout<<"Team : 1=dragons 2=licornes"<<endl;
         cout<< "C'est le tour de l'équipe "<<engine.getState().getPlayer()<<endl;
-        while(l!=0){
-    
+        
+        while(l!=0)
+        {
             listCommands(list,engine.getState());
             l=list.size();
                         
-            if (l>0){
+            if (l>0)
+            {
                 std::uniform_int_distribution<int> uni(0,l-1); // guaranteed unbiased
                 auto random_integer = uni(randgen);
-                cout<<" random integer : "<<random_integer<<","<<endl;
+                cout<<"Entier aléatoire : "<<random_integer<<endl;
                 
-                cout<<" Attaque de (iatt="<<((AttackCommand*)list[random_integer].get())->getIAtt();
-                cout<<",jatt="<<((AttackCommand*)list[random_integer].get())->getJAtt()<<") ";
-                cout<<"sur (idef="<<((AttackCommand*)list[random_integer].get())->getIDef();
-                cout<<",jdef="<<((AttackCommand*)list[random_integer].get())->getJDef()<<")"<<endl;
+                cout<<" Attaque de ("<<((AttackCommand*)list[random_integer].get())->getIAtt();
+                cout<<","<<((AttackCommand*)list[random_integer].get())->getJAtt()<<") ";
+                cout<<"sur ("<<((AttackCommand*)list[random_integer].get())->getIDef();
+                cout<<","<<((AttackCommand*)list[random_integer].get())->getJDef()<<")"<<endl;
                 engine.addCommand(list[random_integer].release());
                 
                 engine.update();
                 list.clear();
             }
-            else{
-                
-            }  
+            else{}  
         }
+        
         cout<<endl;
-        GestionRenforts* gestionRenfort= new GestionRenforts(1);
+        GestionRenforts* gestionRenfort = new GestionRenforts(1);
         engine.addCommand((Command*)gestionRenfort);
         engine.update();
-        if (engine.getState().getPlayer()==DRAGONS){
+        
+        if (engine.getState().getPlayer()==DRAGONS)
+        {
              engine.getState().setPlayer(UNICORNS);
         }
-        else{
+        else
+        {
              engine.getState().setPlayer(DRAGONS);
-        }
-       
-        
+        }    
     }
-    RandomAI::RandomAI (){
+    
+    RandomAI::RandomAI ()
+    {
         std::random_device rd;     // only used once to initialise (seed) engine
         std::mt19937 rng(rd());    // random-number engine used (Mersenne-Twister in this case)
-        
         randgen=rng;
-        
     }
-
-  
 };
