@@ -5,10 +5,10 @@
  */
 
 #include <iostream>
-#include<state.h>
-#include<render.h>
-#include<engine.h>
-#include<ai.h>
+#include <state.h>
+#include <render.h>
+#include <engine.h>
+#include <ai.h>
 using namespace std;
 using namespace state;
 using namespace engine;
@@ -33,10 +33,15 @@ void livrable_2final_random_ai(string commande){
         InitBasicState* initState=new InitBasicState();
         moteur.addCommand((Command*)initState);
         moteur.update();
-        cout<<((Territory*)moteur.getState().getTerritoryBoard().getElement(1,1))->getTerritoryStatus()<<endl<<endl;
-        cout<<"Appuyer la touche ENTER"<<endl;
-        getchar(); // attente de l'appui de la touche ENTER
-        AIPlayer->run(moteur);
+        
+
+        cout<<"Press Ctrl + C to quit"<<endl;
+        
+        while(1){
+            cout<<"Appuyer la touche ENTER"<<endl;
+            getchar(); // attente de l'appui de la touche ENTER
+            AIPlayer->run(moteur);
+        }
         
         
     }
