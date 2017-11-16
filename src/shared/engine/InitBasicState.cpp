@@ -30,7 +30,7 @@ namespace engine{
 
                 if ((i==0) ||(i==etat_Width-1)||(j==0) ||(j==etat_Height-1)){
                     territoryStatus=IMPOSSIBLE;
-                    teamStatus=DRAGONS;
+                    teamStatus=NONE;
                     NbrCr=0;
                 }
                 else if(j<((int)etat_Width)/2){

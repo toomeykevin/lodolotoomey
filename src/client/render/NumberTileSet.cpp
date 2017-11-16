@@ -91,5 +91,7 @@ namespace render{
         {
             throw std::runtime_error("Impossible d'avoir une armée de cette taille");
         }
+        
+        return m_numbers[8];
     }
 };

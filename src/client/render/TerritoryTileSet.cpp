@@ -60,7 +60,8 @@ namespace render{
         {
             throw std::runtime_error("Le type de TileSet ne correspond pas à l'élément");
         }
-        return m_territories[0];
+        
+        return m_territories[1];
         
     }
 };

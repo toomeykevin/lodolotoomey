@@ -17,24 +17,63 @@ using namespace engine;
 using namespace std;
 
 void livrable_22_engine(string commande){
-    if (commande=="engine"){
+    if (commande == "engine"){
         cout<<"la commande est engine"<<endl<<endl;
         srand(time(0));
-        
-        //Commandes Tests
-        cout<<"Debut des Tests sur le moteur"<<endl;
+
+        //Commandes tests
+        cout<<"Début des Tests sur le moteur"<<endl;
         Engine moteur;
-        State& etat=moteur.getState();
+        State& etat = moteur.getState();
                 
-        int sizeVector=etat.getTeamBoard().getSizeVector();
+        int sizeVector = etat.getTeamBoard().getSizeVector();
         cout<<"taille du tableau de tuiles : "<<sizeVector<<endl;
         cout<<"taille du tableau height x width : "<<etat.getTeamBoard().getHeight()<<" x "<<etat.getTeamBoard().getWidth()<< endl;
         
         // initialisation de l'état initial
-        cout<<"Mise en place de l'état initial"<<endl<<endl;;
+        cout<<"Mise en place de l'état initial"<<endl;
         InitBasicState* initState=new InitBasicState();
         moteur.addCommand((Command*)initState);
         moteur.update();
+        
+        ElementTabLayer Layer1(moteur.getState().getTerritoryBoard());
+        ElementTabLayer Layer2(moteur.getState().getTeamBoard());
+        StateLayer Layer3(moteur.getState());
+        
+        // ouverture de la page du jeu
+        RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons", Style::Close | Style::Titlebar);
+        
+        // on fait tourner le programme tant que la fenêtre n'est pas fermée
+        while (window.isOpen())
+        {
+            Event event;
+            while (window.pollEvent(event))
+            {
+                // fermeture de la fenêtre lorsque l'utilisateur le souhaite
+                if (event.type == Event::Closed)
+                {
+                    window.close();
+                }
+            }
+            
+            // à chaque tour, on efface l'ancien rendu
+            window.clear(Color::Black);
+            
+            // on dessine la surface des territoires
+            Layer1.initSurface();
+            window.draw(*(Layer1.getSurface()));
+
+            // on dessine la surface des équipes
+            Layer2.initSurface();
+            window.draw(*(Layer2.getSurface()));
+            
+            // on dessine la surface des chiffres
+            Layer3.initSurface();
+            window.draw(*(Layer3.getSurface()));
+            
+            // et on affiche le nouveau rendu
+            window.display();
+        }
         
         // Attack de la case 11 contre 12 : 4 Dragons contre 4 Licornes
         cout<<"Attaque de la case 11 contre la case 12"<<endl;
