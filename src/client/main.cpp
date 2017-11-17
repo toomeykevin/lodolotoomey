@@ -1,14 +1,13 @@
 #include <iostream>
-
-//#include <SFML/Graphics.hpp>
-
 #include "state.h"
 #include "render.h"
 #include "engine.h"
+#include "ai.h"
 
 using namespace std;
 using namespace state;
 using namespace render;
+
 void livrable_11_hello(string commande);
 void livrable_1final_state(string commande);
 void livrable_21_render(string commande);
@@ -25,7 +24,7 @@ int main(int argc,char* argv[])
         livrable_21_render(str);
         livrable_22_engine(str);
         livrable_2final_random_ai(str);
-        cout<<"Si rien ne s'est affiché, la commande n'est pas valable."<<endl;
+        cout<<"Si rien ne s'est affiché, la commande n'est pas valable"<<endl;
     }
     else
     {

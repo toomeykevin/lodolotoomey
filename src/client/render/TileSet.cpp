@@ -4,19 +4,21 @@
  * and open the template in the editor.
  */
 
-#include "TileSet.h"
 #include <iostream>
+#include "TileSet.h"
 
 using namespace std;
 
-
 namespace render{
-    
     TileSet::~TileSet(){}
-    Tile& TileSet::getTile (state::Element& e){
-        throw runtime_error("non implanté");
+    
+    Tile& TileSet::getTile (state::Element& e)
+    {
+        throw runtime_error("Fonction TileSet::getTile non définie");
     }
-    Tile& TileSet::getCharTile (int c){
-        throw runtime_error("non implanté");
+    
+    Tile& TileSet::getCharTile (int c)
+    {
+        throw runtime_error("Fonction TileSet::getCharTile non définie");
     }
 };

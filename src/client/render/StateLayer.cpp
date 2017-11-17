@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-#include "StateLayer.h"
+
 #include <iostream>
+#include "state.h"
+#include "StateLayer.h"
 #include "Surface.h"
 #include "NumberTileSet.h"
 #include "Tile.h"
-#include "state.h"
 
 using namespace std;
 using namespace state;

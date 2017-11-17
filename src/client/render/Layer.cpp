@@ -5,12 +5,10 @@
  * and open the template in the editor.
  */
 
-
-#include "Layer.h"
 #include <iostream>
+#include "Layer.h"
 
 using namespace std;
-
 
 namespace render{
     Layer::Layer (){}

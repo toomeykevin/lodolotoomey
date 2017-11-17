@@ -4,15 +4,15 @@
  * and open the template in the editor.
  */
 
-#include "InitBasicState.h"
-#include "state.h"
 #include <iostream>
+#include "state.h"
+#include "InitBasicState.h"
+
 using namespace std;
 using namespace state;
 using namespace engine;
 
 namespace engine{
-    
     InitBasicState::InitBasicState()
     {
         m_commandTypeId = INIT;

@@ -4,8 +4,8 @@
  * and open the template in the editor.
  */
 
-#include "TeamTileSet.h"
 #include <iostream>
+#include "TeamTileSet.h"
 #include "state/Team.h"
 
 using namespace std;
@@ -51,6 +51,7 @@ namespace render{
             }
             if (p.getTeamStatus() == 3)
             {
+                // on renvoit une texture vide
                 return m_teams[2];
             }
         }

@@ -4,13 +4,13 @@
  * and open the template in the editor.
  */
 
-#include "ElementTabLayer.h"
 #include <iostream>
+#include "state.h"
+#include "ElementTabLayer.h"
 #include "Surface.h"
 #include "TerritoryTileSet.h"
 #include "TeamTileSet.h"
 #include "Tile.h"
-#include "state.h"
 
 using namespace std;
 using namespace state;

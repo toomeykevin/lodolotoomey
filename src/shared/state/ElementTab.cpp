@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-#include "ElementTab.h"
 #include <iostream>
+#include "ElementTab.h"
+
 using namespace std;
 
 namespace state{
@@ -61,7 +62,7 @@ namespace state{
   
   void ElementTab::load (std::string& file)
   {
-      throw std::runtime_error("Fonction load pas définie");
+      throw std::runtime_error("Fonction ElementTab::load pas définie");
   }
   
   Element& ElementTab::operator() (int i, int j)

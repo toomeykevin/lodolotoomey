@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-#include "Element.h"
 #include <iostream>
+#include "Element.h"
+
 using namespace std;
 
 namespace state{

@@ -4,11 +4,11 @@
  * and open the template in the editor.
  */
 
+#include <iostream>
 #include "AI.h"
 #include "state/Team.h"
 #include "engine/AttackCommand.h"
 
-#include <iostream>
 using namespace std;
 using namespace ai;
 using namespace engine;

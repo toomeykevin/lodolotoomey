@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+#include <iostream>
 #include "Surface.h"
 #include "Tile.h"
-#include <iostream>
 
 using namespace std;
 using namespace sf;
-
 
 namespace render{
     sf::VertexArray Surface::getHexas()

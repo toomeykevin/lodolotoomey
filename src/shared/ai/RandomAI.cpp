@@ -4,20 +4,18 @@
  * and open the template in the editor.
  */
 
-
-#include "RandomAI.h"
-#include "engine.h"
-#include "state.h"
-#include <chrono>
 #include <iostream>
+#include <chrono>
+#include "state.h"
+#include "engine.h"
+#include "RandomAI.h"
 
 using namespace std;
-using namespace ai;
-using namespace engine;
 using namespace state;
+using namespace state;
+using namespace ai;
 
 namespace ai{
-    
     void RandomAI::run (engine::Engine& engine)
     {
         int l=1;

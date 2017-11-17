@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
+#include <iostream>
 #include "State.h"
 
-#include <iostream>
 using namespace std;
 
 namespace state{
@@ -20,11 +20,14 @@ namespace state{
   {
       return m_teamBoard;
   }
-  TeamStatus State::getPlayer(){
+  
+  TeamStatus State::getPlayer()
+  {
       return m_player;
   }
-  void State::setPlayer(TeamStatus player){
+  
+  void State::setPlayer(TeamStatus player)
+  {
       m_player=player;
   }
-  
 };

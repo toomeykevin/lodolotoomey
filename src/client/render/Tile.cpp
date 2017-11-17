@@ -4,37 +4,40 @@
  * and open the template in the editor.
  */
 
-#include "Tile.h"
 #include <iostream>
+
+#include "Tile.h"
 
 using namespace std;
 
-
 namespace render{
-    Tile::Tile() {
-        
-    }
+    Tile::Tile() {}
     
-    Tile::Tile(int x, int y, int w, int h){
+    Tile::Tile(int x, int y, int w, int h)
+    {
         this->x=x;
         this->y=y;
         m_width=w;
         m_height=h;
     }
     
-    int Tile::getx(){
+    int Tile::getx()
+    {
         return x;
     }
     
-    int Tile::gety(){
+    int Tile::gety()
+    {
         return y;
     }
     
-    int Tile::getWidth(){
+    int Tile::getWidth()
+    {
         return m_width;
     }
     
-    int Tile::getHeight(){
+    int Tile::getHeight()
+    {
         return m_height;
     }
 };

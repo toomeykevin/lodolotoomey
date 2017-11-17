@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-
-#include "Territory.h"
 #include <iostream>
+#include "Territory.h"
+
 using namespace std;
 
 namespace state{

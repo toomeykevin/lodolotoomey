@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 
-#include "TerritoryTileSet.h"
 #include <iostream>
+#include "TerritoryTileSet.h"
 #include "state/Territory.h"
 
 using namespace std;
 using namespace state;
-
 
 namespace render{
     TerritoryTileSet::TerritoryTileSet () : m_territories(3)

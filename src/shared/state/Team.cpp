@@ -4,8 +4,9 @@
  * and open the template in the editor.
  */
 
-#include "Team.h"
 #include <iostream>
+#include "Team.h"
+
 using namespace std;
 
 namespace state {
@@ -19,7 +20,8 @@ namespace state {
         return m_nbCreatures;
     }
     
-    void Team::setNbCreatures (int nbCreatures){
+    void Team::setNbCreatures (int nbCreatures)
+    {
         if (nbCreatures <1 || nbCreatures >8)
         {
             cout << "nbCreatures invalide" << endl;
@@ -30,11 +32,13 @@ namespace state {
         }
     }
     
-    TeamStatus Team::getTeamStatus() {
+    TeamStatus Team::getTeamStatus()
+    {
         return m_teamStatus;
     }
     
-    void Team::setTeamStatus(TeamStatus teamStatus){
+    void Team::setTeamStatus(TeamStatus teamStatus)
+    {
         if (teamStatus != DRAGONS && teamStatus != UNICORNS)
         {
             cout << "TeamStatus invalide" << endl;

@@ -4,13 +4,12 @@
  * and open the template in the editor.
  */
 
-#include "NumberTileSet.h"
 #include <iostream>
+#include "NumberTileSet.h"
 #include "state/Team.h"
 
 using namespace std;
 using namespace state;
-
 
 namespace render{
     NumberTileSet::NumberTileSet () : m_numbers(9)
@@ -45,6 +44,7 @@ namespace render{
     {
         if (c==0)
         {
+            // on renvoie une texture vide
             return m_numbers[8];
         }
         if (c == 1)
