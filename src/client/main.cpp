@@ -13,6 +13,7 @@ void livrable_1final_state(string commande);
 void livrable_21_render(string commande);
 void livrable_22_engine(string commande);
 void livrable_2final_random_ai(string commande);
+void livrable_31_heuristic_ai(string commande);
 
 int main(int argc,char* argv[]) 
 {
@@ -24,6 +25,7 @@ int main(int argc,char* argv[])
         livrable_21_render(str);
         livrable_22_engine(str);
         livrable_2final_random_ai(str);
+        livrable_31_heuristic_ai(str);
         cout<<"Si rien ne s'est affiché, la commande n'est pas valable"<<endl;
     }
     else

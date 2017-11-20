@@ -28,9 +28,9 @@ namespace ai{
         while(l!=0)
         {
             listCommands(list,engine.getState());
-            l=list.size();
+            l=list.size(); // size of the Commands list
                         
-            if (l>0)
+            if (l>0)// while there are still commands that can be executed
             {
                 std::uniform_int_distribution<int> uni(0,l-1); // guaranteed unbiased
                 auto random_integer = uni(randgen);
