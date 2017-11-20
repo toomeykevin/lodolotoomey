@@ -11,7 +11,7 @@
 #include "RandomAI.h"
 
 using namespace std;
-using namespace state;
+using namespace engine;
 using namespace state;
 using namespace ai;
 
