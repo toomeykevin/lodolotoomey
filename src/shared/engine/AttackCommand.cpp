@@ -5,6 +5,8 @@
  */
 
 #include <iostream>
+#include <random>
+#include <chrono>
 #include "state.h"
 #include "AttackCommand.h"
 
@@ -41,27 +43,37 @@ namespace engine{
         // condition sur iAtt-iDef et sur la team
         for (int k=0; k<attNbCreatures; k++)
         {
-            AttWin = AttWin + (rand() %6) + 1;
+            random_device rd; 
+            mt19937 rng(rd());
+            uniform_int_distribution<int> uni(1,6); // guaranteed unbiased
+            auto random_integer = uni(rng);
+            AttWin = AttWin + (random_integer);
         }
         
         for (int m=0; m<defNbCreatures; m++)
         {
-            DefWin = DefWin + (rand() %6) + 1;
+            random_device rd; 
+            mt19937 rng(rd());
+            uniform_int_distribution<int> uni(1,6); // guaranteed unbiased
+            auto random_integer = uni(rng);
+            DefWin = DefWin + (random_integer);
         }
         
-        if (abs(m_iAtt-m_iDef) < 3 && abs(m_jAtt-m_jDef) < 3 && (playerStatus != DefTeamStatus))
+        if (abs(m_iAtt-m_iDef) < 2 && abs(m_jAtt-m_jDef) < 2 && (playerStatus != DefTeamStatus))
         {
-            if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
-            {
-                attackWins(state);
-            }
-            else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
-            {
-                attackLooses(state);
-            } 
-            else
-            {
-                cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
+            if(not((abs(m_iAtt-m_iDef)!=0) && ((m_jAtt-m_jDef < 0 && m_iDef%2==0) || (m_jAtt-m_jDef > 0 && m_iDef%2!=0)))){
+                if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
+                {
+                    attackWins(state);
+                }
+                else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
+                {
+                    attackLooses(state);
+                } 
+                else
+                {
+                    cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
+                }
             }
         }
         else

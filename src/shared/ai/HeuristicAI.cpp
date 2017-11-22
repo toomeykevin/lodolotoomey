@@ -19,31 +19,34 @@ namespace ai{
     void HeuristicAI::run (engine::Engine& engine)
     {
         int l=1;
+        int bestIndice=0;
 
         vector<unique_ptr<Command>> list;
         
         cout<<"Team : 1=dragons 2=licornes"<<endl;
         cout<< "C'est le tour de l'équipe "<<engine.getState().getPlayer()<<endl;
         
-        while(l!=0)
+        while(l!=0 && bestIndice!=-1)
         {
             listCommands(list,engine.getState());
             l=list.size();
-                        
-            if (l>0)
+            bestIndice = bestCommand(list,engine.getState());            
+            if (l>0 && bestIndice>=0)
             {
                 //std::uniform_int_distribution<int> uni(0,l-1); // guaranteed unbiased
                 //auto random_integer = uni(randgen);
                 //cout<<"Entier aléatoire : "<<random_integer<<endl;
-                int bestIndice= bestCommand(list,engine.getState());
+                
+                
                 cout<<" Attaque de ("<<((AttackCommand*)list[bestIndice].get())->getIAtt();
                 cout<<","<<((AttackCommand*)list[bestIndice].get())->getJAtt()<<") ";
                 cout<<"sur ("<<((AttackCommand*)list[bestIndice].get())->getIDef();
                 cout<<","<<((AttackCommand*)list[bestIndice].get())->getJDef()<<")"<<endl;
                 engine.addCommand(list[bestIndice].release());
-                
+
                 engine.update();
                 list.clear();
+                
             }
             else{}  
         }
@@ -92,7 +95,13 @@ namespace ai{
                indiceDuMax=k; 
             }
         }
-        return indiceDuMax;
+        cout<<"tab[indice] : "<< tab[indiceDuMax]<<endl;
+        if (tab[indiceDuMax]>=0){
+            return indiceDuMax;
+        }
+        else{
+            return -1;
+        }
     }
     
     HeuristicAI::HeuristicAI ()
