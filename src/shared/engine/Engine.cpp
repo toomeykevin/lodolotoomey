@@ -36,21 +36,24 @@ namespace engine{
     
     void Engine::update ()
     {
-        for (int i=0; i<((int)(m_currentCommands.size())); i++)
-        {
-            if ((m_currentCommands[i]).get()->getTypeId() == RENFORTS)
+        if (m_currentCommands.size()!=0){
+            for (int i=0; i<((int)(m_currentCommands.size())); i++)
             {
-                ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState);
+                if ((m_currentCommands[i]).get()->getTypeId() == RENFORTS)
+                {
+                    ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState);
+                }
+                else if ((m_currentCommands[i]).get()->getTypeId() == ATTACK)
+                {
+                    ((AttackCommand*)(m_currentCommands[i]).get())->execute(m_currentState);
+                }
+                else
+                {
+                    ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState);
+                }
+                m_currentCommands.clear();
             }
-            else if ((m_currentCommands[i]).get()->getTypeId() == ATTACK)
-            {
-                ((AttackCommand*)(m_currentCommands[i]).get())->execute(m_currentState);
-            }
-            else
-            {
-                ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState);
-            }
-            m_currentCommands.clear();
         }
+        else{throw runtime_error(" la list de commandes est vide");}
     }
 };

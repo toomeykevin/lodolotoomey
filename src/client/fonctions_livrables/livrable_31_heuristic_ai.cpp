@@ -26,7 +26,7 @@ void livrable_31_heuristic_ai(string commande)
     {
         cout<<"La commande est heuristic."<<endl;
 
-        RandomAI* AIPlayer = new RandomAI();
+        HeuristicAI* AIPlayer = new HeuristicAI();
         Engine moteur;
         State& etat = moteur.getState();
                 

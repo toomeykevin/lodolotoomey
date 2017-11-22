@@ -61,10 +61,14 @@ namespace engine{
         
         if (abs(m_iAtt-m_iDef) < 2 && abs(m_jAtt-m_jDef) < 2 && (playerStatus != DefTeamStatus))
         {
-            if(not((abs(m_iAtt-m_iDef)!=0) && ((m_jAtt-m_jDef < 0 && m_iDef%2==0) || (m_jAtt-m_jDef > 0 && m_iDef%2!=0)))){
+            //cout<<"je suis execute atack command"<< ((Team*)state.getTeamBoard().getElement(2,1))->getNbCreatures()<<endl;
+            if(not((m_iAtt!=m_iDef) && ((m_jAtt>m_jDef && m_iDef%2==0) || (m_jAtt< m_jDef && m_iDef%2!=0))))
+            {
+                
                 if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
                 {
                     attackWins(state);
+                    
                 }
                 else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
                 {
@@ -75,12 +79,16 @@ namespace engine{
                     cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
                 }
             }
+            else
+            {
+               throw runtime_error("la bataille est ni gagné ni perdu = probleme"); 
+            }
         }
         else
         {
             cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
         }
-    
+
     }
     
     void AttackCommand::attackWins (state::State& state)

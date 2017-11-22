@@ -30,22 +30,26 @@ namespace ai{
         {
             listCommands(list,engine.getState());
             l=list.size();
-            bestIndice = bestCommand(list,engine.getState());            
-            if (l>0 && bestIndice>=0)
+                       
+            if (l>0)
             {
                 //std::uniform_int_distribution<int> uni(0,l-1); // guaranteed unbiased
                 //auto random_integer = uni(randgen);
                 //cout<<"Entier aléatoire : "<<random_integer<<endl;
                 
-                
-                cout<<" Attaque de ("<<((AttackCommand*)list[bestIndice].get())->getIAtt();
-                cout<<","<<((AttackCommand*)list[bestIndice].get())->getJAtt()<<") ";
-                cout<<"sur ("<<((AttackCommand*)list[bestIndice].get())->getIDef();
-                cout<<","<<((AttackCommand*)list[bestIndice].get())->getJDef()<<")"<<endl;
-                engine.addCommand(list[bestIndice].release());
-
-                engine.update();
-                list.clear();
+                bestIndice = bestCommand(list,engine.getState()); 
+                cout<<"best indice : "<<bestIndice<<endl;
+                if (bestIndice>=0){
+                    cout<<" Attaque de ("<<((AttackCommand*)list[bestIndice].get())->getIAtt();
+                    cout<<","<<((AttackCommand*)list[bestIndice].get())->getJAtt()<<") ";
+                    cout<<"sur ("<<((AttackCommand*)list[bestIndice].get())->getIDef();
+                    cout<<","<<((AttackCommand*)list[bestIndice].get())->getJDef()<<")"<<endl;
+                    engine.addCommand(list[bestIndice].release());
+                    
+                    engine.update();
+                    list.clear();
+                    
+                }
                 
             }
             else{}  
@@ -63,7 +67,9 @@ namespace ai{
         else
         {
              engine.getState().setPlayer(DRAGONS);
-        }    
+        }   
+        cout<<"player : "<<engine.getState().getPlayer()<<endl;
+        
     }
     
     int HeuristicAI::bestCommand(vector<unique_ptr<Command>>& listOrd, State& state)
@@ -90,11 +96,13 @@ namespace ai{
         indiceDuMax=0;
         for(int k=0;k<(int)tab.size();k++)
         {
+            cout<<tab[k]<<" ";
             if (tab[k]>tab[indiceDuMax]) 
             {
                indiceDuMax=k; 
             }
         }
+        cout<<endl;
         cout<<"tab[indice] : "<< tab[indiceDuMax]<<endl;
         if (tab[indiceDuMax]>=0){
             return indiceDuMax;
