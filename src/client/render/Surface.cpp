@@ -36,20 +36,20 @@ namespace render{
     {
         sf::Vertex* quad = &m_hexas[i*4];
         // si ligne paire
-        if (y%2==0)
+        if (x%2==0)
         {
-            quad[0].position = Vector2f(120*x,105*y);
-            quad[1].position = Vector2f(120*(x+1),105*y);
-            quad[2].position = Vector2f(120*(x+1),105*y+140);
-            quad[3].position = Vector2f(120*x,105*y+140);
+            quad[0].position = Vector2f(120*y,105*x);
+            quad[1].position = Vector2f(120*(y+1),105*x);
+            quad[2].position = Vector2f(120*(y+1),105*x+140);
+            quad[3].position = Vector2f(120*y,105*x+140);
         }
         // si ligne impaire, il faut tout décaler de 60 pixels
-        if (y%2!=0)
+        if (x%2!=0)
         {
-            quad[0].position = Vector2f(60+120*x,105*y);
-            quad[1].position = Vector2f(60+120*(x+1),105*y);
-            quad[2].position = Vector2f(60+120*(x+1),105*y+140);
-            quad[3].position = Vector2f(60+120*x,105*y+140);
+            quad[0].position = Vector2f(60+120*y,105*x);
+            quad[1].position = Vector2f(60+120*(y+1),105*x);
+            quad[2].position = Vector2f(60+120*(y+1),105*x+140);
+            quad[3].position = Vector2f(60+120*y,105*x+140);
         }
     }
     

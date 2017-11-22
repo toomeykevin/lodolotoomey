@@ -27,8 +27,15 @@ namespace engine{
     {
         int etat_Width = state.getTeamBoard().getWidth();
         int etat_Height = state.getTeamBoard().getHeight();
-        int NbrCr = 4;
         
+        /*TerritoryStatus trs00;
+        TerritoryStatus trs00;
+        TerritoryStatus trs00;
+        TerritoryStatus trs00;
+        TerritoryStatus trs00;
+        */
+        
+        int NbrCr = 4;
         for (int i=0; i<etat_Height; i++)
         {
             for (int j=0; j<etat_Width; j++)
@@ -44,7 +51,7 @@ namespace engine{
                     NbrCr = 0;
                 }
                 // la moitié gauche de la map est constituée de tiles dragons
-                else if(i<((int)etat_Height)/2)
+                else if(j<((int)etat_Width)/2)
                 {
                     teamStatus = DRAGONS;
                     territoryStatus = DRAGONS_T;
