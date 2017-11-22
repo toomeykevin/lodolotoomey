@@ -67,20 +67,20 @@ void livrable_22_engine(string commande)
                     
                 // attaque de la case (1,1) contre (2,1) : 4 dragons contre 4 licornes
                 cout<<"   Début de l'attaque"<<endl;
-                cout<<"      Attaque de la case (1,1) contre la case (1,2)"<<endl;
+                cout<<"      Attaque de la case (2,3) contre la case (1,2)"<<endl;
 
                 // stockage du nb de créatures des deux cases avant l'attaque
                 int nbC11Avant =
-                        ((Team*)etat.getTeamBoard().getElement(1,1))->getNbCreatures();
+                        ((Team*)etat.getTeamBoard().getElement(2,3))->getNbCreatures();
                 int nbC21Avant =
                         ((Team*)etat.getTeamBoard().getElement(1,2))->getNbCreatures();
                 // stockage des teamStatus et territoryStatus des deux cases avant l'attaque
                 TeamStatus teamStatus11Avant =
-                        ((Team*)etat.getTeamBoard().getElement(1,1))->getTeamStatus();
+                        ((Team*)etat.getTeamBoard().getElement(2,3))->getTeamStatus();
                 TeamStatus teamStatus21Avant =
                         ((Team*)etat.getTeamBoard().getElement(1,2))->getTeamStatus();
                 TerritoryStatus territoryStatus11Avant =
-                        ((Territory*)etat.getTerritoryBoard().getElement(1,1))->getTerritoryStatus();
+                        ((Territory*)etat.getTerritoryBoard().getElement(2,3))->getTerritoryStatus();
                 TerritoryStatus territoryStatus21Avant =
                         ((Territory*)etat.getTerritoryBoard().getElement(1,2))->getTerritoryStatus();
 
@@ -96,7 +96,7 @@ void livrable_22_engine(string commande)
                 sleep(milliseconds(5000));
                 
                 // attaque
-                AttackCommand* cmdAtt = new AttackCommand(1,1,1,2); // (1,1) vs (1,2)
+                AttackCommand* cmdAtt = new AttackCommand(2,3,1,2); // (2,3) vs (1,2)
                 moteur.addCommand((Command*)cmdAtt);
                 moteur.update();
 
@@ -104,28 +104,28 @@ void livrable_22_engine(string commande)
                 cout<<"   Résultat de l'attaque"<<endl;
 
                 int nbC11Apres =
-                        ((Team*)etat.getTeamBoard().getElement(1,1))->getNbCreatures();
+                        ((Team*)etat.getTeamBoard().getElement(2,3))->getNbCreatures();
                 int nbC21Apres =
                         ((Team*)etat.getTeamBoard().getElement(1,2))->getNbCreatures();
                 TeamStatus teamStatus11Apres =
-                        ((Team*)etat.getTeamBoard().getElement(1,1))->getTeamStatus();
+                        ((Team*)etat.getTeamBoard().getElement(2,3))->getTeamStatus();
                 TeamStatus teamStatus21Apres =
                         ((Team*)etat.getTeamBoard().getElement(1,2))->getTeamStatus();
                 TerritoryStatus territoryStatus11Apres =
-                        ((Territory*)etat.getTerritoryBoard().getElement(1,1))->getTerritoryStatus();
+                        ((Territory*)etat.getTerritoryBoard().getElement(2,3))->getTerritoryStatus();
                 TerritoryStatus territoryStatus21Apres =
                         ((Territory*)etat.getTerritoryBoard().getElement(1,2))->getTerritoryStatus();
 
                 cout<<"      Team : 1=licornes et 2=dragons"<<endl;
                 cout<<"      Territory : 1=licornes et 2=dragons et 3=inaccessible"<<endl;
-                cout<<"      Case (1,1) après attaque : "<< nbC11Apres<<" créatures de l'équipe "
+                cout<<"      Case (2,3) après attaque : "<< nbC11Apres<<" créatures de l'équipe "
                         <<teamStatus11Apres<<" sur un territoire du type "<<territoryStatus11Apres<<endl;
                 cout<<"      Case (1,2) après attaque : "<< nbC21Apres<<" créatures de l'équipe "
                         <<teamStatus21Apres<<" sur un territoire du type "<<territoryStatus21Apres<<endl;
                 cout<<"   Fin de l'attaque"<<endl<<endl;
                 
                 // gestion des renforts
-                GestionRenforts* gestionRenforts = new GestionRenforts(10); // 1,1 vs 1,2
+                GestionRenforts* gestionRenforts = new GestionRenforts(1); // 2,3 vs 1,2
                 moteur.addCommand((Command*)gestionRenforts);
                 moteur.update();
 
@@ -135,21 +135,21 @@ void livrable_22_engine(string commande)
                         " ont droit chacune à 1 dragon en renfort"<<endl;
 
                 nbC11Apres =
-                        ((Team*)etat.getTeamBoard().getElement(1,1))->getNbCreatures();
+                        ((Team*)etat.getTeamBoard().getElement(2,3))->getNbCreatures();
                 nbC21Apres =
                         ((Team*)etat.getTeamBoard().getElement(1,2))->getNbCreatures();
                 teamStatus11Apres =
-                        ((Team*)etat.getTeamBoard().getElement(1,1))->getTeamStatus();
+                        ((Team*)etat.getTeamBoard().getElement(2,3))->getTeamStatus();
                 teamStatus21Apres =
                         ((Team*)etat.getTeamBoard().getElement(1,2))->getTeamStatus();
                 territoryStatus11Apres =
-                        ((Territory*)etat.getTerritoryBoard().getElement(1,1))->getTerritoryStatus();
+                        ((Territory*)etat.getTerritoryBoard().getElement(2,3))->getTerritoryStatus();
                 territoryStatus21Apres =
                         ((Territory*)etat.getTerritoryBoard().getElement(1,2))->getTerritoryStatus();
 
                 cout<<"      Team : 1=licornes et 2=dragons"<<endl;
                 cout<<"      Territory : 1=licornes et 2=dragons et 3=inaccessible"<<endl;
-                cout<<"      Case (1,1) après renforts : "<< nbC11Apres<<" créatures de l'équipe "
+                cout<<"      Case (2,3) après renforts : "<< nbC11Apres<<" créatures de l'équipe "
                         <<teamStatus11Apres<<" sur un territoire de type "<<territoryStatus11Apres<<endl;
                 cout<<"      Case (1,2) après renforts : "<< nbC21Apres<<" créatures de l'équipe "
                         <<teamStatus21Apres<<" sur un territoire de type "<<territoryStatus21Apres<<endl;
