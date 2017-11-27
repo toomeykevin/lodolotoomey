@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include "State.h"
+#include "Team.h"
 
 using namespace std;
 
@@ -30,4 +31,34 @@ namespace state{
   {
       m_player=player;
   }
+  
+   bool State::isGameOver()
+    {
+        bool boolean= false;
+        int nbDragons=0;
+        int nbUnicorns=0;
+        TeamStatus teamStatus;
+        int width= ((int)m_teamBoard.getWidth());
+        int height= ((int)m_teamBoard.getHeight());
+        for (int i=0; i<height; i++)
+        {
+            for (int j=0; j<width;j++)
+            {
+                teamStatus=((Team*)m_teamBoard.getElement(i,j))->getTeamStatus();
+                if (teamStatus==DRAGONS)
+                {
+                    nbDragons+=1;
+                }
+                else if (teamStatus==UNICORNS)
+                {
+                    nbUnicorns+=1;
+                }
+            }
+        }
+        if (nbUnicorns==0 || nbDragons==0){
+            boolean=true;
+        }
+        
+        return boolean;
+    }
 };

@@ -71,7 +71,24 @@ void livrable_31_heuristic_ai(string commande)
             {
                     cout<<"Fermez la fenêtre pour quitter"<<endl;
                     cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
-                    AIPlayer->run(moteur);
+                    if (moteur.getState().isGameOver()){
+                        string strfinal;
+                        if(moteur.getState().getPlayer()==DRAGONS)
+                        {
+                            strfinal="UNICORNS";
+                        }
+                        else
+                        {
+                            strfinal="DRAGONS";
+                        }
+                        
+                        cout<< "GAME OVER : The winner is "<<strfinal<<endl;
+                        window.close(); 
+                    }
+                    else
+                    {
+                        AIPlayer->run(moteur);
+                    }
                     sleep(milliseconds(1000));
             }
             
