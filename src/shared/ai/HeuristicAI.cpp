@@ -22,10 +22,7 @@ namespace ai{
         int bestIndice=0;
 
         vector<unique_ptr<Command>> list;
-        
-        cout<<"Team : 1=dragons 2=licornes"<<endl;
-        cout<< "C'est le tour de l'équipe "<<engine.getState().getPlayer()<<endl;
-        
+                
         while(l!=0 && bestIndice!=-1)
         {
             listCommands(list,engine.getState());
@@ -38,24 +35,34 @@ namespace ai{
                 //cout<<"Entier aléatoire : "<<random_integer<<endl;
                 
                 bestIndice = bestCommand(list,engine.getState()); 
-                cout<<"best indice : "<<bestIndice<<endl;
+                //cout<<"best index : "<<bestIndice<<endl;
                 if (bestIndice>=0){
-                    cout<<" Attaque de ("<<((AttackCommand*)list[bestIndice].get())->getIAtt();
-                    cout<<","<<((AttackCommand*)list[bestIndice].get())->getJAtt()<<") ";
-                    cout<<"sur ("<<((AttackCommand*)list[bestIndice].get())->getIDef();
-                    cout<<","<<((AttackCommand*)list[bestIndice].get())->getJDef()<<")"<<endl;
+                    int iAtt=((AttackCommand*)list[bestIndice].get())->getIAtt();
+                    int jAtt=((AttackCommand*)list[bestIndice].get())->getJAtt();
+                    int iDef=((AttackCommand*)list[bestIndice].get())->getIDef();
+                    int jDef=((AttackCommand*)list[bestIndice].get())->getJDef();
+                    cout<<" Attack of ("<<iAtt;
+                    cout<<","<<jAtt<<") ";
+                    cout<<"on ("<<iDef;
+                    cout<<","<<jDef<<") and the winner is ";
                     engine.addCommand(list[bestIndice].release());
-                    
                     engine.update();
                     list.clear();
-                    
+                    TeamStatus victorStatus=((Team*)engine.getState().getTeamBoard().getElement(iDef,jDef))->getTeamStatus();
+                    if (victorStatus==DRAGONS)
+                    {
+                        cout<<"DRAGONS !"<<endl;
+                    }
+                    else
+                    {
+                        cout<< "UNICORNS !"<<endl;
+                    }
                 }
                 
             }
             else{}  
         }
         
-        cout<<endl;
         GestionRenforts* gestionRenfort = new GestionRenforts(1);
         engine.addCommand((Command*)gestionRenfort);
         engine.update();
@@ -68,8 +75,15 @@ namespace ai{
         {
              engine.getState().setPlayer(DRAGONS);
         }   
-        cout<<"player : "<<engine.getState().getPlayer()<<endl;
-        
+        // Afiichage pour le nom de l'équipe qui va jouer enuite.
+        if(engine.getState().getPlayer()==DRAGONS)
+        {
+            cout<<endl<<"It is now the DRAGONS' turn !"<<endl;
+        }
+        else
+        {
+            cout<<endl<< "It is now the UNICORNS' turn !"<<endl;
+        }
     }
     
     int HeuristicAI::bestCommand(vector<unique_ptr<Command>>& listOrd, State& state)
@@ -96,14 +110,14 @@ namespace ai{
         indiceDuMax=0;
         for(int k=0;k<(int)tab.size();k++)
         {
-            cout<<tab[k]<<" ";
+            //cout<<tab[k]<<" ";
             if (tab[k]>tab[indiceDuMax]) 
             {
                indiceDuMax=k; 
             }
         }
-        cout<<endl;
-        cout<<"tab[indice] : "<< tab[indiceDuMax]<<endl;
+        //cout<<endl;
+        //cout<<"tab[indice] : "<< tab[indiceDuMax]<<endl;
         if (tab[indiceDuMax]>=0){
             return indiceDuMax;
         }
