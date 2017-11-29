@@ -26,6 +26,7 @@ namespace state {
     ElementTab& getTeamBoard ();
     TeamStatus getPlayer ();
     void setPlayer (TeamStatus player);
+    bool isGameOver ();
     // Setters and Getters
   };
 

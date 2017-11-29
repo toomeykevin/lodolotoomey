@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include "Team.h"
+#include "State.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ namespace state {
     {
         if (nbCreatures <1 || nbCreatures >8)
         {
-            cout << "nbCreatures invalide" << endl;
+            //cout << "nbCreatures invalide" << endl;
         }
         else
         {
@@ -53,4 +54,5 @@ namespace state {
     {
         return false;
     }
+   
 };

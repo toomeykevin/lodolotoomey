@@ -25,7 +25,7 @@ namespace engine{
     
     void GestionRenforts::execute (state::State& state)
     {    
-        int renfortTile = 0;
+        //int renfortTile = 0;
         
         for (int i=0; i<(int)(state.getTeamBoard().getHeight()); i++)
         {
@@ -34,7 +34,7 @@ namespace engine{
                 int currentNbCr =
                         ((Team*)state.getTeamBoard().getElement(i,j))->getNbCreatures();
                 if (((((Team*)state.getTeamBoard().getElement(i,j))->getTeamStatus()) ==
-                        state.getPlayer()) && (renfortTile<m_renforts) && (currentNbCr!=0))
+                        state.getPlayer()) /*&& (renfortTile<m_renforts)*/ && (currentNbCr!=0))
                 {
                     ((Team*)state.getTeamBoard().getElement(i,j))->setNbCreatures(1+currentNbCr);
                 }

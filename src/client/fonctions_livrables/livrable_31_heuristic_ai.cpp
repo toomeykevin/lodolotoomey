@@ -24,16 +24,20 @@ void livrable_31_heuristic_ai(string commande)
 {
     if (commande == "heuristic_ai")
     {
-        cout<<"La commande est heuristic."<<endl;
+        cout<<"La commande est heuristic."<<endl<<endl;
 
         HeuristicAI* AIPlayer = new HeuristicAI();
         Engine moteur;
         State& etat = moteur.getState();
                 
-        int sizeVector=etat.getTeamBoard().getSizeVector();
-        cout<<"taille du tableau de tuiles : "<<sizeVector<<endl;
-        cout<<"taille du tableau height x width : "<<etat.getTeamBoard().getHeight()<<
-                " x "<<etat.getTeamBoard().getWidth()<< endl;
+        if(moteur.getState().getPlayer()==DRAGONS)
+        {
+            cout<<"It is now the DRAGONS' turn !"<<endl;
+        }
+        else
+        {
+            cout<< "It is now the UNICORNS' turn !"<<endl;
+        }
         cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
         
         // initialisation de l'état
@@ -67,7 +71,24 @@ void livrable_31_heuristic_ai(string commande)
             {
                     cout<<"Fermez la fenêtre pour quitter"<<endl;
                     cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
-                    AIPlayer->run(moteur);
+                    if (moteur.getState().isGameOver()){
+                        string strfinal;
+                        if(moteur.getState().getPlayer()==DRAGONS)
+                        {
+                            strfinal="UNICORNS";
+                        }
+                        else
+                        {
+                            strfinal="DRAGONS";
+                        }
+                        
+                        cout<< "GAME OVER : The winner is "<<strfinal<<endl;
+                        window.close(); 
+                    }
+                    else
+                    {
+                        AIPlayer->run(moteur);
+                    }
                     sleep(milliseconds(1000));
             }
             

@@ -95,6 +95,7 @@ namespace engine{
     {
         int nbCreatures =
                 ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
+        
         ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->setNbCreatures(1);
         ((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->setNbCreatures(nbCreatures-1);
         
