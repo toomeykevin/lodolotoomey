@@ -11,13 +11,11 @@ namespace engine {
 }
 
 #include "Action.h"
-#include "state/State.h"
 
 namespace engine {
 
   /// class RenfortsAction - 
   class RenfortsAction : public engine::Action {
-    // Associations
     // Attributes
   private:
     state::TeamStatus m_playerStatus;

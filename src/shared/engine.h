@@ -9,6 +9,7 @@
 #include "engine/AttackCommand.h"
 #include "engine/GestionRenforts.h"
 #include "engine/InitBasicState.h"
-#include "engine/AttackAction.h"
+#include "engine/WinAction.h"
 #include "engine/RenfortsAction.h"
+#include "engine/LooseAction.h"
 #endif

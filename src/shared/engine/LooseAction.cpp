@@ -5,19 +5,19 @@
  */
 
 #include <iostream>
-#include "AttackAction.h"
+#include "LooseAction.h"
 
 
 using namespace std;
 using namespace state;
 
 namespace engine{
-    AttackAction::AttackAction(int m_iAtt,int m_jAtt,int m_iDef,int m_jDef,
+    LooseAction::LooseAction(int m_iAtt,int m_jAtt,int m_iDef,int m_jDef,
             int m_nbCreaturesAtt,int m_nbCreaturesDef,TeamStatus m_AttPlayerStatus){
         
     }
     
-    void AttackAction::apply (state::State& state)  { }
+    void LooseAction::apply (state::State& state)  { }
     
-    void AttackAction::undo (state::State& state){}
+    void LooseAction::undo (state::State& state){}
 };
