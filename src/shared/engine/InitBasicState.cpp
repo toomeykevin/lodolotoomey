@@ -23,7 +23,7 @@ namespace engine{
         return m_commandTypeId;
     }
     
-    void InitBasicState::execute (state::State& state)
+    void InitBasicState::execute (state::State& state, std::stack<shared_ptr<Action>>& actions)
     {
         ElementTab& territory = state.getTerritoryBoard();
         ElementTab& team = state.getTeamBoard();

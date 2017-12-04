@@ -5,17 +5,14 @@
  */
 
 #include <iostream>
-#include "Command.h"
+#include "Action.h"
 
 using namespace std;
 
 namespace engine{
-    Command::~Command (){}
+    Action::~Action (){}
     
-    CommandTypeId Command::getTypeId () const
-    {
-        return m_commandTypeId;
-    }
+    void Action::apply (state::State& state)  { }
     
-    void Command::execute (state::State& state, std::stack<shared_ptr<Action>>& actions){}
+    void Action::undo (state::State& state){}
 };

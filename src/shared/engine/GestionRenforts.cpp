@@ -23,7 +23,7 @@ namespace engine{
         return m_commandTypeId;
     }
     
-    void GestionRenforts::execute (state::State& state)
+    void GestionRenforts::execute (state::State& state, std::stack<shared_ptr<Action>>& actions)
     {    
         //int renfortTile = 0;
         

@@ -2,15 +2,19 @@
 #ifndef ENGINE__GESTIONRENFORTS__H
 #define ENGINE__GESTIONRENFORTS__H
 
+#include <stack>
+#include <memory>
 
 namespace state {
   class State;
 };
 namespace engine {
+  class Action;
   class Command;
 }
 
 #include "CommandTypeId.h"
+#include "Action.h"
 #include "Command.h"
 
 namespace engine {
@@ -24,9 +28,9 @@ namespace engine {
   public:
     GestionRenforts (int i);
     CommandTypeId getTypeId () const;
-    void execute (state::State& state);
     int getRenforts ();
     void setRenforts (int renforts);
+    void execute (state::State& state, std::stack<std::shared_ptr<Action>>& actions);
     // Setters and Getters
   };
 

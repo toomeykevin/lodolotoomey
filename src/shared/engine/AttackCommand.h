@@ -2,15 +2,19 @@
 #ifndef ENGINE__ATTACKCOMMAND__H
 #define ENGINE__ATTACKCOMMAND__H
 
+#include <stack>
+#include <memory>
 
 namespace state {
   class State;
 };
 namespace engine {
+  class Action;
   class Command;
 }
 
 #include "CommandTypeId.h"
+#include "Action.h"
 #include "Command.h"
 
 namespace engine {
@@ -27,7 +31,6 @@ namespace engine {
   public:
     AttackCommand (int iAtt, int jAtt, int iDef, int jDef);
     CommandTypeId getTypeId () const;
-    void execute (state::State& state);
     void attackWins (state::State& state);
     void attackLooses (state::State& state);
     int getIAtt ();
@@ -38,6 +41,7 @@ namespace engine {
     void setIDef (int iDef);
     int getJDef ();
     void setJDef (int jDef);
+    void execute (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);
     // Setters and Getters
   };
 

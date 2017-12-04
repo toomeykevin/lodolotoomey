@@ -12,6 +12,7 @@
 
 using namespace std;
 using namespace state;
+using namespace engine;
 
 namespace engine{
     AttackCommand::AttackCommand (int iAtt, int jAtt, int iDef, int jDef)
@@ -28,7 +29,7 @@ namespace engine{
         return m_commandTypeId;
     }
     
-    void AttackCommand::execute (state::State& state)
+    void AttackCommand::execute (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
     {
         int attNbCreatures =
                 ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();

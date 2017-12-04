@@ -4,15 +4,18 @@
 
 #include <vector>
 #include <memory>
+#include <stack>
 
 namespace state {
   class State;
 };
 namespace engine {
   class Command;
+  class Action;
 }
 
 #include "state/State.h"
+#include "Action.h"
 #include "Command.h"
 
 namespace engine {
@@ -31,7 +34,8 @@ namespace engine {
     state::State& getState ();
     void addPassivCommands ();
     void addCommand (Command* cmd);
-    void update ();
+    std::stack<std::shared_ptr<Action>> update ();
+    void undo (std::stack<std::shared_ptr<Action>>& actions);
     // Setters and Getters
   };
 
