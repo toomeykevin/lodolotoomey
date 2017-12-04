@@ -22,6 +22,7 @@ namespace ai {
     // Operations
   public:
     virtual void run (engine::Engine& engine) = 0;
+    virtual ~AI ();
   protected:
     void listCommands (std::vector<std::unique_ptr<engine::Command>>& list, state::State& state);
     void addAroundCommands (std::vector<std::unique_ptr<engine::Command>>& list, state::State& state, int i, int j);

@@ -15,6 +15,9 @@ using namespace engine;
 using namespace state;
 
 namespace ai{
+    
+    AI::~AI(){}
+    
     void AI::addAroundCommands (vector<unique_ptr<Command>>& list, State& state, int i, int j)
     {
         ElementTab& teamBoard = state.getTeamBoard();

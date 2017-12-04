@@ -16,12 +16,9 @@ using namespace state;
 using namespace ai;
 
 namespace ai { 
-    DeepAI::DeepAi(state::State& state)
-    {
-        
-    }
+    DeepAI::DeepAI(){}
 
-    void run (engine::Engine& engine)
+    void DeepAI::run (engine::Engine& engine)
     {
         
     }

@@ -6,9 +6,6 @@
 namespace engine {
   class Engine;
 };
-namespace state {
-  class State;
-};
 namespace ai {
   class AI;
 }
@@ -27,7 +24,7 @@ namespace ai {
     // Operations
   public:
     void run (engine::Engine& engine);
-    DeepAI (state::State& state);
+    DeepAI ();
     // Setters and Getters
   };
 
