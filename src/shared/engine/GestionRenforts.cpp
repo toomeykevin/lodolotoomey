@@ -25,21 +25,12 @@ namespace engine{
     
     void GestionRenforts::execute (state::State& state, std::stack<shared_ptr<Action>>& actions)
     {    
-        //int renfortTile = 0;
+        TeamStatus playerStatus=state.getPlayer();
+        RenfortsAction* pR= new RenfortsAction(playerStatus);
+        shared_ptr<Action> spRenforts((Action*)pR);
+        actions.push(spRenforts);
         
-        for (int i=0; i<(int)(state.getTeamBoard().getHeight()); i++)
-        {
-            for (int j=0; j<(int)(state.getTeamBoard().getWidth()); j++)
-            {
-                int currentNbCr =
-                        ((Team*)state.getTeamBoard().getElement(i,j))->getNbCreatures();
-                if (((((Team*)state.getTeamBoard().getElement(i,j))->getTeamStatus()) ==
-                        state.getPlayer()) /*&& (renfortTile<m_renforts)*/ && (currentNbCr!=0))
-                {
-                    ((Team*)state.getTeamBoard().getElement(i,j))->setNbCreatures(1+currentNbCr);
-                }
-            }
-        }
+        pR->apply(state);
     }
     
     int GestionRenforts::getRenforts ()

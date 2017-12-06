@@ -11,11 +11,15 @@ namespace state {
 namespace engine {
   class Action;
   class Command;
+  class LooseAction;
+  class WinAction;
 }
 
 #include "CommandTypeId.h"
 #include "Action.h"
 #include "Command.h"
+#include "LooseAction.h"
+#include "WinAction.h"
 
 namespace engine {
 
@@ -31,8 +35,8 @@ namespace engine {
   public:
     AttackCommand (int iAtt, int jAtt, int iDef, int jDef);
     CommandTypeId getTypeId () const;
-    void attackWins (state::State& state);
-    void attackLooses (state::State& state);
+    void attackWins (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);
+    void attackLooses (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);
     int getIAtt ();
     void setIAtt (int iAtt);
     int getJAtt ();

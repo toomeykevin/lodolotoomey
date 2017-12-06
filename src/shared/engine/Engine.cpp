@@ -39,45 +39,23 @@ namespace engine{
     
     std::stack<std::shared_ptr<Action>> Engine::update ()
     {
-        std::stack<shared_ptr<Action>>* actions= new std::stack<shared_ptr<Action>>();
+        std::stack<shared_ptr<Action>> actions;
         if (m_currentCommands.size()!=0){
             
             for (int i=0; i<((int)(m_currentCommands.size())); i++)
             {
                 if ((m_currentCommands[i]).get()->getTypeId() == RENFORTS)
                 {
-                    TeamStatus playerStatus=m_currentState.getPlayer();
-                    RenfortsAction* pR= new RenfortsAction(playerStatus);
-                    shared_ptr<Action> spRenforts((Action*)pR);
-                    actions->push(spRenforts);
-                    ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState,*actions);
+                    ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState,actions);
                 }
                 else if ((m_currentCommands[i]).get()->getTypeId() == ATTACK)
                 {
-                    int iAtt=((AttackCommand*) m_currentCommands[i].get())->getIAtt();
-                    int jAtt=((AttackCommand*) m_currentCommands[i].get())->getJAtt();
-                    int iDef=((AttackCommand*) m_currentCommands[i].get())->getIDef();
-                    int jDef=((AttackCommand*) m_currentCommands[i].get())->getJDef();
-                    int nbCreaturesAtt=((Team*)((AttackCommand*) m_currentState.getTeamBoard().getElement(iAtt,jAtt)))->getNbCreatures();
-                    int nbCreaturesDef=((Team*)((AttackCommand*) m_currentState.getTeamBoard().getElement(iDef,jDef)))->getNbCreatures();
-                    TeamStatus playerStatus=((Team*)((AttackCommand*) m_currentState.getTeamBoard().getElement(iAtt,jAtt)))->getTeamStatus();
                     
-                    ((AttackCommand*)(m_currentCommands[i]).get())->execute(m_currentState,*actions);
-                    TeamStatus playerDefResult=((Team*)((AttackCommand*) m_currentState.getTeamBoard().getElement(iDef,jDef)))->getTeamStatus();
-                    if (playerDefResult==playerStatus){
-                        WinAction* pW= new WinAction(iAtt,jAtt,iDef,jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
-                        shared_ptr<Action> spWin((Action*)pW);
-                        actions->push(spWin); 
-                    }
-                    else{
-                        LooseAction* pL= new LooseAction(iAtt,jAtt,iDef,jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
-                        shared_ptr<Action> spLoose((Action*)pL);
-                        actions->push(spLoose); 
-                    }
+                    ((AttackCommand*)(m_currentCommands[i]).get())->execute(m_currentState,actions);
                 }
                 else
                 {
-                    ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState,*actions);
+                    ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState,actions);
                 }
                 m_currentCommands.clear();
             }
@@ -85,9 +63,9 @@ namespace engine{
         else{
             throw runtime_error(" la list de commandes est vide");
             shared_ptr<Action> p(NULL);
-            actions->push(p);
+            actions.push(p);
         }
-        return *actions;
+        return actions;
     }
     void Engine::undo(std::stack<shared_ptr<Action>>& actions){
         

@@ -9,6 +9,7 @@
 #include <chrono>
 #include "state.h"
 #include "AttackCommand.h"
+#include "WinAction.h"
 
 using namespace std;
 using namespace state;
@@ -68,12 +69,12 @@ namespace engine{
                 
                 if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
                 {
-                    attackWins(state);
+                    attackWins(state, actions);
                     
                 }
                 else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
                 {
-                    attackLooses(state);
+                    attackLooses(state, actions);
                 } 
                 else
                 {
@@ -92,26 +93,31 @@ namespace engine{
 
     }
     
-    void AttackCommand::attackWins (state::State& state)
+    void AttackCommand::attackWins (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
     {
-        int nbCreatures =
-                ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
         
-        ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->setNbCreatures(1);
-        ((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->setNbCreatures(nbCreatures-1);
+        int nbCreaturesAtt=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
+        int nbCreaturesDef=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
+        TeamStatus playerStatus=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
+        WinAction* pW= new WinAction(m_iAtt,m_jAtt,m_iDef,m_jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
+        shared_ptr<Action> spWin((Action*)pW);
+        actions.push(spWin); 
+        pW->apply(state);
         
-        TeamStatus attTeamStatus =
-                ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
-        ((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->setTeamStatus(attTeamStatus);
-        
-        TerritoryStatus attTerritoryStatus =
-                ((Territory*)(state.getTerritoryBoard().getElement(m_iAtt,m_jAtt)))->getTerritoryStatus();
-        ((Territory*)(state.getTerritoryBoard().getElement(m_iDef,m_jDef)))->setTerritoryStatus(attTerritoryStatus);
     }
     
-    void AttackCommand::attackLooses (state::State& state)
+    void AttackCommand::attackLooses (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
     {
-        ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->setNbCreatures(1);
+       int nbCreaturesAtt=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
+       int nbCreaturesDef=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
+       TeamStatus playerStatus=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
+
+       LooseAction* pL= new LooseAction(m_iAtt,m_jAtt,m_iDef,m_jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
+       shared_ptr<Action> spLoose((Action*)pL);
+       actions.push(spLoose);
+       
+       pL->apply(state);
+       
     }
     
     int AttackCommand::getIAtt ()

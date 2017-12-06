@@ -11,11 +11,13 @@ namespace state {
 namespace engine {
   class Action;
   class Command;
+  class RenfortsAction;
 }
 
 #include "CommandTypeId.h"
 #include "Action.h"
 #include "Command.h"
+#include "RenfortsAction.h"
 
 namespace engine {
 

@@ -16,7 +16,21 @@ namespace engine{
         m_playerStatus=AttPlayerStatus;
     }
     
-    void RenfortsAction::apply (state::State& state)  { }
+    void RenfortsAction::apply (state::State& state)  { 
+        for (int i=0; i<(int)(state.getTeamBoard().getHeight()); i++)
+        {
+            for (int j=0; j<(int)(state.getTeamBoard().getWidth()); j++)
+            {
+                int currentNbCr =
+                        ((Team*)state.getTeamBoard().getElement(i,j))->getNbCreatures();
+                if (((((Team*)state.getTeamBoard().getElement(i,j))->getTeamStatus()) ==
+                        state.getPlayer()) && (currentNbCr!=0))
+                {
+                    ((Team*)state.getTeamBoard().getElement(i,j))->setNbCreatures(1+currentNbCr);
+                }
+            }
+        }
+    }
     
     void RenfortsAction::undo (state::State& state)
     {

@@ -12,12 +12,22 @@ using namespace std;
 using namespace state;
 
 namespace engine{
-    LooseAction::LooseAction(int m_iAtt,int m_jAtt,int m_iDef,int m_jDef,
-            int m_nbCreaturesAtt,int m_nbCreaturesDef,TeamStatus m_AttPlayerStatus){
-        
+    LooseAction::LooseAction(int iAtt,int jAtt,int iDef,int jDef,
+            int nbCreaturesAtt,int nbCreaturesDef,TeamStatus AttPlayerStatus){
+        m_iAtt=iAtt;
+        m_jAtt=jAtt;
+        m_iDef=iDef;
+        m_jDef=jDef;
+        m_nbCreaturesAtt=nbCreaturesAtt;
+        m_nbCreaturesDef=nbCreaturesDef;
+        m_AttPlayerStatus=AttPlayerStatus;
     }
     
-    void LooseAction::apply (state::State& state)  { }
+    void LooseAction::apply (state::State& state)  {
+        ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->setNbCreatures(1);
+    }
     
-    void LooseAction::undo (state::State& state){}
+    void LooseAction::undo (state::State& state){
+        ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->setNbCreatures(m_nbCreaturesAtt);
+    }
 };

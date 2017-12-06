@@ -5,10 +5,14 @@
 
 namespace state {
   class ElementTab;
+  class Territory;
+  class Team;
 }
 
 #include "ElementTab.h"
 #include "TeamStatus.h"
+#include "Territory.h"
+#include "Team.h"
 
 namespace state {
 
