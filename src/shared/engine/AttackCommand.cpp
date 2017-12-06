@@ -94,30 +94,35 @@ namespace engine{
     }
     
     void AttackCommand::attackWins (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
-    {
-        
-        int nbCreaturesAtt=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
-        int nbCreaturesDef=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
-        TeamStatus playerStatus=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
-        WinAction* pW= new WinAction(m_iAtt,m_jAtt,m_iDef,m_jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
+    { 
+        int nbCreaturesAtt =
+            ((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
+        int nbCreaturesDef =
+            ((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
+        TeamStatus playerStatus =
+            ((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
+        WinAction* pW =
+            new WinAction(m_iAtt,m_jAtt,m_iDef,m_jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
         shared_ptr<Action> spWin((Action*)pW);
         actions.push(spWin); 
         pW->apply(state);
-        
     }
     
     void AttackCommand::attackLooses (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
     {
-       int nbCreaturesAtt=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
-       int nbCreaturesDef=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
-       TeamStatus playerStatus=((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
+       int nbCreaturesAtt =
+            ((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
+       int nbCreaturesDef =
+            ((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
+       TeamStatus playerStatus =
+            ((Team*)((AttackCommand*) state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getTeamStatus();
 
-       LooseAction* pL= new LooseAction(m_iAtt,m_jAtt,m_iDef,m_jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
+       LooseAction* pL =
+            new LooseAction(m_iAtt,m_jAtt,m_iDef,m_jDef,nbCreaturesAtt,nbCreaturesDef,playerStatus); 
        shared_ptr<Action> spLoose((Action*)pL);
        actions.push(spLoose);
        
        pL->apply(state);
-       
     }
     
     int AttackCommand::getIAtt ()

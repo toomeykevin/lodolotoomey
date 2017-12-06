@@ -29,7 +29,6 @@ namespace engine{
         RenfortsAction* pR= new RenfortsAction(playerStatus);
         shared_ptr<Action> spRenforts((Action*)pR);
         actions.push(spRenforts);
-        
         pR->apply(state);
     }
     
