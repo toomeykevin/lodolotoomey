@@ -8,6 +8,7 @@
 #include "Action.h"
 
 using namespace std;
+using namespace engine;
 
 namespace engine{
     Action::~Action (){}
@@ -15,4 +16,8 @@ namespace engine{
     void Action::apply (state::State& state)  { }
     
     void Action::undo (state::State& state){}
+    
+    ActionTypeId Action::getTypeId() const {
+        return m_actionTypeId;
+    }
 };

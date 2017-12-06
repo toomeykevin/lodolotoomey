@@ -69,9 +69,17 @@ namespace engine{
     }
     void Engine::undo(std::stack<shared_ptr<Action>>& actions){
         
-        for (int i=0;i< (int)actions.size();i++){
-            shared_ptr<Action> l=actions.top();
-            l.get()->undo(m_currentState);      
+        shared_ptr<Action> l=actions.top();
+        if (l.get()->getTypeId()==RENFORTSACTION){
+            l.get()->undo(m_currentState);
+            actions.pop();
+        }
+        if (actions.size()>0){
+            while (l.get()->getTypeId()!=RENFORTSACTION){
+                shared_ptr<Action> l=actions.top();
+                l.get()->undo(m_currentState); 
+                actions.pop();
+            }
         }
     }
 };

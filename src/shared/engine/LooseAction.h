@@ -10,6 +10,7 @@ namespace engine {
   class Action;
 }
 
+#include "ActionTypeId.h"
 #include "Action.h"
 
 namespace engine {
@@ -30,6 +31,7 @@ namespace engine {
     LooseAction (int iAtt, int jAtt, int iDef, int jDef, int nbCreaturesAtt, int nbCreaturesDef, state::TeamStatus AttPlayerStatus);
     void apply (state::State& state);
     void undo (state::State& state);
+    ActionTypeId getTypeId () const;
     // Setters and Getters
   };
 

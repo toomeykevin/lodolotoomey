@@ -2,6 +2,7 @@
 #ifndef __ENGINE__H
 #define __ENGINE__H
 
+#include "engine/ActionTypeId.h"
 #include "engine/Action.h"
 #include "engine/CommandTypeId.h"
 #include "engine/Command.h"

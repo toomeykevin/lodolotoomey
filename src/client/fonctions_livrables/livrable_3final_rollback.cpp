@@ -21,15 +21,14 @@ using namespace std;
 
 void livrable_3final_rollback(string commande)
 {
+    sleep(milliseconds(1000));
     if (commande == "rollback")
     {
         cout<<"La commande est rollback"<<endl;
-        
-        int count = 0;
-        
-        HeuristicAI* AIPlayer = new HeuristicAI();
+                
         Engine moteur;
         State& etat = moteur.getState();
+        std::stack<shared_ptr<Action>> actions;
                 
         if(moteur.getState().getPlayer()==DRAGONS)
         {
@@ -68,17 +67,14 @@ void livrable_3final_rollback(string commande)
                 }
             }
             
+            AttackCommand* attCommand1 = new AttackCommand(2,1,3,0);
+            moteur.addCommand((Command*)attCommand1);
+          
             if(Keyboard::isKeyPressed(Keyboard::Return))
             {
-                count += 1;
-                
                 cout<<"Fermez la fenêtre pour quitter"<<endl;
                 cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
-                
-                if (count == 1)
-                {
-                    moteur.undo();
-                }
+ 
                 if (moteur.getState().isGameOver()){
                     string strfinal;
                     if(moteur.getState().getPlayer()==DRAGONS)
@@ -96,8 +92,13 @@ void livrable_3final_rollback(string commande)
                 else
                 {
                     actions = moteur.update();
-                    AIPlayer->run(moteur);
+                    cout<<"Rollback"<<" "<< actions.size()<<endl;
                 }
+                sleep(milliseconds(1000));
+            }
+            else if(Keyboard::isKeyPressed(Keyboard::BackSpace)){
+                cout<<"Rollback"<<" "<< actions.size()<<endl;
+                moteur.undo(actions);
                 sleep(milliseconds(1000));
             }
             

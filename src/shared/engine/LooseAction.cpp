@@ -10,6 +10,7 @@
 
 using namespace std;
 using namespace state;
+using namespace engine;
 
 namespace engine{
     LooseAction::LooseAction(int iAtt,int jAtt,int iDef,int jDef,
@@ -21,6 +22,12 @@ namespace engine{
         m_nbCreaturesAtt=nbCreaturesAtt;
         m_nbCreaturesDef=nbCreaturesDef;
         m_AttPlayerStatus=AttPlayerStatus;
+        m_actionTypeId=LOOSEACTION;
+    }
+    
+    ActionTypeId LooseAction::getTypeId() const
+    {
+        return m_actionTypeId;
     }
     
     void LooseAction::apply (state::State& state)  {

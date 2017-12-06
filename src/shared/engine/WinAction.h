@@ -10,6 +10,7 @@ namespace engine {
   class Action;
 }
 
+#include "ActionTypeId.h"
 #include "Action.h"
 
 namespace engine {
@@ -30,6 +31,7 @@ namespace engine {
     WinAction (int iAtt, int jAtt, int iDef, int jDef, int nbCreaturesAtt, int nbCreaturesDef, state::TeamStatus attPlayerStatus);
     void apply (state::State& state);
     void undo (state::State& state);
+    ActionTypeId getTypeId () const;
     // Setters and Getters
   };
 

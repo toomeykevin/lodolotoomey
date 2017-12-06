@@ -10,10 +10,17 @@
 
 using namespace std;
 using namespace state;
+using namespace engine;
 
 namespace engine{
     RenfortsAction::RenfortsAction(TeamStatus AttPlayerStatus){
         m_playerStatus=AttPlayerStatus;
+        m_actionTypeId=RENFORTSACTION;
+    }
+    
+    ActionTypeId RenfortsAction::getTypeId () const
+    {
+        return m_actionTypeId;
     }
     
     void RenfortsAction::apply (state::State& state)  { 
