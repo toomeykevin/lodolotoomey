@@ -28,7 +28,10 @@ void livrable_3final_rollback(string commande)
                 
         Engine moteur;
         State& etat = moteur.getState();
+        
         std::stack<shared_ptr<Action>> actions;
+        std::stack<shared_ptr<Action>> actionsTemp;
+        vector<shared_ptr<Action>> vectorActionsTemp;
                 
         if(moteur.getState().getPlayer()==DRAGONS)
         {
@@ -38,7 +41,8 @@ void livrable_3final_rollback(string commande)
         {
             cout<< "It is now the UNICORNS' turn !"<<endl;
         }
-        cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
+        cout<<"Appuyez sur la touche Entrée pour continuer"<<endl;
+        cout<<"Appuyez sur la touche Retour pour revenir en arriere"<<endl<<endl;
         
         // initialisation de l'état
         InitBasicState* initState = new InitBasicState();
@@ -54,6 +58,8 @@ void livrable_3final_rollback(string commande)
         RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons",
                 Style::Close | Style::Titlebar);
         
+        
+        int k=0;
         // on fait tourner le programme tant que la fenêtre n'est pas fermée
         while (window.isOpen())
         {
@@ -66,15 +72,13 @@ void livrable_3final_rollback(string commande)
                     window.close();
                 }
             }
-            
-            AttackCommand* attCommand1 = new AttackCommand(2,1,3,0);
-            moteur.addCommand((Command*)attCommand1);
-          
+   
             if(Keyboard::isKeyPressed(Keyboard::Return))
             {
                 cout<<"Fermez la fenêtre pour quitter"<<endl;
-                cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
- 
+                cout<<"Appuyez sur la touche Entrée pour continuer"<<endl;
+                cout<<"Appuyez sur la touche Retour pour revenir en arriere"<<endl;
+                 
                 if (moteur.getState().isGameOver()){
                     string strfinal;
                     if(moteur.getState().getPlayer()==DRAGONS)
@@ -90,16 +94,87 @@ void livrable_3final_rollback(string commande)
                     window.close(); 
                 }
                 else
-                {
-                    actions = moteur.update();
-                    cout<<"Rollback"<<" "<< actions.size()<<endl;
+                {     
+                    //commadnes tests rollback
+                    AttackCommand* attCommand1 = new AttackCommand(2,1,3,0);  // att DRAGONS
+                    AttackCommand* attCommand2 = new AttackCommand(4,3,3,2); //att UNICRONS
+                    GestionRenforts* renfCommand1 = new GestionRenforts(1);
+                    GestionRenforts* renfCommand2 = new GestionRenforts(1);
+                    vector<Command*> vectTest;
+                    vectTest.push_back((Command*)attCommand1);
+                    vectTest.push_back((Command*)renfCommand1);
+                    vectTest.push_back((Command*)attCommand2);
+                    vectTest.push_back((Command*)renfCommand2);
+                    
+                    vectTest.clear();
+                    if (k<3){
+                        moteur.addCommand(vectTest[k]);
+                        moteur.addCommand(vectTest[k+1]);
+                        k+=2;
+                        TeamStatus playerStatus = moteur.getState().getPlayer();
+                        string strPlayer;
+                        if(playerStatus==2){
+                            strPlayer="DRAGONS";
+                        }
+                        else if (playerStatus==1){
+                            strPlayer="UNICORNS";
+                        }
+                        cout<<"Apply attack de "<< strPlayer <<endl<<endl;
+                    }
+                    
+                    
+                    actionsTemp = moteur.update();
+                    int lActions=(int)actionsTemp.size();
+                    for (int i=0;i<lActions;i++){
+                        vectorActionsTemp.push_back(actionsTemp.top());
+                        actionsTemp.pop();
+                    }
+                    for (int j=0;j<(int)vectorActionsTemp.size();j++){
+                        int n=(int)vectorActionsTemp.size();
+                        actions.push(vectorActionsTemp[n-j-1]);
+                    }
+                    vectorActionsTemp.clear();
                 }
                 sleep(milliseconds(1000));
+                //cangement de tour
+                if (moteur.getState().getPlayer()==DRAGONS)
+                {
+                     moteur.getState().setPlayer(UNICORNS);
+                }
+                else
+                {
+                     moteur.getState().setPlayer(DRAGONS);
+                }
             }
             else if(Keyboard::isKeyPressed(Keyboard::BackSpace)){
-                cout<<"Rollback"<<" "<< actions.size()<<endl;
+                cout<<"Fermez la fenêtre pour quitter"<<endl;
+                cout<<"Appuyez sur la touche Entrée pour continuer"<<endl;
+                cout<<"Appuyez sur la touche Retour pour revenir en arriere"<<endl;
                 moteur.undo(actions);
                 sleep(milliseconds(1000));
+                if(k>0){
+                    k=k-2;
+                    //cahngement de tour
+                    if (moteur.getState().getPlayer()==DRAGONS)
+                    {
+                         moteur.getState().setPlayer(UNICORNS);
+                    }
+                    else
+                    {
+                         moteur.getState().setPlayer(DRAGONS);
+                    }
+                    
+                    TeamStatus playerStatus = moteur.getState().getPlayer();
+                    string strPlayer;
+                    if(playerStatus==2){
+                        strPlayer="DRAGONS";
+                    }
+                    else if (playerStatus==1){
+                        strPlayer="UNICORNS";
+                    }
+                    cout<<"Undo attack de "<< strPlayer <<endl<<endl;
+                }
+
             }
             
             // à chaque tour, on efface l'ancien rendu
