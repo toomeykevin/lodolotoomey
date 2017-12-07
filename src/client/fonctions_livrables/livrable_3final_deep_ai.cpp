@@ -25,7 +25,7 @@ void livrable_3final_deep_ai(string commande)
     if (commande == "deep_ai")
     {
         cout<<"La commande est deep_ai"<<endl;
-        
+        cout<<"Le Rollback est fonctionnel mais nous n'avons pas eu le temps de mettre en place le deep_ai"<<endl;
         
         
     }
