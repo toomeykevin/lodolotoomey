@@ -42,7 +42,7 @@ void livrable_3final_rollback(string commande)
             cout<< "It is now the UNICORNS' turn !"<<endl;
         }
         cout<<"Appuyez sur la touche Entrée pour continuer"<<endl;
-        cout<<"Appuyez sur la touche Retour pour revenir en arriere"<<endl<<endl;
+        cout<<"Appuyez sur la touche Retour pour revenir en arrière"<<endl<<endl;
         
         // initialisation de l'état
         InitBasicState* initState = new InitBasicState();

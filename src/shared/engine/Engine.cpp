@@ -35,7 +35,6 @@ namespace engine{
     void Engine::addCommand (Command* cmd)
     {
         m_currentCommands.push_back(std::unique_ptr<Command>(cmd));
-        //cout<<"size commands : "<<m_currentCommands.size()<<endl;
     }
     
     std::stack<std::shared_ptr<Action>> Engine::update ()
@@ -62,42 +61,45 @@ namespace engine{
             m_currentCommands.clear();
         }
         else{
-            cout<<"la lise des commandes est vide"<<endl;
-            //throw runtime_error(" la list de commandes est vide");
-            //shared_ptr<Action> p(NULL);
-            //actions.push(p);
+            cout<<"la liste des commandes est vide"<<endl;
         }
         return actions;
     }
-    void Engine::undo(std::stack<shared_ptr<Action>>& actions){
-        
+    
+    void Engine::undo(std::stack<shared_ptr<Action>>& actions)
+    {   
         shared_ptr<Action> l;
-        if (actions.size()>0){
+        if (actions.size()>0)
+        {
             l=actions.top();
-            if (l.get()->getTypeId()==RENFORTSACTION){
+            if (l.get()->getTypeId()==RENFORTSACTION)
+            {
                 l.get()->undo(m_currentState);
                 actions.pop();
-                if (actions.size()>0){
+                if (actions.size()>0)
+                {
                     l=actions.top();
-                    while (l.get()->getTypeId()!=RENFORTSACTION && actions.size()>0){
+                    while (l.get()->getTypeId()!=RENFORTSACTION && actions.size()>0)
+                    {
                         l=actions.top();
                         l.get()->undo(m_currentState); 
                         actions.pop();
                     }
                 }
             }
-            else if (l.get()->getTypeId()==WINACTION ||l.get()->getTypeId()==LOOSEACTION){
-                while (actions.size()>0){
+            else if (l.get()->getTypeId()==WINACTION ||l.get()->getTypeId()==LOOSEACTION)
+            {
+                while (actions.size()>0)
+                {
                     l=actions.top();
                     l.get()->undo(m_currentState); 
                     actions.pop();
                 }
             }
         }
-        else{ 
+        else
+        { 
             cout<<"la pile est vide"<<endl;
-            //throw runtime_error(" la pile est vide");
-            
         }
         
     }

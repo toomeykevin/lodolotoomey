@@ -4,9 +4,10 @@
  * and open the template in the editor.
  */
 
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <thread>
+#include <mutex>
 #include "state.h"
 #include "render.h"
 #include "engine.h"
@@ -19,32 +20,48 @@ using namespace render;
 using namespace engine;
 using namespace ai;
 
+// déclaration d'un mutex global
+mutex mx;
 
-void livrable_31_heuristic_ai(string commande)
+// routine du thread secondaire
+void engine_thread(HeuristicAI* AIPlayer, Engine& moteur)
 {
-    if (commande == "heuristic_ai")
+    // on attend 10s avant d'exécuter l'AI :
+    // ça laisse le temps à la fenêtre d'affichage de s'ouvrir
+    sleep(milliseconds(10000));
+    
+    // tant que le jeu n'est pas fini
+    while(!moteur.getState().isGameOver())
     {
-        cout<<"La commande est heuristic."<<endl<<endl;
+        // on verrouille le mutex pour qu'il n'y ait pas d'affichage pendant que
+        // l'AI modifie l'état
+        {
+            std::lock_guard<std::mutex> lck (mx);
+            AIPlayer->run(moteur);
+        }
+        // on attend 3s avant de passer au tour suivant : permet un affichage clair
+        sleep(milliseconds(3000));
+    }
+}
 
+void livrable_41_thread(string commande)
+{
+    if (commande == "thread")
+    {
+        cout<<"La commande est thread"<<endl<<endl;
+        
         HeuristicAI* AIPlayer = new HeuristicAI();
         Engine moteur;
         State& etat = moteur.getState();
-                
-        if(moteur.getState().getPlayer() == DRAGONS)
-        {
-            cout<<"It is now the DRAGONS' turn !"<<endl;
-        }
-        else
-        {
-            cout<< "It is now the UNICORNS' turn !"<<endl;
-        }
-        cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
         
         // initialisation de l'état
         InitBasicState* initState = new InitBasicState();
         moteur.addCommand((Command*)initState);
         moteur.update();
-
+        
+        // création du thread qui fait le calcul du tour
+        thread th(&engine_thread, AIPlayer, std::ref(moteur));
+        
         // on crée une couche à partir de l'ElementTabLayer qu'on a construit
         ElementTabLayer Layer1(etat.getTerritoryBoard());
         ElementTabLayer Layer2(etat.getTeamBoard());
@@ -67,30 +84,9 @@ void livrable_31_heuristic_ai(string commande)
                 }
             }
             
-            if(Keyboard::isKeyPressed(Keyboard::Return))
-            {
-                    cout<<"Fermez la fenêtre pour quitter"<<endl;
-                    cout<<"Appuyez sur la touche Entrée pour continuer"<<endl<<endl;
-                    if (moteur.getState().isGameOver()){
-                        string strfinal;
-                        if(moteur.getState().getPlayer() == DRAGONS)
-                        {
-                            strfinal="UNICORNS";
-                        }
-                        else
-                        {
-                            strfinal="DRAGONS";
-                        }
-                        
-                        cout<< "GAME OVER : The winner is "<<strfinal<<endl;
-                        window.close(); 
-                    }
-                    else
-                    {
-                        AIPlayer->run(moteur);
-                    }
-                    sleep(milliseconds(1000));
-            }
+            // on verrouille le mutex pour que le thread ne cherche pas à
+            // modifier l'état, puisqu'on va l'afficher
+            std::lock_guard<std::mutex> lck (mx);
             
             // à chaque tour, on efface l'ancien rendu
             window.clear(Color::Black);
@@ -109,7 +105,24 @@ void livrable_31_heuristic_ai(string commande)
             
             // et on affiche le nouveau rendu
             window.display();
+            
+            if (moteur.getState().isGameOver()){
+                string strfinal;
+                if(moteur.getState().getPlayer()==DRAGONS)
+                {
+                    strfinal="UNICORNS";
+                }
+                else
+                {
+                    strfinal="DRAGONS";
+                }
+
+                cout<< "GAME OVER : The winner is "<<strfinal<<endl;
+                sleep(milliseconds(3000));
+                window.close(); 
+            }
         }
+        th.join();
     }
     else
     {}
