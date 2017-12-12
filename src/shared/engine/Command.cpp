@@ -18,4 +18,12 @@ namespace engine{
     }
     
     void Command::execute (state::State& state, std::stack<shared_ptr<Action>>& actions){}
+    
+    void Command::serialize (Json::Value& out){}
+    
+    Command* Command::deserialize (Json::Value& in)
+    {
+        Command* commande = new Command();
+        return commande;
+    }
 };

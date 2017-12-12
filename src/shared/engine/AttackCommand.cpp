@@ -10,6 +10,7 @@
 #include "state.h"
 #include "AttackCommand.h"
 #include "WinAction.h"
+#include "json/json.h"
 
 using namespace std;
 using namespace state;
@@ -163,6 +164,40 @@ namespace engine{
     void AttackCommand::setJDef (int jDef)
     {
         m_jDef = jDef;
+    }
+    
+    void AttackCommand::serialize (Json::Value& out)
+    {
+        out["commande"] = m_commandTypeId;
+        out["iAtt"] = m_iAtt;
+        out["jAtt"] = m_jAtt;
+        out["iDef"] = m_iDef;
+        out["jDef"] = m_jDef;
+    }
+    
+    AttackCommand* AttackCommand::deserialize (Json::Value& in)
+    {
+        if (in.isMember("commande"))
+        {
+            if (in["commande"].asInt() == ATTACK)
+            {
+                int iAtt = in["iAtt"].asInt();
+                int jAtt = in["jAtt"].asInt();
+                int iDef = in["iDef"].asInt();
+                int jDef = in["jDef"].asInt();
+                AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef);
+                return attaque;
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Deserialize AttackCommand failed");
+        }
+        throw std::runtime_error("Deserialize AttackCommand failed");
     }
 };
 

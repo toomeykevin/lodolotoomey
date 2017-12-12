@@ -4,12 +4,14 @@
 
 #include <stack>
 #include <memory>
+#include <json/json.h>
 
 namespace state {
   class State;
 };
 namespace engine {
   class Action;
+  class AttackCommand;
   class Command;
   class LooseAction;
   class WinAction;
@@ -46,6 +48,8 @@ namespace engine {
     int getJDef ();
     void setJDef (int jDef);
     void execute (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);
+    void serialize (Json::Value& out);
+    AttackCommand* deserialize (Json::Value& in);
     // Setters and Getters
   };
 

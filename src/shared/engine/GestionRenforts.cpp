@@ -42,4 +42,31 @@ namespace engine{
         m_renforts = renforts;
     }
     
+    void GestionRenforts::serialize (Json::Value& out)
+    {
+        out["commande"] = m_commandTypeId;
+        out["renforts"] = m_renforts;
+    }
+    
+    GestionRenforts* GestionRenforts::deserialize (Json::Value& in)
+    {
+        if (in.isMember("commande"))
+        {
+            if (in["commande"].asInt() == RENFORTS)
+            {
+                int renforts = in["renforts"].asInt();
+                GestionRenforts* apportRenforts = new GestionRenforts(renforts);
+                return apportRenforts;
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Deserialize GestionRenforts failed");
+        }
+        throw std::runtime_error("Deserialize GestionRenforts failed");
+    }
 };

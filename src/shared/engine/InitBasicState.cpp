@@ -23,6 +23,32 @@ namespace engine{
         return m_commandTypeId;
     }
     
+    void InitBasicState::serialize (Json::Value& out)
+    {
+        out["commande"] = m_commandTypeId;
+    }
+    
+    InitBasicState* InitBasicState::deserialize (Json::Value& in)
+    {
+        if (in.isMember("commande"))
+        {
+            if (in["commande"].asInt() == INIT)
+            {
+                InitBasicState* initial = new InitBasicState();
+                return initial;
+            }
+            else
+            {
+                
+            }
+        }
+        else
+        {
+            throw std::runtime_error("Deserialize InitBasicState failed");
+        }
+        throw std::runtime_error("Deserialize InitBasicState failed");
+    }
+    
     void InitBasicState::execute (state::State& state, std::stack<shared_ptr<Action>>& actions)
     {
         ElementTab& territory = state.getTerritoryBoard();
@@ -234,6 +260,5 @@ namespace engine{
         Team* tm44 = new Team(6,DRAGONS);
         tm44 -> setx(4); tm44 -> sety(4);
         team.setElement(4,4,tm44);
-    
     }
 };

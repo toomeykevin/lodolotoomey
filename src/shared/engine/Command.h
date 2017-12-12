@@ -4,12 +4,14 @@
 
 #include <stack>
 #include <memory>
+#include <json/json.h>
 
 namespace state {
   class State;
 };
 namespace engine {
   class Action;
+  class Command;
 }
 
 #include "CommandTypeId.h"
@@ -28,6 +30,8 @@ namespace engine {
     virtual ~Command ();
     virtual CommandTypeId getTypeId () const;
     virtual void execute (state::State& state, std::stack<std::shared_ptr<Action>>& actions);
+    virtual void serialize (Json::Value& out);
+    virtual Command* deserialize (Json::Value& in);
     // Setters and Getters
   };
 
