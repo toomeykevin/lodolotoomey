@@ -24,56 +24,55 @@ void livrable_41_play(string commande)
     if (commande == "play")
     {
         cout<<"La commande est play"<<endl;
-       /* //replay.txt
-        // monstream=ifstream(nomfichier)
-        //monstream.read(unchar*, longueur de ton stream)
-        //lsytream=monstream.tellg()
-        //string en jason
         
-        Json::Value root;
+        
         Json::Reader reader;
         string line;
-        
 
-        ifstream myfile( "/home/kevin/Desktop/test.txt",ios::in );
-        if (myfile)
+        ifstream record( "replay.txt",ios::in );
+        if (record)
         {
-                std::string::size_type n;
-                int cpt=0;
-                int max=20; // achanger
-                getline( myfile, line );
+            //reader.parse(record,obj);
+            //cout << obj["commande"].asInt() << endl;
+            
+            std::string::size_type n;
+            int cpt=0;
+            int max=20; // à changer
+            getline(record,line);
 
-                while (getline( myfile, line ))
+            while (getline(record,line))
+            {
+                Json::Value obj;
+                reader.parse(record,obj);
+                cout << obj.toStyledString() << endl;
+                /*int n = line.find(":");
+                //cout<<n;
+                if (n>=0)
                 {
-                    int n=line.find(":");
-                    cout<<n;
-                    if (n>=0){
-                        switch (cpt){
-                            case 0: 
-                                root[line.substr( 1, n-1 )] = line.substr(n+1);
-                                break;
-                            case 1:
-                                root[line.substr( 1, n-1 )]=line.substr(n+1);
-                                break;
-                            case 2: 
-                                root[line.substr( 0, n-1 )] = line.substr(n+1);
-                                break;
-                            case 3:
-                                root[line.substr( 0, n-1 )]=line.substr(n+1);
-                                break;
-                        }      
-                    }
-                    
-                    cpt+=1;
-                    if (cpt>max){
-                        cpt=0;
-                    }
-                    
+                    switch (cpt)
+                    {
+                        case 0: 
+                            obj[line.substr( 1, n-1 )] = line.substr(n+1);
+                            break;
+                        case 1:
+                            obj[line.substr( 1, n-1 )]=line.substr(n+1);
+                            break;
+                        case 2: 
+                            obj[line.substr( 0, n-1 )] = line.substr(n+1);
+                            break;
+                        case 3:
+                            obj[line.substr( 0, n-1 )]=line.substr(n+1);
+                            break;
+                    }      
+                }*/
+                cpt+=1;
+                if (cpt>max){
+                    cpt=0;
                 }
-                cout << root<<endl;
-
-            myfile.close();
-        }*/
+            }
+            //cout << obj <<endl;
+            record.close();
+        }
         
         
         
