@@ -16,6 +16,16 @@ using namespace state;
 using namespace ai;
 
 namespace ai{
+    Json::Value HeuristicAI::getRecorded ()
+    {
+        return recorded;
+    }
+    
+    void HeuristicAI::setRecorded (Json::Value record)
+    {
+        recorded = record;
+    }
+    
     void HeuristicAI::run (engine::Engine& engine)
     {
         int l=1;
@@ -45,9 +55,6 @@ namespace ai{
                     cout<<","<<jAtt<<") ";
                     cout<<"on ("<<iDef;
                     cout<<","<<jDef<<") and the winner is ";
-                    engine.addCommand(list[bestIndice].release());
-                    engine.update();
-                    list.clear();
                     TeamStatus victorStatus=((Team*)engine.getState().getTeamBoard().getElement(iDef,jDef))->getTeamStatus();
                     if (victorStatus==DRAGONS)
                     {
@@ -57,6 +64,10 @@ namespace ai{
                     {
                         cout<< "UNICORNS !"<<endl;
                     }
+                    (list[bestIndice])->serialize(recorded);
+                    engine.addCommand(list[bestIndice].release());
+                    engine.update();
+                    list.clear();
                 }
                 
             }
@@ -64,6 +75,7 @@ namespace ai{
         }
         
         GestionRenforts* gestionRenfort = new GestionRenforts(1);
+        gestionRenfort->serialize(recorded);
         engine.addCommand((Command*)gestionRenfort);
         engine.update();
         
@@ -105,7 +117,7 @@ namespace ai{
                 int NbCrDef=TeamDef->getNbCreatures();
                 int Weight=NbCrAtt-NbCrDef;
                 tab.push_back(Weight);
-             }
+            }
         }
         indiceDuMax=0;
         for(int k=0;k<(int)tab.size();k++)

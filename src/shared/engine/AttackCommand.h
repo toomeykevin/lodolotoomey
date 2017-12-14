@@ -33,9 +33,10 @@ namespace engine {
     int m_jAtt;
     int m_iDef;
     int m_jDef;
+    state::TeamStatus m_winner;
     // Operations
   public:
-    AttackCommand (int iAtt, int jAtt, int iDef, int jDef);
+    AttackCommand (int iAtt, int jAtt, int iDef, int jDef, state::TeamStatus ts);
     CommandTypeId getTypeId () const;
     void attackWins (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);
     void attackLooses (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);

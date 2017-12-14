@@ -58,37 +58,37 @@ namespace ai{
             if (teamNordEst != NULL && (teamNordEst->getTeamStatus() != playerStatus) &&
                     (teamNordEst->getNbCreatures() > 0))
             {
-                Acommand = new AttackCommand(i,j,teamNordEst->getx(),teamNordEst->gety());
+                Acommand = new AttackCommand(i,j,teamNordEst->getx(),teamNordEst->gety(),playerStatus);
                 list.push_back(unique_ptr<Command>((Command*)Acommand)); 
             }
             if (teamEst != NULL && (teamEst->getTeamStatus() != playerStatus) &&
                     (teamEst->getNbCreatures() > 0))
             {
-                Acommand = new AttackCommand(i,j,teamEst->getx(),teamEst->gety());
+                Acommand = new AttackCommand(i,j,teamEst->getx(),teamEst->gety(),playerStatus);
                 list.push_back(unique_ptr<Command>((Command*)Acommand)); 
             }
             if (teamSudEst != NULL && (teamSudEst->getTeamStatus() != playerStatus) &&
                     (teamSudEst->getNbCreatures() > 0))
             {
-                Acommand = new AttackCommand(i,j,teamSudEst->getx(),teamSudEst->gety());
+                Acommand = new AttackCommand(i,j,teamSudEst->getx(),teamSudEst->gety(),playerStatus);
                 list.push_back(unique_ptr<Command>((Command*)Acommand)); 
             }
             if (teamSudOuest != NULL && (teamSudOuest->getTeamStatus() != playerStatus) &&
                     (teamSudOuest->getNbCreatures() > 0))
             {
-                Acommand = new AttackCommand(i,j,teamSudOuest->getx(),teamSudOuest->gety());
+                Acommand = new AttackCommand(i,j,teamSudOuest->getx(),teamSudOuest->gety(),playerStatus);
                 list.push_back(unique_ptr<Command>((Command*)Acommand)); 
             }
             if (teamOuest != NULL && (teamOuest->getTeamStatus() != playerStatus) &&
                     (teamOuest->getNbCreatures() > 0))
             {
-                Acommand = new AttackCommand(i,j,teamOuest->getx(),teamOuest->gety());
+                Acommand = new AttackCommand(i,j,teamOuest->getx(),teamOuest->gety(),playerStatus);
                 list.push_back(unique_ptr<Command>((Command*)Acommand)); 
             }
             if (teamNordOuest != NULL && (teamNordOuest->getTeamStatus() != playerStatus) &&
                     (teamNordOuest->getNbCreatures() > 0))
             {
-                Acommand = new AttackCommand(i,j,teamNordOuest->getx(),teamNordOuest->gety());
+                Acommand = new AttackCommand(i,j,teamNordOuest->getx(),teamNordOuest->gety(),playerStatus);
                 list.push_back(unique_ptr<Command>((Command*)Acommand)); 
             }
         }

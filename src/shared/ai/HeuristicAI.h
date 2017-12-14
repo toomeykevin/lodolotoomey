@@ -3,6 +3,7 @@
 #define AI__HEURISTICAI__H
 
 #include <random>
+#include <json/json.h>
 #include <vector>
 #include <memory>
 
@@ -27,11 +28,14 @@ namespace ai {
     // Attributes
   private:
     std::mt19937 randgen;
+    Json::Value recorded;
     // Operations
   public:
     void run (engine::Engine& engine);
     int bestCommand (std::vector<std::unique_ptr<engine::Command>>& listOrd, state::State& state);
     HeuristicAI ();
+    Json::Value getRecorded ();
+    void setRecorded (Json::Value record);
     // Setters and Getters
   };
 

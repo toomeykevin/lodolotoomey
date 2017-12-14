@@ -25,14 +25,15 @@ namespace engine{
     
     void InitBasicState::serialize (Json::Value& out)
     {
-        out["commande"] = m_commandTypeId;
+        out["commande_init"] = m_commandTypeId;
+        cout << out.toStyledString();
     }
     
     InitBasicState* InitBasicState::deserialize (Json::Value& in)
     {
-        if (in.isMember("commande"))
+        if (in.isMember("commande_init"))
         {
-            if (in["commande"].asInt() == INIT)
+            if (in["commande_init"].asInt() == INIT)
             {
                 InitBasicState* initial = new InitBasicState();
                 return initial;

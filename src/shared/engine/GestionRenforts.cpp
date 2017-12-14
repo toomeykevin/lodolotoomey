@@ -44,15 +44,17 @@ namespace engine{
     
     void GestionRenforts::serialize (Json::Value& out)
     {
-        out["commande"] = m_commandTypeId;
-        out["renforts"] = m_renforts;
+        Json::Value command;
+        command["commande_renforts"] = m_commandTypeId;
+        command["renforts"] = m_renforts;
+        out.append(command);
     }
     
     GestionRenforts* GestionRenforts::deserialize (Json::Value& in)
     {
-        if (in.isMember("commande"))
+        if (in.isMember("commande_renforts"))
         {
-            if (in["commande"].asInt() == RENFORTS)
+            if (in["commande_renforts"].asInt() == RENFORTS)
             {
                 int renforts = in["renforts"].asInt();
                 GestionRenforts* apportRenforts = new GestionRenforts(renforts);

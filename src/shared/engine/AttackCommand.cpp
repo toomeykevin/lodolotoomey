@@ -17,12 +17,13 @@ using namespace state;
 using namespace engine;
 
 namespace engine{
-    AttackCommand::AttackCommand (int iAtt, int jAtt, int iDef, int jDef)
+    AttackCommand::AttackCommand (int iAtt, int jAtt, int iDef, int jDef, state::TeamStatus ts)
     {
         m_iAtt = iAtt;
         m_jAtt = jAtt;
         m_iDef = iDef;
         m_jDef = jDef;
+        m_winner = ts;
         m_commandTypeId = ATTACK;
     }
     
@@ -71,11 +72,19 @@ namespace engine{
                 if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
                 {
                     attackWins(state, actions);
-                    
+                    m_winner = playerStatus;  
                 }
                 else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
                 {
                     attackLooses(state, actions);
+                    if (playerStatus == DRAGONS)
+                    {
+                        m_winner = UNICORNS;
+                    }
+                    else if (playerStatus == UNICORNS)
+                    {
+                        m_winner = DRAGONS;
+                    }
                 } 
                 else
                 {
@@ -107,6 +116,7 @@ namespace engine{
         shared_ptr<Action> spWin((Action*)pW);
         actions.push(spWin); 
         pW->apply(state);
+        m_winner = playerStatus;
     }
     
     void AttackCommand::attackLooses (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
@@ -124,6 +134,7 @@ namespace engine{
        actions.push(spLoose);
        
        pL->apply(state);
+       m_winner = playerStatus;
     }
     
     int AttackCommand::getIAtt ()
@@ -168,25 +179,47 @@ namespace engine{
     
     void AttackCommand::serialize (Json::Value& out)
     {
-        out["commande"] = m_commandTypeId;
-        out["iAtt"] = m_iAtt;
-        out["jAtt"] = m_jAtt;
-        out["iDef"] = m_iDef;
-        out["jDef"] = m_jDef;
+        Json::Value command;
+        command["commande_attaque"] = m_commandTypeId;
+        command["iAtt"] = m_iAtt;
+        command["jAtt"] = m_jAtt;
+        command["iDef"] = m_iDef;
+        command["jDef"] = m_jDef;
+        command["gagnant"] = m_winner;
+        out.append(command);
     }
     
     AttackCommand* AttackCommand::deserialize (Json::Value& in)
     {
-        if (in.isMember("commande"))
+        if (in.isMember("commande_attaque"))
         {
-            if (in["commande"].asInt() == ATTACK)
+            if (in["commande_attaque"].asInt() == ATTACK)
             {
                 int iAtt = in["iAtt"].asInt();
                 int jAtt = in["jAtt"].asInt();
                 int iDef = in["iDef"].asInt();
                 int jDef = in["jDef"].asInt();
-                AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef);
-                return attaque;
+                int gagnant = in["gagnant"].asInt();
+                
+                //TeamStatus w;
+                if (gagnant == 1)
+                {
+                    TeamStatus* w = new TeamStatus(DRAGONS);
+                    AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef, *w);
+                    return attaque;
+                }
+                else if (gagnant == 2)
+                {
+                    TeamStatus* w = new TeamStatus(UNICORNS);
+                    AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef, *w);
+                    return attaque;
+                }
+                else
+                {
+                    TeamStatus* w = new TeamStatus(NONE);
+                    AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef, *w);
+                    return attaque;
+                } 
             }
             else
             {

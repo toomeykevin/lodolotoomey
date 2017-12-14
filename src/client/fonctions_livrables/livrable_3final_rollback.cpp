@@ -96,8 +96,8 @@ void livrable_3final_rollback(string commande)
                 else
                 {     
                     //commadnes tests rollback
-                    AttackCommand* attCommand1 = new AttackCommand(2,1,3,0);  // att DRAGONS
-                    AttackCommand* attCommand2 = new AttackCommand(4,3,3,2); //att UNICRONS
+                    AttackCommand* attCommand1 = new AttackCommand(2,1,3,0,NONE);  // att DRAGONS
+                    AttackCommand* attCommand2 = new AttackCommand(4,3,3,2,NONE); //att UNICORNS
                     GestionRenforts* renfCommand1 = new GestionRenforts(1);
                     GestionRenforts* renfCommand2 = new GestionRenforts(1);
                     vector<Command*> vectTest;

@@ -96,7 +96,7 @@ void livrable_22_engine(string commande)
                 sleep(milliseconds(5000));
                 
                 // attaque
-                AttackCommand* cmdAtt = new AttackCommand(2,3,1,2); // (2,3) vs (1,2)
+                AttackCommand* cmdAtt = new AttackCommand(2,3,1,2,NONE); // (2,3) vs (1,2)
                 moteur.addCommand((Command*)cmdAtt);
                 moteur.update();
 
