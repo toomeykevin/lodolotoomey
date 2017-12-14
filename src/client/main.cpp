@@ -17,6 +17,7 @@ void livrable_31_heuristic_ai(string commande);
 void livrable_3final_deep_ai(string commande);
 void livrable_3final_rollback(string commande);
 void livrable_41_thread(string commande);
+void livrable_41_play(string commande);
 
 int main(int argc,char* argv[]) 
 {
@@ -32,6 +33,7 @@ int main(int argc,char* argv[])
         livrable_3final_rollback(str);
         livrable_3final_deep_ai(str);
         livrable_41_thread(str);
+        livrable_41_play(str);
         cout<<"Si rien ne s'est affiché, la commande n'est pas valable"<<endl;
     }
     else
