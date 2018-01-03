@@ -17,10 +17,9 @@ namespace server {
   class ServiceException {
     // Associations
     // Attributes
-  private:
-    HttpStatus httpStatus;
   protected:
-    std::string msg;
+    std::string m_msg;
+    HttpStatus m_httpStatus;
     // Operations
   public:
     ServiceException (HttpStatus status, std::string msg);
@@ -28,7 +27,10 @@ namespace server {
     const char* what () const;
     void setMsg (std::string message);
     std::string getMsg ();
-    void setHttpStatus (HttpStatus httpstat);
+    HttpStatus getHttpStatus ();
+    /// 										
+    /// @param httpStatus		(???) 
+    void setHttpStatus (HttpStatus httpStatus);
     // Setters and Getters
   };
 

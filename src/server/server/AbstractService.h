@@ -13,14 +13,16 @@ namespace server {
   class AbstractService {
     // Attributes
   protected:
-    std::string pattern;
+    std::string m_pattern;
     // Operations
   public:
-    AbstractService (std::string& pattern);
+    AbstractService (const std::string& pattern);
     virtual ~AbstractService ();
+    const std::string& getPattern () const;
+    void setPattern (const string& pattern);
     virtual HttpStatus get (Json::Value& out, int id) const;
-    virtual HttpStatus post (Json::Value& in, int id);
-    virtual HttpStatus put (Json::Value& out, Json::Value& in);
+    virtual HttpStatus post (const Json::Value& in, int id);
+    virtual HttpStatus put (Json::Value& out, const Json::Value& in);
     virtual HttpStatus remove (int id);
     // Setters and Getters
   };

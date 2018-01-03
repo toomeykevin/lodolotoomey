@@ -20,12 +20,14 @@ namespace server {
     // Associations
     // Attributes
   protected:
-    std::vector<std::unique_ptr<AbstractService>> services;
+    std::vector<std::unique_ptr<AbstractService>> m_services;
     // Operations
   public:
     void registerService (std::unique_ptr<AbstractService> service);
-    AbstractService* findService (std::string& url) const;
-    HttpStatus queryService (std::string& out, std::string& in, std::string& url, std::string& method);
+    AbstractService* findService (const std::string& url) const;
+    HttpStatus queryService (std::string& out, const std::string& in, const std::string& url, const std::string& method);
+    std::vector<unique_ptr<AbstractService>> getServices ();
+    void setServices (std::vector<unique_ptr<AbstractService>> services);
     // Setters and Getters
   };
 
