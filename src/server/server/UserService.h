@@ -24,10 +24,10 @@ namespace server {
     // Operations
   public:
     UserService (UserDB& userDB);
-    HttpStatus get (Json::Value& out, int id) const;
-    HttpStatus post (const Json::Value& in, int id);
-    HttpStatus put (Json::Value& out, const Json::Value& in);
-    HttpStatus remove (int id);
+    virtual HttpStatus get (Json::Value& out, int id) const;
+    virtual HttpStatus post (const Json::Value& in, int id);
+    virtual HttpStatus put (Json::Value& out, const Json::Value& in);
+    virtual HttpStatus remove (int id);
     UserDB getUserDB ();
     void setUserDB (UserDB userDB);
     // Setters and Getters

@@ -1,10 +1,3 @@
-/** 
- * @file UserService.cpp
- * @author Philippe-Henri Gosselin
- * @date 9 décembre 2015
- * @copyright CNRS
- */
-
 #include "UserService.hpp"
 
 namespace server {

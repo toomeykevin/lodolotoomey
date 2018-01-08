@@ -4,6 +4,7 @@ project (plt)
 # Directories
 include_directories ("${PROJECT_SOURCE_DIR}/src/client")
 include_directories ("${PROJECT_SOURCE_DIR}/src/server")
+include_directories ("${PROJECT_SOURCE_DIR}/src/server/server")
 include_directories ("${PROJECT_SOURCE_DIR}/src/shared")
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
@@ -67,5 +68,5 @@ find_library(
 	NAMES microhttpd microhttpd-10 libmicrohttpd libmicrohttpd-dll
 	DOC "microhttpd library"
 )
-#target_link_libraries(server ${MHD_LIBRARY})
+target_link_libraries(server ${MHD_LIBRARY})
 

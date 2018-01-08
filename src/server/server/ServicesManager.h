@@ -26,8 +26,8 @@ namespace server {
     void registerService (std::unique_ptr<AbstractService> service);
     AbstractService* findService (const std::string& url) const;
     HttpStatus queryService (std::string& out, const std::string& in, const std::string& url, const std::string& method);
-    std::vector<unique_ptr<AbstractService>> getServices ();
-    void setServices (std::vector<unique_ptr<AbstractService>> services);
+    std::vector<std::unique_ptr<AbstractService>> getServices ();
+    void setServices (std::vector<std::unique_ptr<AbstractService>> services);
     // Setters and Getters
   };
 

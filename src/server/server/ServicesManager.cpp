@@ -1,9 +1,3 @@
-/** 
- * @file ServicesManager.cpp
- * @author Philippe-Henri Gosselin
- * @date 9 décembre 2015
- * @copyright CNRS
- */
 
 #include "ServicesManager.hpp"
 
@@ -36,6 +30,8 @@ HttpStatus ServicesManager::queryService (string& out, const string& in, const s
     const string& pattern(service->getPattern());
     int id = 0;
     if (url.size() > pattern.size()) {
+        cout << "url : '" << url << "'" << endl;
+        cout << "pat : '" << pattern << "'" << endl;
         string end = url.substr(pattern.size());
         if (end[0] != '/')
             throw ServiceException(HttpStatus::BAD_REQUEST,"Url malformée (forme attendue: <service>/<nombre>)");

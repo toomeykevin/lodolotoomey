@@ -1,16 +1,9 @@
-/** 
- * @file AbstractService.cpp
- * @author Philippe-Henri Gosselin
- * @date 9 décembre 2015
- * @copyright CNRS
- */
 
 #include "AbstractService.hpp"
 namespace server {
     
 
-AbstractService::AbstractService (const string& pattern) {
-    setPattern(m_pattern);
+AbstractService::AbstractService (const string& pattern) : m_pattern(pattern) {
 }
 
 AbstractService::~AbstractService() {

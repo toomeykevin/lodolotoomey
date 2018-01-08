@@ -5,10 +5,14 @@
  */
 
 #include <iostream>
+#include <string>
+#include "server.h"
 
 using namespace std;
+using namespace server;
 
 void livrable_41_record(string commande);
+void livrable_42_listen(string commande);
 
 int main(int argc,char* argv[]) 
 {
@@ -16,6 +20,7 @@ int main(int argc,char* argv[])
     {
         string str(argv[1]); // commande entrée lors de l'execution
         livrable_41_record(str); // Appel à la seule fonction de ce binaire
+        livrable_42_listen(str);
         cout<<"Si rien ne s'est affiché, la commande n'est pas valable"<<endl;
     }
     else
