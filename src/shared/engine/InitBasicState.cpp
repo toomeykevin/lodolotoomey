@@ -25,18 +25,18 @@ namespace engine{
     
     void InitBasicState::serialize (Json::Value& out)
     {
-        out["commande_init"] = m_commandTypeId;
+        out["commande"] = m_commandTypeId;
         cout << out.toStyledString();
     }
     
     InitBasicState* InitBasicState::deserialize (Json::Value& in)
     {
-        if (in.isMember("commande_init"))
+        if (in.isMember("commande"))
         {
-            if (in["commande_init"].asInt() == INIT)
+            if (in["commande"].asInt() == INIT)
             {
-                InitBasicState* initial = new InitBasicState();
-                return initial;
+                InitBasicState* initialisation = new InitBasicState();
+                return initialisation;
             }
             else
             {
@@ -56,6 +56,8 @@ namespace engine{
         ElementTab& team = state.getTeamBoard();
         territory.resize(5,5);
         team.resize(5,5);
+        
+        state.setPlayer(DRAGONS);
         
         // définition 1e ligne
             // définition 1e élément

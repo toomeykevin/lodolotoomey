@@ -36,7 +36,7 @@ namespace engine {
     void setRenforts (int renforts);
     void execute (state::State& state, std::stack<std::shared_ptr<Action>>& actions);
     void serialize (Json::Value& out);
-    GestionRenforts* deserialize (Json::Value& in);
+    static GestionRenforts* deserialize (Json::Value& in);
     // Setters and Getters
   };
 

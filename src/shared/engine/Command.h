@@ -31,7 +31,7 @@ namespace engine {
     virtual CommandTypeId getTypeId () const;
     virtual void execute (state::State& state, std::stack<std::shared_ptr<Action>>& actions);
     virtual void serialize (Json::Value& out);
-    virtual Command* deserialize (Json::Value& in);
+    static Command* deserialize (Json::Value& in);
     // Setters and Getters
   };
 

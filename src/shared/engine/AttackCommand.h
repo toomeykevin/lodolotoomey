@@ -50,7 +50,7 @@ namespace engine {
     void setJDef (int jDef);
     void execute (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions);
     void serialize (Json::Value& out);
-    AttackCommand* deserialize (Json::Value& in);
+    static AttackCommand* deserialize (Json::Value& in);
     // Setters and Getters
   };
 

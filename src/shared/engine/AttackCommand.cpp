@@ -34,71 +34,93 @@ namespace engine{
     
     void AttackCommand::execute (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
     {
+        // nombre de créatures sur le territoire attaquant
         int attNbCreatures =
                 ((Team*)(state.getTeamBoard().getElement(m_iAtt,m_jAtt)))->getNbCreatures();
+        // nombre de créatures sur le territoire défenseur
         int defNbCreatures =
                 ((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->getNbCreatures();
-        int AttWin = 0;
-        int DefWin = 0;
+        // TeamStatus du défenseur
         TeamStatus DefTeamStatus =
                 ((Team*)(state.getTeamBoard().getElement(m_iDef,m_jDef)))->getTeamStatus();
+        // TeamStatus du joueur en cours
         TeamStatus playerStatus = state.getPlayer();
         
-        // condition sur iAtt-iDef et sur la team
-        for (int k=0; k<attNbCreatures; k++)
+        if (m_winner == NONE)
         {
-            random_device rd; 
-            mt19937 rng(rd());
-            uniform_int_distribution<int> uni(1,6); // guaranteed unbiased
-            auto random_integer = uni(rng);
-            AttWin = AttWin + (random_integer);
-        }
-        
-        for (int m=0; m<defNbCreatures; m++)
-        {
-            random_device rd; 
-            mt19937 rng(rd());
-            uniform_int_distribution<int> uni(1,6); // guaranteed unbiased
-            auto random_integer = uni(rng);
-            DefWin = DefWin + (random_integer);
-        }
-        
-        if (abs(m_iAtt-m_iDef) < 2 && abs(m_jAtt-m_jDef) < 2 && (playerStatus != DefTeamStatus))
-        {
-            //cout<<"je suis execute atack command"<< ((Team*)state.getTeamBoard().getElement(2,1))->getNbCreatures()<<endl;
-            if(not((m_iAtt!=m_iDef) && ((m_jAtt>m_jDef && m_iDef%2==0) || (m_jAtt< m_jDef && m_iDef%2!=0))))
+            // "lancer de dés"
+            int AttWin = 0;
+            int DefWin = 0;
+            // "lancer de dés" pour l'attaquant
+            for (int k=0; k<attNbCreatures; k++)
             {
-                
-                if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
+                random_device rd; 
+                mt19937 rng(rd());
+                uniform_int_distribution<int> uni(1,6);
+                auto random_integer = uni(rng);
+                AttWin = AttWin + (random_integer);
+            }
+            // "lancer de dés" pour le défenseur
+            for (int m=0; m<defNbCreatures; m++)
+            {
+                random_device rd; 
+                mt19937 rng(rd());
+                uniform_int_distribution<int> uni(1,6);
+                auto random_integer = uni(rng);
+                DefWin = DefWin + (random_integer);
+            }
+
+
+            //if (abs(m_iAtt-m_iDef) < 2 && abs(m_jAtt-m_jDef) < 2 && (playerStatus != DefTeamStatus))
+            // si le territoire attaqué n'appartient pas à l'attaquant
+            if (playerStatus != DefTeamStatus)
+            {
+                // si le territoire attaqué est atteignable (première étape)
+                if (abs(m_iAtt-m_iDef) < 2 && abs(m_jAtt-m_jDef) < 2)        
                 {
-                    attackWins(state, actions);
-                    m_winner = playerStatus;  
+                    // si le territoire attaqué est atteignable (deuxième étape)
+                    if (not((m_iAtt!=m_iDef) && ((m_jAtt>m_jDef && m_iDef%2==0) || (m_jAtt< m_jDef && m_iDef%2!=0))))
+                    {
+                        // si l'attaquant a fait un meilleur score que le défenseur
+                        if (AttWin > DefWin && attNbCreatures > 1 && defNbCreatures != 0)
+                        {
+                            attackWins(state, actions);
+                        }
+                        // si le défenseur a fait le même score ou un meilleur que le défenseur
+                        else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
+                        {
+                            attackLooses(state, actions);
+                        }
+                        else
+                        {
+                            throw runtime_error("Problème : la bataille n'est ni gagnée ni perdue");
+                        }
+                    }
+                    else
+                    {
+                       cout << "Territoire inattaquable étape 2" << endl; 
+                    }
                 }
-                else if (AttWin <= DefWin && attNbCreatures > 1 && defNbCreatures != 0)
-                {
-                    attackLooses(state, actions);
-                    if (playerStatus == DRAGONS)
-                    {
-                        m_winner = UNICORNS;
-                    }
-                    else if (playerStatus == UNICORNS)
-                    {
-                        m_winner = DRAGONS;
-                    }
-                } 
                 else
                 {
-                    cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
+                    cout << "Territoire inattaquable étape 1"<< endl;
                 }
             }
             else
             {
-               throw runtime_error("la bataille est ni gagné ni perdu = probleme"); 
+                cout << "Problème de PlayerStatus" << endl;
             }
         }
         else
         {
-            cout << "Ce territoire ne peut être attaqué par le territoire choisi"<< endl;
+            if (m_winner == playerStatus)
+            {
+                attackWins(state, actions);
+            }
+            else if (m_winner == DefTeamStatus)
+            {
+                attackLooses(state, actions);
+            }
         }
 
     }
@@ -116,7 +138,6 @@ namespace engine{
         shared_ptr<Action> spWin((Action*)pW);
         actions.push(spWin); 
         pW->apply(state);
-        m_winner = playerStatus;
     }
     
     void AttackCommand::attackLooses (state::State& state, std::stack<std::shared_ptr<engine::Action>>& actions)
@@ -134,7 +155,6 @@ namespace engine{
        actions.push(spLoose);
        
        pL->apply(state);
-       m_winner = playerStatus;
     }
     
     int AttackCommand::getIAtt ()
@@ -180,7 +200,7 @@ namespace engine{
     void AttackCommand::serialize (Json::Value& out)
     {
         Json::Value command;
-        command["commande_attaque"] = m_commandTypeId;
+        command["commande"] = m_commandTypeId;
         command["iAtt"] = m_iAtt;
         command["jAtt"] = m_jAtt;
         command["iDef"] = m_iDef;
@@ -191,9 +211,9 @@ namespace engine{
     
     AttackCommand* AttackCommand::deserialize (Json::Value& in)
     {
-        if (in.isMember("commande_attaque"))
+        if (in.isMember("commande"))
         {
-            if (in["commande_attaque"].asInt() == ATTACK)
+            if (in["commande"].asInt() == ATTACK)
             {
                 int iAtt = in["iAtt"].asInt();
                 int jAtt = in["jAtt"].asInt();
@@ -205,21 +225,21 @@ namespace engine{
                 if (gagnant == 1)
                 {
                     TeamStatus* w = new TeamStatus(DRAGONS);
-                    AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef, *w);
+                    AttackCommand* attaque = new AttackCommand(iAtt,jAtt,iDef,jDef,*w);
                     return attaque;
                 }
                 else if (gagnant == 2)
                 {
                     TeamStatus* w = new TeamStatus(UNICORNS);
-                    AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef, *w);
+                    AttackCommand* attaque = new AttackCommand(iAtt,jAtt,iDef,jDef,*w);
                     return attaque;
                 }
                 else
                 {
                     TeamStatus* w = new TeamStatus(NONE);
-                    AttackCommand* attaque = new AttackCommand(iAtt, jAtt, iDef, jDef, *w);
+                    AttackCommand* attaque = new AttackCommand(iAtt,jAtt,iDef,jDef,*w);
                     return attaque;
-                } 
+                }
             }
             else
             {

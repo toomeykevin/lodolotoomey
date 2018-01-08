@@ -21,7 +21,7 @@ void livrable_41_record(string commande)
     {
         cout<<"La commande est record"<<endl;
         
-        ofstream replay("replay.txt", ios::out);
+        ofstream replay("replay.txt", ios::out | ios::trunc);
         
         Json::StyledWriter styledWriter;
         

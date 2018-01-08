@@ -41,7 +41,6 @@ namespace engine{
     {
         std::stack<shared_ptr<Action>> actions;
         if (m_currentCommands.size()!=0){
-            
             for (int i=0; i<((int)(m_currentCommands.size())); i++)
             {
                 if ((m_currentCommands[i]).get()->getTypeId() == RENFORTS)

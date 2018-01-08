@@ -29,7 +29,7 @@ namespace engine {
     CommandTypeId getTypeId () const;
     void execute (state::State& state, std::stack<std::shared_ptr<Action>>& actions);
     void serialize (Json::Value& out);
-    InitBasicState* deserialize (Json::Value& in);
+    static InitBasicState* deserialize (Json::Value& in);
     // Setters and Getters
   };
 

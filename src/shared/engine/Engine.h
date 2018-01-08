@@ -36,6 +36,7 @@ namespace engine {
     void addCommand (Command* cmd);
     std::stack<std::shared_ptr<Action>> update ();
     void undo (std::stack<std::shared_ptr<Action>>& actions);
+    void updateCommand (Command* command);
     // Setters and Getters
   };
 
