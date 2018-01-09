@@ -30,9 +30,14 @@ HttpStatus UserService::post (const Json::Value& in, int id) {
 }
 
 HttpStatus UserService::put (Json::Value& out,const Json::Value& in) {
-    string name = in["name"].asString();
+    std::string name = in["name"].asString();
     int age = in["age"].asInt();
-    out["id"] = m_userDB.addUser(make_unique<User>(name,age));
+    int id=  m_userDB.addUser(make_unique<User>(name,age));
+    out["id"]=id;
+    if (id>2){
+        throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
+        m_userDB.removeUser(id);
+    }
     return HttpStatus::CREATED;
 }
 
