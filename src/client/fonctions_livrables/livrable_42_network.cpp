@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include "state.h"
 #include "render.h"
 #include "engine.h"
@@ -25,29 +26,39 @@ void livrable_42_network(string commande)
     {
         cout<<"La commande est network"<<endl;
         
-        /* TUTO PROF METHODE PUT */
-        sf::Http::Request request;
-        request.setMethod(sf::Http::Request:ut);
-        request.setUri("/player");
-        request.setHttpVersion(1, 1);
-        request.setField("Content-Type", "application/x-www-form-urlencoded");
-        request.setBody(data.toStyledString());
+        sf::Http http("http://localhost",8080);
         
-        /* TUTO SFML METHODE POST */
-        // préparation de la requête
-        sf::Http::Request request("/send-score.php", sf::Http::Request::Post);
+        /* TUTO PROF METHODE PUT */
+        sf::Http::Request requestP;
+        requestP.setMethod(sf::Http::Request::Put);
+        requestP.setUri("/user");
+        requestP.setHttpVersion(1, 1);
+        requestP.setField("Content-Type", "application/x-www-form-urlencoded");
+        
+        Json::Value data;
+        data["name"]="Roger";
+        data["age"]=42;
+        requestP.setBody(data.toStyledString());
 
-        // encodage des paramètres dans le corps de la requête
-        std::ostringstream stream;
-        stream << "name=" << name << "&score=" << score;
-        request.setBody(stream.str());
-
-        // envoi de la requête au serveur
-        sf::Http http("http://www.myserver.com/");
-        sf::Http::Response response = http.sendRequest(request);
-
+        sf::Http::Response responseP = http.sendRequest(requestP);
+        std::cout << responseP.getStatus() << std::endl;
+        std::cout << responseP.getBody() << std::endl<<endl;
+        
+        sf::Http::Request requestG;
+        requestG.setMethod(sf::Http::Request::Get);
+        requestG.setUri("/user/2");
+        requestG.setHttpVersion(1, 1);
+        requestG.setField("Content-Type", "application/x-www-form-urlencoded");
+        
+        sf::Http::Response responseG = http.sendRequest(requestG);
+        std::cout << responseG.getStatus() << std::endl;
+        std::cout << responseG.getBody() << std::endl;
+        
+        
+        
+        
         // vérification du statut
-        if (response.getStatus() == sf::Http::Response::Ok)
+       /* if (response.getStatus() == sf::Http::Response::Ok)
         {
             // affichage de la réponse du serveur
             std::cout << response.getBody() << std::endl;
@@ -55,7 +66,7 @@ void livrable_42_network(string commande)
         else
         {
             std::cout << "request failed" << std::endl;
-        }
+        }*/
     }
     else{}
 }

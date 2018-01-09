@@ -34,4 +34,8 @@ void UserDB::removeUser (int id) {
     m_users.erase(ite);
 }
 
+int UserDB::getSize(){
+    return m_users.size();
+}
+
 }

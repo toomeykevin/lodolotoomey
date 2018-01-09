@@ -27,6 +27,7 @@ namespace server {
     int addUser (std::unique_ptr<User> user);
     void setUser (int id, std::unique_ptr<User> user);
     void removeUser (int id);
+    int getSize ();
     // Setters and Getters
   };
 

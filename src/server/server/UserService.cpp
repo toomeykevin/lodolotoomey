@@ -8,10 +8,26 @@ UserService::UserService (UserDB& userDB) : AbstractService("/user"), m_userDB(u
 HttpStatus UserService::get (Json::Value& out, int id) const {
     const User* user = m_userDB.getUser(id);
     if (!user)
+    {
         throw ServiceException(HttpStatus::NOT_FOUND,"Invalid user id");
-    out["name"] = user->m_name;
-    out["age"] = user->m_age;
-    return HttpStatus::OK;
+    }
+    if (id < 0)
+    {
+        for (int k=0;k<m_userDB.getSize();k++){
+            out[k]["name"]=m_userDB.getUser(k);
+        }
+        // Données sortie :
+        // type "array"
+        // items
+        return HttpStatus::OK;
+    }
+    else
+    {
+        out["name"] = user->m_name;
+        out["age"] = user->m_age;
+        return HttpStatus::OK;
+    }
+    
 }
 
 HttpStatus UserService::post (const Json::Value& in, int id) {

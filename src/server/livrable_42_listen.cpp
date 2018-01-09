@@ -147,7 +147,7 @@ void livrable_42_listen(string commande)
         try {
             ServicesManager servicesManager;
             servicesManager.registerService(make_unique<VersionService>());
-
+            
             UserDB userDB;
             userDB.addUser(make_unique<User>("Paul",23));
             servicesManager.registerService(make_unique<UserService>(std::ref(userDB)));
