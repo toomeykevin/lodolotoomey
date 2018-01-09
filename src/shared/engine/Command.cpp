@@ -21,5 +21,9 @@ namespace engine{
     
     void Command::serialize (Json::Value& out){}
     
-    Command* Command::deserialize (Json::Value& in) {}
+    Command* Command::deserialize (Json::Value& in)
+    {
+        Command* commande;
+        return commande;
+    }
 };
