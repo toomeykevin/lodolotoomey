@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <exception>
+#include <algorithm>
 #include "state.h"
 #include "render.h"
 #include "engine.h"
@@ -126,7 +127,8 @@ static int main_handler (void *cls,
         status = HttpStatus::SERVER_ERROR;
         response = "Unknown exception\n";
     }
-
+    std::replace(response.begin(), response.end(),'\n' , ' ');
+    //cout<<response<<endl;
     struct MHD_Response *mhd_response;
     mhd_response = MHD_create_response_from_buffer(response.size(),(void *)response.c_str(),MHD_RESPMEM_MUST_COPY);
     if (strcmp(method,MHD_HTTP_METHOD_GET) == 0) {
