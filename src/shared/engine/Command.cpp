@@ -23,7 +23,7 @@ namespace engine{
     
     Command* Command::deserialize (Json::Value& in)
     {
-        Command* commande;
+        Command* commande = NULL;
         return commande;
     }
 };

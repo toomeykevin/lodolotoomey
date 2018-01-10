@@ -30,14 +30,13 @@ void livrable_42_network(string commande)
         
         /* TUTO PROF METHODE PUT */
         sf::Http::Request requestPost;
-        requestPost.setMethod(sf::Http::Request::Put);
+        requestPost.setMethod(sf::Http::Request::Post);
         requestPost.setUri("/user/1");
         requestPost.setHttpVersion(1, 1);
         requestPost.setField("Content-Type", "application/x-www-form-urlencoded");
         
         Json::Value dataPost;
         dataPost["name"]="Thierry";
-        dataPost["age"]=55;
         requestPost.setBody(dataPost.toStyledString());
 
         sf::Http::Response responsePost = http.sendRequest(requestPost);
@@ -52,7 +51,6 @@ void livrable_42_network(string commande)
         
         Json::Value data;
         data["name"]="Roger";
-        data["age"]=42;
         requestPut.setBody(data.toStyledString());
 
         sf::Http::Response responsePut = http.sendRequest(requestPut);
@@ -67,8 +65,7 @@ void livrable_42_network(string commande)
         
         sf::Http::Response responseGet = http.sendRequest(requestGet);
         std::cout << responseGet.getStatus() << std::endl;
-        std::cout << responseGet.getBody() << std::endl;
-        
+        std::cout << responseGet.getBody() << std::endl;       
         
         sf::Http::Request requestPut2;
         requestPut2.setMethod(sf::Http::Request::Put);
@@ -78,7 +75,6 @@ void livrable_42_network(string commande)
         
         Json::Value data2;
         data2["name"]="doesn't exist";
-        data2["age"]=4596;
         requestPut2.setBody(data2.toStyledString());
 
         sf::Http::Response responsePut2 = http.sendRequest(requestPut2);

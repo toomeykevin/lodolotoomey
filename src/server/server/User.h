@@ -11,10 +11,9 @@ namespace server {
     // Attributes
   public:
     std::string m_name;
-    int m_age;
     // Operations
   public:
-    User (std::string name, int age);
+    User (std::string name);
     // Setters and Getters
   };
 

@@ -6,7 +6,7 @@
 namespace server {
 
   enum HttpStatus {
-    OK     = 200,
+    OK     = 100,
     CREATED     = 201,
     NO_CONTENT     = 204,
     BAD_REQUEST     = 400,

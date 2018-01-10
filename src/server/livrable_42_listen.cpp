@@ -149,7 +149,7 @@ void livrable_42_listen(string commande)
             servicesManager.registerService(make_unique<VersionService>());
             
             UserDB userDB;
-            userDB.addUser(make_unique<User>("Paul",23));
+            userDB.addUser(make_unique<User>("Paul"));
             servicesManager.registerService(make_unique<UserService>(std::ref(userDB)));
 
             struct MHD_Daemon *d;
