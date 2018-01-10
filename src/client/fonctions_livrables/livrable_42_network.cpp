@@ -28,7 +28,7 @@ void livrable_42_network(string commande)
         
         sf::Http http("http://localhost",8080);
         
-        /* TUTO PROF METHODE PUT */
+        /* TEST DE LA COMMANDE POST */
         sf::Http::Request requestPost;
         requestPost.setMethod(sf::Http::Request::Post);
         requestPost.setUri("/user/1");
@@ -43,6 +43,7 @@ void livrable_42_network(string commande)
         std::cout << responsePost.getStatus() << std::endl;
         std::cout << responsePost.getBody() << std::endl<<endl;
         
+        /* TEST DE LA COMMANDE PUT */
         sf::Http::Request requestPut;
         requestPut.setMethod(sf::Http::Request::Put);
         requestPut.setUri("/user");
