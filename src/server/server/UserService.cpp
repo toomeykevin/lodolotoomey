@@ -5,35 +5,33 @@ namespace server {
 UserService::UserService (UserDB& userDB) : AbstractService("/user"), m_userDB(userDB){
 }
 
+// GET : Obtient un utilisateur à partir de son id
 HttpStatus UserService::get (Json::Value& out, int id) const
 {
-    // on recherche l'utilisateur concerné
-    const User* user = m_userDB.getUser(id);
-    // si on ne trouve pas l'utilisateur
-    if (!user)
+    if (id == -1)
     {
-        throw ServiceException(HttpStatus::NOT_FOUND,"Invalid user id");
-    }
-    // si l'id est négatif, on veut la liste des utilisateurs
-    if (id < 0)
-    {
-        for (int k=0;k<m_userDB.getSize();k++){
-            out[k]["name"]=m_userDB.getUser(k);
+        for (int k=1;k<=m_userDB.getSize();k++)
+        {
+            out[k-1]["name"]=m_userDB.getUser(k)->m_name;
         }
-        // Données sortie :
-        // type "array"
-        // items
         return HttpStatus::OK;
     }
-    // si l'id est existant et positif, on veut l'utilisateur concerné
     else
     {
-        out["name"] = user->m_name;
-        return HttpStatus::OK;
-    }
-    
+        const User* user = m_userDB.getUser(id);
+        if (!user)
+        {
+            throw ServiceException(HttpStatus::NOT_FOUND,"Invalid user id");
+        }
+        else
+        {
+            out["name"] = user->m_name;
+            return HttpStatus::OK;
+        }
+    }  
 }
 
+// POST : Modifie un utilisateur à partir de son id et du nouveau profil
 HttpStatus UserService::post (const Json::Value& in, int id)
 {
     // on cherche l'utilisateur lié à l'id donné
@@ -52,6 +50,7 @@ HttpStatus UserService::post (const Json::Value& in, int id)
     return HttpStatus::NO_CONTENT;
 }
 
+// PUT : Ajoute un nouvel utilisateur
 HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
 {
     std::string name = in["name"].asString();
@@ -69,6 +68,7 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
     return HttpStatus::CREATED;
 }
 
+// DELETE : Supprime un utilisateur de la partie à partir de son id
 HttpStatus UserService::remove (int id)
 {
     // on cherche l'utilisateur lié à l'id donné
