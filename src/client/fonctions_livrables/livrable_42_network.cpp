@@ -55,6 +55,21 @@ void livrable_42_network(string commande)
         std::cout << responseG.getBody() << std::endl;
         
         
+        sf::Http::Request requestP2;
+        requestP2.setMethod(sf::Http::Request::Put);
+        requestP2.setUri("/user");
+        requestP2.setHttpVersion(1, 1);
+        requestP2.setField("Content-Type", "application/x-www-form-urlencoded");
+        
+        Json::Value data2;
+        data2["name"]="doesn't exist";
+        data2["age"]=4596;
+        requestP2.setBody(data2.toStyledString());
+
+        sf::Http::Response responseP2 = http.sendRequest(requestP2);
+        std::cout << responseP2.getStatus() << std::endl;
+        std::cout << responseP2.getBody() << std::endl<<endl;
+        
         
         
         // vérification du statut
