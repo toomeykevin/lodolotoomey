@@ -29,46 +29,61 @@ void livrable_42_network(string commande)
         sf::Http http("http://localhost",8080);
         
         /* TUTO PROF METHODE PUT */
-        sf::Http::Request requestP;
-        requestP.setMethod(sf::Http::Request::Put);
-        requestP.setUri("/user");
-        requestP.setHttpVersion(1, 1);
-        requestP.setField("Content-Type", "application/x-www-form-urlencoded");
+        sf::Http::Request requestPost;
+        requestPost.setMethod(sf::Http::Request::Put);
+        requestPost.setUri("/user/1");
+        requestPost.setHttpVersion(1, 1);
+        requestPost.setField("Content-Type", "application/x-www-form-urlencoded");
+        
+        Json::Value dataPost;
+        dataPost["name"]="Thierry";
+        dataPost["age"]=55;
+        requestPost.setBody(dataPost.toStyledString());
+
+        sf::Http::Response responsePost = http.sendRequest(requestPost);
+        std::cout << responsePost.getStatus() << std::endl;
+        std::cout << responsePost.getBody() << std::endl<<endl;
+        
+        sf::Http::Request requestPut;
+        requestPut.setMethod(sf::Http::Request::Put);
+        requestPut.setUri("/user");
+        requestPut.setHttpVersion(1, 1);
+        requestPut.setField("Content-Type", "application/x-www-form-urlencoded");
         
         Json::Value data;
         data["name"]="Roger";
         data["age"]=42;
-        requestP.setBody(data.toStyledString());
+        requestPut.setBody(data.toStyledString());
 
-        sf::Http::Response responseP = http.sendRequest(requestP);
-        std::cout << responseP.getStatus() << std::endl;
-        std::cout << responseP.getBody() << std::endl<<endl;
+        sf::Http::Response responsePut = http.sendRequest(requestPut);
+        std::cout << responsePut.getStatus() << std::endl;
+        std::cout << responsePut.getBody() << std::endl<<endl;
         
-        sf::Http::Request requestG;
-        requestG.setMethod(sf::Http::Request::Get);
-        requestG.setUri("/user/2");
-        requestG.setHttpVersion(1, 1);
-        requestG.setField("Content-Type", "application/x-www-form-urlencoded");
+        sf::Http::Request requestGet;
+        requestGet.setMethod(sf::Http::Request::Get);
+        requestGet.setUri("/user/2");
+        requestGet.setHttpVersion(1, 1);
+        requestGet.setField("Content-Type", "application/x-www-form-urlencoded");
         
-        sf::Http::Response responseG = http.sendRequest(requestG);
-        std::cout << responseG.getStatus() << std::endl;
-        std::cout << responseG.getBody() << std::endl;
+        sf::Http::Response responseGet = http.sendRequest(requestGet);
+        std::cout << responseGet.getStatus() << std::endl;
+        std::cout << responseGet.getBody() << std::endl;
         
         
-        sf::Http::Request requestP2;
-        requestP2.setMethod(sf::Http::Request::Put);
-        requestP2.setUri("/user");
-        requestP2.setHttpVersion(1, 1);
-        requestP2.setField("Content-Type", "application/x-www-form-urlencoded");
+        sf::Http::Request requestPut2;
+        requestPut2.setMethod(sf::Http::Request::Put);
+        requestPut2.setUri("/user");
+        requestPut2.setHttpVersion(1, 1);
+        requestPut2.setField("Content-Type", "application/x-www-form-urlencoded");
         
         Json::Value data2;
         data2["name"]="doesn't exist";
         data2["age"]=4596;
-        requestP2.setBody(data2.toStyledString());
+        requestPut2.setBody(data2.toStyledString());
 
-        sf::Http::Response responseP2 = http.sendRequest(requestP2);
-        std::cout << responseP2.getStatus() << std::endl;
-        std::cout << responseP2.getBody() << std::endl<<endl;
+        sf::Http::Response responsePut2 = http.sendRequest(requestPut2);
+        std::cout << responsePut2.getStatus() << std::endl;
+        std::cout << responsePut2.getBody() << std::endl<<endl;
         
         
         
