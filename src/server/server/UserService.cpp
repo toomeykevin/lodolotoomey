@@ -10,7 +10,7 @@ HttpStatus UserService::get (Json::Value& out, int id) const
 {
     if (id == -1)
     {
-        for (int k=1;k<=m_userDB.getSize();k++)
+        for (int k=1;k<=2/*m_userDB.getSize()*/;k++)
         {
             out[k-1]["name"]=m_userDB.getUser(k)->m_name;
         }
@@ -64,8 +64,12 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
         // alors c'est qu'il y avait déjà suffisamment de joueurs
         throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
         m_userDB.removeUser(id);
+        return HttpStatus::OUT_OF_RESSOURCES;
     }
-    return HttpStatus::CREATED;
+    else{
+        return HttpStatus::CREATED;
+    }
+    
 }
 
 // DELETE : Supprime un utilisateur de la partie à partir de son id

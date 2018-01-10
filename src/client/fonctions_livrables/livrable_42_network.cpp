@@ -41,7 +41,7 @@ void livrable_42_network(string commande)
         sf::Http::Response responsePost = http.sendRequest(requestPost);
         cout << "Première requête : POST - remplacement Paul par Thierry" << endl;
         std::cout << "Statut du serveur : " << responsePost.getStatus() << std::endl;
-        std::cout << "Réponse du serveur : \n" << responsePost.getBody() << std::endl<<endl;
+        std::cout << "Réponse du serveur : \n" << responsePost.getBody() << std::endl;
         
         // Deuxième requête : PUT
         // On ajoute un deuxième utilisateur
@@ -58,7 +58,7 @@ void livrable_42_network(string commande)
         sf::Http::Response responsePut = http.sendRequest(requestPut);
         cout << "Deuxième requête : PUT - ajout du joueur Roger" << endl;
         std::cout << "Statut du serveur : " << responsePut.getStatus() << std::endl;
-        std::cout << "Réponse du serveur : \n" << responsePut.getBody() << std::endl<<endl;
+        std::cout << "Réponse du serveur : \n" << responsePut.getBody() << std::endl;
         
         // Troisième requête : PUT
         // On tente d'ajouter un troisième utilisateur, ce qui normalement n'est pas possible
@@ -76,7 +76,7 @@ void livrable_42_network(string commande)
         cout << "On essaie d'ajouter un nouvel utilisateur." << endl;
         cout << "Normalement ce n'est pas possible, il y a déjà deux joueurs." << endl;
         std::cout << "Statut du serveur : " << responsePut2.getStatus() << std::endl;
-        std::cout << "Réponse du serveur : \n" << responsePut2.getBody() << std::endl<<endl;
+        std::cout << "Réponse du serveur : \n" << responsePut2.getBody() << std::endl;
         
         // Quatrième requête : GET
         // Pour obtenir la liste des joueurs
