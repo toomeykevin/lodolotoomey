@@ -11,6 +11,7 @@
 #include "render.h"
 #include "engine.h"
 #include "ai.h"
+#include "server.h"
 
 using namespace std;
 using namespace sf;
@@ -18,13 +19,16 @@ using namespace state;
 using namespace render;
 using namespace engine;
 using namespace ai;
-
+using namespace server;
 
 void livrable_42_network(string commande)
 {
     if (commande == "network")
     {
+        cout<<"la commande est network"<<endl;
         sf::Http http("http://localhost",8080);
+        
+        int NbrJoueurs=1;
         
         // Première requête : POST
         // Pour modifier l'utilisateur ajouté lors du lancement du serveur
@@ -59,6 +63,16 @@ void livrable_42_network(string commande)
         cout << "Deuxième requête : PUT - ajout du joueur Roger" << endl;
         std::cout << "Statut du serveur : " << responsePut.getStatus() << std::endl;
         std::cout << "Réponse du serveur : \n" << responsePut.getBody() << std::endl;
+        
+        Http::Response::Status StatusPutOK=Http::Response::Created;
+        if (responsePut.getStatus()==StatusPutOK)
+        {
+            NbrJoueurs+=1;
+        }
+        if (NbrJoueurs==2)
+        {
+            cout <<"La partie est prête pour le lancement : Nous avons 2 joueurs"<<endl<<endl;
+        }
         
         // Troisième requête : PUT
         // On tente d'ajouter un troisième utilisateur, ce qui normalement n'est pas possible

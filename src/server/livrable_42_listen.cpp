@@ -143,7 +143,7 @@ void livrable_42_listen(string commande)
 {
     if (commande == "listen")
     {
-        cout<<"Hello World listen"<<endl;
+        cout<<"La commande est listen"<<endl;
         try {
             ServicesManager servicesManager;
             servicesManager.registerService(make_unique<VersionService>());
