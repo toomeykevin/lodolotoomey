@@ -2,13 +2,18 @@
 #ifndef SERVER__USERDB__H
 #define SERVER__USERDB__H
 
-#include <map>
+#include <thread>
 #include <memory>
+#include <map>
 
+namespace engine {
+  class Engine;
+};
 namespace server {
   class User;
 }
 
+#include "engine/Engine.h"
 #include "User.h"
 
 namespace server {
@@ -17,6 +22,9 @@ namespace server {
   class UserDB {
     // Associations
     // Attributes
+  private:
+    engine::Engine engine_m;
+    std::unique_ptr<std::thread> engineThreads;
   protected:
     std::map<int,std::unique_ptr<User>> m_users;
     int m_idseq;
@@ -28,6 +36,8 @@ namespace server {
     void setUser (int id, std::unique_ptr<User> user);
     void removeUser (int id);
     int getSize ();
+    engine::Engine& getEngine ();
+    void run ();
     // Setters and Getters
   };
 

@@ -10,4 +10,6 @@
 #include "server/UserDB.h"
 #include "server/UserService.h"
 #include "server/ServiceException.h"
+#include "server/GameService.h"
+#include "server/CommandsService.h"
 #endif

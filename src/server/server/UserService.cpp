@@ -5,6 +5,7 @@ namespace server {
 UserService::UserService (UserDB& userDB) : AbstractService("/user"), m_userDB(userDB){
 }
 
+
 // GET : Obtient un utilisateur à partir de son id
 HttpStatus UserService::get (Json::Value& out, int id) const
 {
@@ -62,9 +63,9 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
     {
         // si cet id est plus grand que 2
         // alors c'est qu'il y avait déjà suffisamment de joueurs
-        throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
         m_userDB.removeUser(id);
-        return HttpStatus::OUT_OF_RESSOURCES;
+        throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
+        
     }
     else{
         return HttpStatus::CREATED;
