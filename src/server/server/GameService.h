@@ -18,7 +18,7 @@ namespace server {
   class GameService : public server::AbstractService {
     // Attributes
   private:
-    UserDB& game_m;
+    UserDB& m_game;
     // Operations
   public:
     GameService (UserDB& game);

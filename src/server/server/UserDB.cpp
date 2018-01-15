@@ -37,5 +37,11 @@ void UserDB::removeUser (int id) {
 int UserDB::getSize(){
     return m_users.size();
 }
+    engine::Engine& UserDB::getEngine (){
+        return m_engine;
+    }
+    void UserDB::run (){
+        
+    }
 
 }

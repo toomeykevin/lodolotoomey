@@ -23,7 +23,7 @@ namespace server {
     // Associations
     // Attributes
   private:
-    engine::Engine engine_m;
+    engine::Engine m_engine;
     std::unique_ptr<std::thread> engineThreads;
   protected:
     std::map<int,std::unique_ptr<User>> m_users;

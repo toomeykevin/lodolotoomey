@@ -22,7 +22,7 @@ namespace server {
     // Associations
     // Attributes
   private:
-    engine::Engine& engine_m;
+    engine::Engine& m_engine;
     // Operations
   public:
     CommandsService (engine::Engine& engine);
