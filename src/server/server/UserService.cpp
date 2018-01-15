@@ -1,4 +1,9 @@
 #include "UserService.hpp"
+#include <iostream>
+
+using namespace std;
+
+int NbrJoueurs=0;
 
 namespace server {
 
@@ -67,8 +72,15 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
         throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
         
     }
-    else{
+    else if (id == 2)
+    {
+        throw ServiceException(HttpStatus::CREATED,"Lancement de la partie");
+        //NbrJoueurs++;
+    }
+    else
+    {
         return HttpStatus::CREATED;
+        //NbrJoueurs++;
     }
     
 }
@@ -80,12 +92,14 @@ HttpStatus UserService::remove (int id)
     const User* user = m_userDB.getUser(id);
     if (!user)
     {
-        // si on ne trouve pa l'utilisateur
+        // si on ne trouve pas l'utilisateur
         throw ServiceException(HttpStatus::NOT_FOUND,"User ID invalide");
     }
     // si on trouve l'utilisateur
     m_userDB.removeUser(id);
     return HttpStatus::NO_CONTENT;
+    
+    NbrJoueurs--;
 }
 
 }

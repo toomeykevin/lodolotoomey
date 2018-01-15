@@ -25,11 +25,29 @@ void livrable_42_network(string commande)
 {
     if (commande == "network")
     {
-        cout<<"la commande est network"<<endl;
         sf::Http http("http://localhost",8080);
         
-        int NbrJoueurs=1;
+        sf::Http::Request requestPut;
+        requestPut.setMethod(sf::Http::Request::Put);
+        requestPut.setUri("/user");
+        requestPut.setHttpVersion(1, 1);
+        requestPut.setField("Content-Type", "application/x-www-form-urlencoded");
+        // Ce joueur s'appelle Roger
+        Json::Value data;
+        cout << "Entrez votre pseudo" << endl;
+        string pseudo;
+        cin >> pseudo;
+        data["name"]=pseudo;
+        requestPut.setBody(data.toStyledString());
+        // On envoie la requête au serveur
+        sf::Http::Response responsePut = http.sendRequest(requestPut);
+        cout << "-- Requête PUT --" << endl;
+        cout << "Statut du serveur : " << responsePut.getStatus() << endl;
+        cout << "Réponse du serveur : \n" << responsePut.getBody() << endl;
         
+        
+        /* LIVRABLE 4.2 */
+        /*
         // Première requête : POST
         // Pour modifier l'utilisateur ajouté lors du lancement du serveur
         sf::Http::Request requestPost;
@@ -104,6 +122,7 @@ void livrable_42_network(string commande)
         std::cout << "Statut du serveur : " << responseGet.getStatus() << std::endl;
         cout << "Les joueurs en ligne pour la partie sont : " << endl;
         std::cout << responseGet.getBody() << std::endl;
+        */
     }
     else{}
 }
