@@ -26,6 +26,7 @@ namespace engine {
     // Attributes
   private:
     state::State m_currentState;
+  protected:
     std::vector<std::unique_ptr<Command>> m_currentCommands;
     // Operations
   public:

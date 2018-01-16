@@ -242,7 +242,7 @@
             <dia:string>##</dia:string>
           </dia:attribute>
           <dia:attribute name="visibility">
-            <dia:enum val="1"/>
+            <dia:enum val="2"/>
           </dia:attribute>
           <dia:attribute name="abstract">
             <dia:boolean val="false"/>
