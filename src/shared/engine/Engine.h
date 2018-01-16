@@ -33,7 +33,7 @@ namespace engine {
     ~Engine ();
     state::State& getState ();
     void addPassivCommands ();
-    void addCommand (Command* cmd);
+    virtual void addCommand (Command* cmd);
     std::stack<std::shared_ptr<Action>> update ();
     void undo (std::stack<std::shared_ptr<Action>>& actions);
     void updateCommand (Command* command);

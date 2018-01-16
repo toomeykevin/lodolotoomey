@@ -12,4 +12,5 @@
 #include "server/ServiceException.h"
 #include "server/GameService.h"
 #include "server/CommandsService.h"
+#include "server/Engine_serv.h"
 #endif

@@ -5,11 +5,11 @@
 #include <vector>
 #include <json/json.h>
 
-namespace engine {
-  class Command;
-};
 namespace server {
   class AbstractService;
+};
+namespace engine {
+  class Command;
 }
 
 #include "HttpStatus.h"
@@ -23,7 +23,7 @@ namespace server {
     // Associations
     // Attributes
   private:
-    std::vector<engine::Command*> m_ListCommand;
+    std::vector<std::vector<engine::Command*>> m_ListCommand;
     // Operations
   public:
     CommandsService ();
