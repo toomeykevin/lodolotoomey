@@ -126,54 +126,6 @@ void livrable_41_play(string commande)
                         }
                     }
                     
-                    
-                        /*
-                        // on fait la liste des emplacements des commandes "GestionRenforts"
-                        vector<int> list_renforts;
-                        list_renforts.push_back(0);
-                        for (int i=1; i< (int)root.size(); i++)
-                        {
-                            Json::Value node = root[i];
-                            if (node["commande"].asInt() == 1)
-                            {
-                                list_renforts.push_back(i);
-                            }
-                        }
-
-                        // Entre deux commandes GestionRenforts, on fait les attaques
-                        // d'un même joueur
-                        for (int i=0; i<(int)list_renforts.size(); i++)
-                        {
-                            for (int j = list_renforts[i]; j<list_renforts[i+1]; j++)
-                            {
-                                Json::Value obj = root[j];
-                                cout << obj.toStyledString() << endl;
-                                switch (obj["commande"].asInt())
-                                {
-                                    case 0 :
-                                    {
-                                        break;
-                                    }
-                                    case 1 :
-                                    {
-                                        GestionRenforts* gestionRenforts = GestionRenforts::deserialize(obj);
-                                        moteur.addCommand((Command*)gestionRenforts);
-                                        moteur.update();
-                                        sleep(milliseconds(3));
-                                        break;
-                                    }
-                                    case 2 :
-                                    {
-                                        AttackCommand* attackCommand = AttackCommand::deserialize(obj);
-                                        moteur.addCommand((Command*)attackCommand);
-                                        moteur.update();
-                                        sleep(milliseconds(3));
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                        */
                     // à chaque tour, on efface l'ancien rendu
                     window.clear(Color::Black);
 
@@ -226,8 +178,6 @@ void livrable_41_play(string commande)
                     }
                 }
             }
-            
-             // à adapter avec une temporisation
             // on termine en fermant le fichier
             record.close();
         }
