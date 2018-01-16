@@ -8,7 +8,7 @@ using namespace std;
 
 namespace server {
 
-    CommandsService::CommandsService (engine::Engine& engine): AbstractService("/commands"),m_engine(engine){
+    CommandsService::CommandsService (): AbstractService("/commands"){
     }
     HttpStatus CommandsService::get (Json::Value& out, int id) const{
         return HttpStatus::OK;

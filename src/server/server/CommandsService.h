@@ -2,10 +2,11 @@
 #ifndef SERVER__COMMANDSSERVICE__H
 #define SERVER__COMMANDSSERVICE__H
 
+#include <vector>
 #include <json/json.h>
 
 namespace engine {
-  class Engine;
+  class Command;
 };
 namespace server {
   class AbstractService;
@@ -13,7 +14,7 @@ namespace server {
 
 #include "HttpStatus.h"
 #include "AbstractService.h"
-#include "engine/Engine.h"
+#include "engine/Command.h"
 
 namespace server {
 
@@ -22,10 +23,10 @@ namespace server {
     // Associations
     // Attributes
   private:
-    engine::Engine& m_engine;
+    std::vector<engine::Command*> m_ListCommand;
     // Operations
   public:
-    CommandsService (engine::Engine& engine);
+    CommandsService ();
     HttpStatus get (Json::Value& out, int id) const;
     HttpStatus put (Json::Value& out, Json::Value& in);
     // Setters and Getters
