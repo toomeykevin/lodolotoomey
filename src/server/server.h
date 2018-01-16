@@ -3,14 +3,13 @@
 #define __SERVER__H
 
 #include "server/HttpStatus.h"
+#include "server/ServiceException.h"
 #include "server/AbstractService.h"
 #include "server/ServicesManager.h"
 #include "server/VersionService.h"
 #include "server/User.h"
 #include "server/UserDB.h"
 #include "server/UserService.h"
-#include "server/ServiceException.h"
 #include "server/GameService.h"
 #include "server/CommandsService.h"
-#include "server/Engine_serv.h"
 #endif

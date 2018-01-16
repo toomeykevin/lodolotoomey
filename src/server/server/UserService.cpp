@@ -61,7 +61,7 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
 {
     std::string name = in["name"].asString();
     // on ajoute l'utilisateur à la liste des utilisateurs
-    int id=  m_userDB.addUser(make_unique<User>(name));
+    int id =  m_userDB.addUser(make_unique<User>(name));
     // on renvoie l'id de l'utilisateur
     out["id"]=id;
     if (id>2)

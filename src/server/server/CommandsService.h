@@ -2,7 +2,6 @@
 #ifndef SERVER__COMMANDSSERVICE__H
 #define SERVER__COMMANDSSERVICE__H
 
-#include <vector>
 #include <json/json.h>
 
 namespace server {
@@ -23,10 +22,10 @@ namespace server {
     // Associations
     // Attributes
   private:
-    std::vector<std::vector<engine::Command*>> m_ListCommand;
+    Json::Value& m_ListCommand;
     // Operations
   public:
-    CommandsService ();
+    CommandsService (Json::Value& value);
     HttpStatus get (Json::Value& out, int id) const;
     HttpStatus put (Json::Value& out, Json::Value& in);
     // Setters and Getters

@@ -5,7 +5,12 @@
 #include <string>
 #include <json/json.h>
 
+namespace server {
+  class ServiceException;
+}
+
 #include "HttpStatus.h"
+#include "ServiceException.h"
 
 namespace server {
 

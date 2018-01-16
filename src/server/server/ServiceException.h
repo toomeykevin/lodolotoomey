@@ -4,12 +4,7 @@
 
 #include <string>
 
-namespace server {
-  class AbstractService;
-}
-
 #include "HttpStatus.h"
-#include "AbstractService.h"
 
 namespace server {
 
