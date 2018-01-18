@@ -2,9 +2,7 @@
 #include <iostream>
 
 using namespace std;
-
-int NbrJoueurs=0;
-
+ 
 namespace server {
 
 UserService::UserService (UserDB& userDB) : AbstractService("/user"), m_userDB(userDB){
@@ -68,19 +66,20 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
     {
         // si cet id est plus grand que 2
         // alors c'est qu'il y avait déjà suffisamment de joueurs
+        out["GameStarted"] = false;
         m_userDB.removeUser(id);
         throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
         
     }
     else if (id == 2)
     {
-        throw ServiceException(HttpStatus::CREATED,"Lancement de la partie");
-        //NbrJoueurs++;
+        out["Game started"] = true;
+        return HttpStatus::CREATED;
     }
     else
     {
+        out["Game started"] = false;
         return HttpStatus::CREATED;
-        //NbrJoueurs++;
     }
     
 }
@@ -98,8 +97,6 @@ HttpStatus UserService::remove (int id)
     // si on trouve l'utilisateur
     m_userDB.removeUser(id);
     return HttpStatus::NO_CONTENT;
-    
-    NbrJoueurs--;
 }
 
 }

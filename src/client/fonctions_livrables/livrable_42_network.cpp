@@ -41,9 +41,17 @@ void livrable_42_network(string commande)
         requestPut.setBody(data.toStyledString());
         // On envoie la requête au serveur
         sf::Http::Response responsePut = http.sendRequest(requestPut);
-        cout << "-- Requête PUT --" << endl;
+        cout << "-- AJOUT D'UN NOUVEAU JOUEUR --" << endl;
         cout << "Statut du serveur : " << responsePut.getStatus() << endl;
         cout << "Réponse du serveur : \n" << responsePut.getBody() << endl;
+        
+        Json::Reader reader;
+        Json::Value reponse;
+        reader.parse(responsePut.getBody(),reponse);
+        if (reponse["Game started"] == true)
+        {
+            cout << "-- LANCEMENT DE LA PARTIE --" << endl;
+        }
         
         // CONDITION A INSERER ICI
         // si la partie est lancée
