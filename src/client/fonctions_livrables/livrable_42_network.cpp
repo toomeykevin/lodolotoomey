@@ -14,6 +14,7 @@
 #include "engine.h"
 #include "ai.h"
 #include "server.h"
+#include "client.h"
 
 using namespace std;
 using namespace sf;
@@ -22,6 +23,7 @@ using namespace render;
 using namespace engine;
 using namespace ai;
 using namespace server;
+using namespace client;
 
 // déclaration d'un mutex global
 mutex m;
@@ -32,7 +34,6 @@ void routine_thread(HeuristicAI* AIPlayer, Engine& moteur)
     // on attend 10s avant d'exécuter l'AI :
     // ça laisse le temps à la fenêtre d'affichage de s'ouvrir
     sleep(milliseconds(10000));
-    
     // tant que le jeu n'est pas fini
     while(!moteur.getState().isGameOver())
     {
@@ -95,7 +96,9 @@ void livrable_42_network(string commande)
             
             // création AI, moteur et état
             HeuristicAI* AIPlayer = new HeuristicAI();
-            Engine moteur;
+            
+            SuperEngine moteur;
+            
             State& etat = moteur.getState();
             
             InitBasicState* init = new InitBasicState();
