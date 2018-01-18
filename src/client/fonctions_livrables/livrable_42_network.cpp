@@ -5,6 +5,8 @@
  */
 
 #include <iostream>
+#include <thread>
+#include <mutex>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include "state.h"
@@ -20,6 +22,30 @@ using namespace render;
 using namespace engine;
 using namespace ai;
 using namespace server;
+
+// déclaration d'un mutex global
+mutex m;
+
+// routine du thread secondaire
+void routine_thread(HeuristicAI* AIPlayer, Engine& moteur)
+{
+    // on attend 10s avant d'exécuter l'AI :
+    // ça laisse le temps à la fenêtre d'affichage de s'ouvrir
+    sleep(milliseconds(10000));
+    
+    // tant que le jeu n'est pas fini
+    while(!moteur.getState().isGameOver())
+    {
+        // on verrouille le mutex pour qu'il n'y ait pas d'affichage pendant que
+        // l'AI modifie l'état
+        {
+            std::lock_guard<std::mutex> lck (m);
+            AIPlayer->run(moteur);
+        }
+        // on attend 3s avant de passer au tour suivant : permet un affichage clair
+        sleep(milliseconds(3000));
+    }
+}
 
 void livrable_42_network(string commande)
 {
@@ -50,11 +76,25 @@ void livrable_42_network(string commande)
         Json::Reader reader;
         Json::Value reponse;
         reader.parse(responsePut.getBody(),reponse);
-        if (reponse["Game started"] == true)
+        
+        // si on est le premier joueur, on reste en attente du serveur
+        if (reponse["id"].asInt() == 1)
+        {
+            while(1)
+            {
+                cout << "Attente serveur" << endl;
+                sleep(milliseconds(2000));
+            }
+        }
+        
+        // si on est le deuxième joueur, on est celui qui lance la partie
+        // et affiche la fenêtre
+        if (reponse["Game started"].asBool() == true)
         {
             cout << "-- LANCEMENT DE LA PARTIE --" << endl;
             
-            // création moteur et état
+            // création AI, moteur et état
+            HeuristicAI* AIPlayer = new HeuristicAI();
             Engine moteur;
             State& etat = moteur.getState();
             
@@ -63,6 +103,9 @@ void livrable_42_network(string commande)
             moteur.addCommand((Command*)init);
             // on l'exécute
             moteur.update();
+            
+            // création du thread qui fait le calcul du tour
+            thread th(&routine_thread, AIPlayer, std::ref(moteur));
 
             ElementTabLayer Layer1(etat.getTerritoryBoard());
             ElementTabLayer Layer2(etat.getTeamBoard());
@@ -84,6 +127,10 @@ void livrable_42_network(string commande)
                         window.close();
                     }
                 }
+                
+                // on verrouille le mutex pour que le thread ne cherche pas à
+                // modifier l'état, puisqu'on va l'afficher
+                std::lock_guard<std::mutex> lck (m);
 
                 // à chaque tour, on efface l'ancien rendu
                 window.clear(Color::Black);
@@ -102,8 +149,26 @@ void livrable_42_network(string commande)
 
                 // et on affiche le nouveau rendu
                 window.display();
+                
+                if (moteur.getState().isGameOver())
+                {
+                    string strfinal;
+                    if(moteur.getState().getPlayer()==DRAGONS)
+                    {
+                        strfinal="UNICORNS";
+                    }
+                    else
+                    {
+                        strfinal="DRAGONS";
+                    }
+
+                    cout<< "GAME OVER : The winner is "<<strfinal<<endl;
+                    sleep(milliseconds(3000));
+                    window.close();
+                }
 
             }
+            th.join();
         }
         
         /*
