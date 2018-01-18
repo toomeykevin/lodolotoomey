@@ -15,7 +15,7 @@ namespace server {
     
     HttpStatus GameService::get (int id, Json::Value& out) const
     {
-        User* user = m_game.getUser(2);
+        const User* user = m_game.getUser(2);
         if (!user)
         {
             return HttpStatus::NO_CONTENT;
