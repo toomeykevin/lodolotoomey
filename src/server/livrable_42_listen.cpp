@@ -24,6 +24,8 @@ using namespace ai;
 #include "ServicesManager.hpp"
 #include "VersionService.hpp"
 #include "UserService.hpp"
+#include "GameService.h"
+#include "CommandsService.h"
 
 #include <iostream>
 #include <sstream>
@@ -151,6 +153,13 @@ void livrable_42_listen(string commande)
             UserDB userDB;
             //userDB.addUser(make_unique<User>("Paul"));
             servicesManager.registerService(make_unique<UserService>(std::ref(userDB)));
+            
+            UserDB userDB2;
+            servicesManager.registerService(make_unique<GameService>(std::ref(userDB2)));
+            
+            Json::Value value;
+            CommandsService cmdsService(value);
+            servicesManager.registerService(make_unique<CommandsService>(std::ref(cmdsService)));
 
             struct MHD_Daemon *d;
             d = MHD_start_daemon(// MHD_USE_SELECT_INTERNALLY | MHD_USE_DEBUG | MHD_USE_POLL,

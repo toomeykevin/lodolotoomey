@@ -5,7 +5,8 @@ using namespace std;
 
 namespace server {
 
-    CommandsService::CommandsService (Json::Value& value): AbstractService("/commands"), m_ListCommand(value) {}
+    CommandsService::CommandsService (Json::Value& value): AbstractService("/commands"), m_ListCommand(value) {
+    }
     
     // get sert à récupérer l'ensemble des commandes du tour numéro id
     HttpStatus CommandsService::get (Json::Value& out, int id) const
@@ -32,9 +33,8 @@ namespace server {
     {
         // ici on va rajouter un tour à la liste de commandes
         // les commandes ont été sérialisées par le client avant
-        m_ListCommand.append(out);
+        m_ListCommand.append(in);
         out["id"] = m_ListCommand.size() - 1;
-        return HttpStatus::OK;
         
         // potentiellement quelques conditions de vérification
         
