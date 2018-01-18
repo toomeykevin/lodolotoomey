@@ -15,7 +15,7 @@ namespace server {
         // les commandes seront désérialisées par le client après
         
         // si le tour n'existe pas, on renvoie une exception
-        if (id > (int)m_ListCommand.size())
+        if (id >= (int)m_ListCommand.size())
         {
             throw ServiceException(HttpStatus::NOT_FOUND,"Numéro de tour invalide");
         }
@@ -29,7 +29,7 @@ namespace server {
         return HttpStatus::OK;
     }
     
-    HttpStatus CommandsService::put (Json::Value& out, Json::Value& in)
+    HttpStatus CommandsService::put (Json::Value& out, const Json::Value& in)
     {
         // ici on va rajouter un tour à la liste de commandes
         // les commandes ont été sérialisées par le client avant

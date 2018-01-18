@@ -40,12 +40,9 @@ namespace client {
         
         sf::Http::Request requestPutCmd;
         requestPutCmd.setMethod(sf::Http::Request::Put);
-        requestPutCmd.setUri("/Commands");
+        requestPutCmd.setUri("/commands");
         requestPutCmd.setHttpVersion(1, 1);
         requestPutCmd.setField("Content-Type", "application/x-www-form-urlencoded");
-        // On demande son pseudo au joueur
-        
-
         requestPutCmd.setBody(dataCmd.toStyledString());
         // On envoie la requête au serveur
         sf::Http::Response responsePutCmd = http.sendRequest(requestPutCmd);

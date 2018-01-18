@@ -66,7 +66,7 @@ HttpStatus UserService::put (Json::Value& out,const Json::Value& in)
     {
         // si cet id est plus grand que 2
         // alors c'est qu'il y avait déjà suffisamment de joueurs
-        out["GameStarted"] = false;
+        out["Game started"] = false;
         m_userDB.removeUser(id);
         throw ServiceException(HttpStatus::OUT_OF_RESSOURCES,"Nous avons déjà 2 joueurs");
         

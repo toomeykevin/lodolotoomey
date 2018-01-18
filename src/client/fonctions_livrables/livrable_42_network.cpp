@@ -79,11 +79,32 @@ void livrable_42_network(string commande)
         reader.parse(responsePut.getBody(),reponse);
         
         // si on est le premier joueur, on reste en attente du serveur
-        if (reponse["id"].asInt() == 1)
+        if (reponse["Game started"].asBool() == false)
         {
             while(1)
             {
-                cout << "Attente serveur" << endl;
+                sf::Http::Request requestGetGame;
+                requestGetGame.setMethod(sf::Http::Request::Get);
+                requestGetGame.setUri("/game/2");
+                requestGetGame.setHttpVersion(1, 1);
+                requestGetGame.setField("Content-Type", "application/x-www-form-urlencoded");
+                // On envoie la requête au serveur
+                sf::Http::Response responseGetGame = http.sendRequest(requestGetGame);
+
+                // on veut savoir si la partie est lancée
+                Json::Reader reader;
+                Json::Value reponseGetGame;
+                reader.parse(responseGetGame.getBody(),reponseGetGame);
+                
+                if (reponseGetGame["Game started"].asBool() == true)
+                {
+                    cout << "-- LANCEMENT DE LA PARTIE --" << endl;
+                }
+                else
+                {
+                    cout << "En attente" << endl;
+                }
+                
                 sleep(milliseconds(2000));
             }
         }

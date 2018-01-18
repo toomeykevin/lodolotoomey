@@ -24,7 +24,7 @@ namespace server {
     // Operations
   public:
     GameService (UserDB& game);
-    HttpStatus get (int id, Json::Value& out) const;
+    HttpStatus get (Json::Value& out, int id) const;
     // Setters and Getters
   };
 

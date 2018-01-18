@@ -27,7 +27,7 @@ namespace server {
   public:
     CommandsService (Json::Value& value);
     HttpStatus get (Json::Value& out, int id) const;
-    HttpStatus put (Json::Value& out, Json::Value& in);
+    HttpStatus put (Json::Value& out, const Json::Value& in);
     // Setters and Getters
   };
 
