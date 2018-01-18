@@ -32,7 +32,7 @@ void livrable_42_network(string commande)
         requestPut.setUri("/user");
         requestPut.setHttpVersion(1, 1);
         requestPut.setField("Content-Type", "application/x-www-form-urlencoded");
-        // Ce joueur s'appelle Roger
+        // On demande son pseudo au joueur
         Json::Value data;
         cout << "Entrez votre pseudo" << endl;
         string pseudo;
@@ -45,16 +45,66 @@ void livrable_42_network(string commande)
         cout << "Statut du serveur : " << responsePut.getStatus() << endl;
         cout << "Réponse du serveur : \n" << responsePut.getBody() << endl;
         
+        // on veut savoir si après s'être rajouté à la liste des joueurs
+        // la partie est lancée
         Json::Reader reader;
         Json::Value reponse;
         reader.parse(responsePut.getBody(),reponse);
         if (reponse["Game started"] == true)
         {
             cout << "-- LANCEMENT DE LA PARTIE --" << endl;
+            
+            // création moteur et état
+            Engine moteur;
+            State& etat = moteur.getState();
+            
+            InitBasicState* init = new InitBasicState();
+            // on l'ajoute à la liste des commandes à exécuter par le moteur
+            moteur.addCommand((Command*)init);
+            // on l'exécute
+            moteur.update();
+
+            ElementTabLayer Layer1(etat.getTerritoryBoard());
+            ElementTabLayer Layer2(etat.getTeamBoard());
+            StateLayer Layer3(etat);
+            
+            // ouverture de la page du jeu
+            RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons",
+                    Style::Close | Style::Titlebar);
+
+            // on fait tourner le programme tant que la fenêtre n'est pas fermée
+            while (window.isOpen())
+            {
+                Event event;
+                while (window.pollEvent(event))
+                {
+                    // fermeture de la fenêtre lorsque l'utilisateur le souhaite
+                    if (event.type == Event::Closed)
+                    {
+                        window.close();
+                    }
+                }
+
+                // à chaque tour, on efface l'ancien rendu
+                window.clear(Color::Black);
+                
+                // on dessine la surface des territoires
+                Layer1.initSurface();
+                window.draw(*(Layer1.getSurface()));
+
+                // on dessine la surface des équipes
+                Layer2.initSurface();
+                window.draw(*(Layer2.getSurface()));
+
+                // on dessine la surface des chiffres
+                Layer3.initSurface();
+                window.draw(*(Layer3.getSurface()));
+
+                // et on affiche le nouveau rendu
+                window.display();
+
+            }
         }
-        
-        // CONDITION A INSERER ICI
-        // si la partie est lancée
         
         /*
         // on crée l'état, le moteur, un reader pour lire le fichier
