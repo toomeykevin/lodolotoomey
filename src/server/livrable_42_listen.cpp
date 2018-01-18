@@ -153,9 +153,8 @@ void livrable_42_listen(string commande)
             UserDB userDB;
             //userDB.addUser(make_unique<User>("Paul"));
             servicesManager.registerService(make_unique<UserService>(std::ref(userDB)));
-            
-            UserDB userDB2;
-            servicesManager.registerService(make_unique<GameService>(std::ref(userDB2)));
+            //UserDB userDB2;
+            servicesManager.registerService(make_unique<GameService>(std::ref(userDB)));
             
             Json::Value value;
             CommandsService cmdsService(value);
