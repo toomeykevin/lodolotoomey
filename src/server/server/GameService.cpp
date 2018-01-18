@@ -11,11 +11,19 @@ using namespace std;
 
 namespace server {
 
-    GameService::GameService (UserDB& game) :AbstractService("/game"), m_game(game){
+    GameService::GameService (UserDB& game) :AbstractService("/game"), m_game(game) {}
+    
+    HttpStatus GameService::get (int id, Json::Value& out) const
+    {
+        User* user = m_game.getUser(2);
+        if (!user)
+        {
+            return HttpStatus::NO_CONTENT;
+        }
+        else
+        {
+            return HttpStatus::CREATED;
+        }
     }
-    HttpStatus GameService::get (int id, Json::Value& out) const{
-        return HttpStatus::CREATED;
-    }
-    // Setters and Getters
   
   };

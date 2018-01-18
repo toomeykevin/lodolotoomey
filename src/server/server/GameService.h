@@ -11,11 +11,13 @@ namespace server {
 
 #include "HttpStatus.h"
 #include "AbstractService.h"
+#include "UserDB.h"
 
 namespace server {
 
   /// class GameService - 
   class GameService : public server::AbstractService {
+    // Associations
     // Attributes
   private:
     UserDB& m_game;
