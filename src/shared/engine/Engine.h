@@ -24,9 +24,8 @@ namespace engine {
   class Engine {
     // Associations
     // Attributes
-  private:
-    state::State m_currentState;
   protected:
+    state::State m_currentState;
     std::vector<std::unique_ptr<Command>> m_currentCommands;
     // Operations
   public:
@@ -35,8 +34,8 @@ namespace engine {
     state::State& getState ();
     void addPassivCommands ();
     virtual void addCommand (Command* cmd);
-    std::stack<std::shared_ptr<Action>> update ();
-    void undo (std::stack<std::shared_ptr<Action>>& actions);
+    virtual std::stack<std::shared_ptr<Action>> update ();
+    virtual void undo (std::stack<std::shared_ptr<Action>>& actions);
     void updateCommand (Command* command);
     // Setters and Getters
   };

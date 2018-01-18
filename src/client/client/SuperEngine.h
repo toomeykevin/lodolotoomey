@@ -2,6 +2,9 @@
 #ifndef CLIENT__SUPERENGINE__H
 #define CLIENT__SUPERENGINE__H
 
+#include <vector>
+#include <stack>
+#include <memory>
 
 namespace engine {
   class Command;
@@ -14,10 +17,15 @@ namespace client {
 
   /// class SuperEngine - 
   class SuperEngine : public engine::Engine {
+    // Attributes
+  public:
+    std::vector<std::stack<std::shared_ptr<engine::Action>>> m_vectorStackActions;
     // Operations
   public:
     SuperEngine ();
     void addCommand (engine::Command* cmd);
+    std::stack<std::shared_ptr<engine::Action>> update ();
+    void rollback ();
     // Setters and Getters
   };
 
