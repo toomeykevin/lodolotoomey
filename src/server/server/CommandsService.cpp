@@ -11,22 +11,14 @@ namespace server {
     // get sert à récupérer l'ensemble des commandes du tour numéro id
     HttpStatus CommandsService::get (Json::Value& out, int id) const
     {
-        // ici on va renvoyer toutes les commandes d'un tour pour qu'elles soient jouées
-        // les commandes seront désérialisées par le client après
-        
-        // si le tour n'existe pas, on renvoie une exception
-        if (id >= (int)m_ListCommand.size())
-        {
-            throw ServiceException(HttpStatus::NOT_FOUND,"Numéro de tour invalide");
-        }
-        // si le tour existe, il faut envoyer les commandes
-        else
-        {
-           // on cherche le tour demandé
-            Json::Value& tour = m_ListCommand[id];
-            out = tour;
-        }
+        out = m_ListCommand[id];
         return HttpStatus::OK;
+        /*
+        int taille = (int)m_ListCommand.size();
+        Json::Value& tour = m_ListCommand[taille -1];
+        out = tour;
+        return HttpStatus::OK;
+        */
     }
     
     HttpStatus CommandsService::put (Json::Value& out, const Json::Value& in)
