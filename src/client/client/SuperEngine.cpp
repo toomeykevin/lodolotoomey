@@ -49,4 +49,45 @@ namespace client {
         cout << "Statut du serveur : " << responsePutCmd.getStatus() << endl;
         cout << "Réponse du serveur : \n" << responsePutCmd.getBody() << endl;
     }
+    
+    std::stack<std::shared_ptr<engine::Action>> SuperEngine::update (){
+        std::stack<shared_ptr<Action>> actions;
+        if (m_currentCommands.size()!=0){
+            for (int i=0; i<((int)(m_currentCommands.size())); i++)
+            {
+                if ((m_currentCommands[i]).get()->getTypeId() == RENFORTS)
+                {
+                    ((GestionRenforts*)(m_currentCommands[i]).get())->execute(m_currentState,actions);
+                }
+                else if ((m_currentCommands[i]).get()->getTypeId() == ATTACK)
+                {
+                    ((AttackCommand*)(m_currentCommands[i]).get())->execute(m_currentState,actions);
+                }
+                else
+                {
+                    ((InitBasicState*)(m_currentCommands[i]).get())->execute(m_currentState,actions);
+                }
+                
+            }
+            m_currentCommands.clear();
+        }
+        else{
+            cout<<"la liste des commandes est vide"<<endl;
+        }
+        m_vectorStackActions.push_back(actions); // attention a vidé à l"nvers je  pense
+        return actions;
+    }
+    void SuperEngine::rollback (){ //rollback vertor de stacks
+        
+        int nLast=(int)m_vectorStackActions[m_vectorStackActions.size()-1].size();
+        std::stack<std::shared_ptr<engine::Action>> stackLast=m_vectorStackActions[m_vectorStackActions.size()-1];
+        for (int k=0;k<nLast;k++){
+            std::shared_ptr<engine::Action> l;
+            while(stackLast.size()>0){
+                l=stackLast.top();
+                l.get()->undo(m_currentState);
+                stackLast.pop();
+            }
+        }
+    }
   };
