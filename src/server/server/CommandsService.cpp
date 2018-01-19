@@ -1,7 +1,9 @@
 #include "CommandsService.h"
 #include <iostream>
 
+#include "engine.h"
 using namespace std;
+using namespace engine;
 
 namespace server {
 
@@ -11,6 +13,18 @@ namespace server {
     // get sert à récupérer l'ensemble des commandes du tour numéro id
     HttpStatus CommandsService::get (Json::Value& out, int id) const
     {
+        /*const Command* cmd = m_ListCommand[id];
+        if (!cmd)
+        {
+            return HttpStatus::NO_CONTENT;
+        }
+        else
+        {
+            out = m_ListCommand[id];
+            return HttpStatus::OK;
+        }
+        */
+        
         out = m_ListCommand[id];
         return HttpStatus::OK;
         /*

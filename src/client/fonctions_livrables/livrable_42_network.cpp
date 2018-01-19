@@ -42,7 +42,7 @@ void routine_thread(HeuristicAI* AIPlayer, SuperEngine& moteur)
         {
             std::lock_guard<std::mutex> lck (m);
             AIPlayer->run(moteur);
-            //moteur.undo(stackActions);
+            moteur.rollback();
         }
         // on attend 3s avant de passer au tour suivant : permet un affichage clair
         sleep(milliseconds(3000));
