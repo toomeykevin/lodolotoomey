@@ -18,7 +18,7 @@ void AbstractService::setPattern (const string& pattern) {
     m_pattern = pattern;
 }
 
-HttpStatus AbstractService::get (Json::Value& out, int id) const {
+HttpStatus AbstractService::get (Json::Value& out, int id) {
     throw ServiceException(HttpStatus::NOT_IMPLEMENTED,"Non implanté");
 }
 
