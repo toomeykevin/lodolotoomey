@@ -7,7 +7,7 @@ VersionService::VersionService () : AbstractService("/version") {
     
 }
 
-HttpStatus VersionService::get (Json::Value& out, int id) const {
+HttpStatus VersionService::get (Json::Value& out, int id) {
     out["major"] = 1;
     out["minor"] = 0;
     return HttpStatus::OK;

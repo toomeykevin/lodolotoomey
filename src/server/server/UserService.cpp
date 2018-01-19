@@ -10,7 +10,7 @@ UserService::UserService (UserDB& userDB) : AbstractService("/user"), m_userDB(u
 
 
 // GET : Obtient un utilisateur à partir de son id
-HttpStatus UserService::get (Json::Value& out, int id) const
+HttpStatus UserService::get (Json::Value& out, int id) 
 {
     if (id == -1)
     {

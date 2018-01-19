@@ -13,7 +13,7 @@ namespace server {
 
     GameService::GameService (UserDB& game) :AbstractService("/game"), m_game(game) {}
     
-    HttpStatus GameService::get (Json::Value& out, int id) const
+    HttpStatus GameService::get (Json::Value& out, int id) 
     {
         const User* user = m_game.getUser(id);
         if (!user)
