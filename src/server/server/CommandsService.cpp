@@ -11,7 +11,7 @@ namespace server {
     }
     
     // get sert à récupérer l'ensemble des commandes du tour numéro id
-    HttpStatus CommandsService::get (Json::Value& out, int id) const
+    HttpStatus CommandsService::get (Json::Value& out, int id)
     {
         /*const Command* cmd = m_ListCommand[id];
         if (!cmd)
@@ -24,6 +24,44 @@ namespace server {
             return HttpStatus::OK;
         }
         */
+        
+        int taille = (int)m_ListCommand.size();
+        int index = taille;
+        // si la taille est différente de l'attribut m_long
+        // il faut renvoyer quelque chose
+        if (m_long == taille)
+        {
+            // si la dernière commande est celle d'initialisation
+            if (m_ListCommand[taille - 1]["commande"].asInt() == 0)
+            {
+                // on renvoie rien ?
+            }
+            else
+            {
+                // on parcourt m_ListCommand en remontant pour trouver la commande
+                // Gestion Renforts d'avant
+                for (int i = taille - 2 ; i>= 0; i--)
+                {
+                    // si l'index i est une commande gestion renforts
+                    if (m_ListCommand[i]["commande"].asInt() == 1)
+                    {
+                        // on renvoie l'index de cette commande
+                        index = i;
+                    }
+                }
+                // on renvoie toutes les commandes entre l'avant dernier gestion renforts
+                // et le dernier
+                for (int k = index ; k<taille; k++)
+                {
+                    out.append(m_ListCommand[k]);
+                }
+            }
+            m_long = taille;
+            
+        }
+        
+        
+        
         
         out = m_ListCommand[id];
         return HttpStatus::OK;
