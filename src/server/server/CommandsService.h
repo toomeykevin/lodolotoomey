@@ -23,6 +23,7 @@ namespace server {
     // Attributes
   private:
     Json::Value& m_ListCommand;
+    int m_long;
     // Operations
   public:
     CommandsService (Json::Value& value);
