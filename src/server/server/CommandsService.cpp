@@ -25,16 +25,17 @@ namespace server {
         }
         */
         
+        /*
         int taille = (int)m_ListCommand.size();
         int index = taille;
         // si la taille est différente de l'attribut m_long
         // il faut renvoyer quelque chose
-        if (m_long == taille)
-        {
+        if (m_long != taille)
+        {   
             // si la dernière commande est celle d'initialisation
             if (m_ListCommand[taille - 1]["commande"].asInt() == 0)
             {
-                // on renvoie rien ?
+                out = m_ListCommand[taille-1];
             }
             else
             {
@@ -47,6 +48,7 @@ namespace server {
                     {
                         // on renvoie l'index de cette commande
                         index = i;
+                        break;
                     }
                 }
                 // on renvoie toutes les commandes entre l'avant dernier gestion renforts
@@ -54,23 +56,24 @@ namespace server {
                 for (int k = index ; k<taille; k++)
                 {
                     out.append(m_ListCommand[k]);
+                    cout << out.toStyledString() << endl;
                 }
             }
-            m_long = taille;
             
+            m_long = taille;
+            //cout << m_long << endl;
         }
+        */
         
-        
-        
-        
-        out = m_ListCommand[id];
-        return HttpStatus::OK;
-        /*
         int taille = (int)m_ListCommand.size();
         Json::Value& tour = m_ListCommand[taille -1];
         out = tour;
+        if (taille > 1)
+        {
+            out.append(m_ListCommand[taille-2]);
+        }
         return HttpStatus::OK;
-        */
+        
     }
     
     HttpStatus CommandsService::put (Json::Value& out, const Json::Value& in)

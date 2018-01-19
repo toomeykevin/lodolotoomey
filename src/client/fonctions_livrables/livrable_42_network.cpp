@@ -29,18 +29,17 @@ using namespace client;
 mutex m;
 
 // routine du thread secondaire
-void routine_thread(HeuristicAI* AIPlayer, SuperEngine& moteur)
-{
+
+void routine_thread(HeuristicAI* AIPlayer, SuperEngine& moteur) {
     // on attend 10s avant d'exécuter l'AI :
     // ça laisse le temps à la fenêtre d'affichage de s'ouvrir
     sleep(milliseconds(10000));
     // tant que le jeu n'est pas fini
-    while(!moteur.getState().isGameOver())
-    {
+    while (!moteur.getState().isGameOver()) {
         // on verrouille le mutex pour qu'il n'y ait pas d'affichage pendant que
         // l'AI modifie l'état
         {
-            std::lock_guard<std::mutex> lck (m);
+            std::lock_guard<std::mutex> lck(m);
             AIPlayer->run(moteur);
             moteur.rollback();
         }
@@ -49,12 +48,10 @@ void routine_thread(HeuristicAI* AIPlayer, SuperEngine& moteur)
     }
 }
 
-void livrable_42_network(string commande)
-{
-    if (commande == "network")
-    {
-        sf::Http http("http://localhost",8080);
-        
+void livrable_42_network(string commande) {
+    if (commande == "network") {
+        sf::Http http("http://localhost", 8080);
+
         sf::Http::Request requestPut;
         requestPut.setMethod(sf::Http::Request::Put);
         requestPut.setUri("/user");
@@ -65,27 +62,25 @@ void livrable_42_network(string commande)
         cout << "Entrez votre pseudo" << endl;
         string pseudo;
         cin >> pseudo;
-        data["name"]=pseudo;
+        data["name"] = pseudo;
         requestPut.setBody(data.toStyledString());
         // On envoie la requête au serveur
         sf::Http::Response responsePut = http.sendRequest(requestPut);
         cout << "-- AJOUT D'UN NOUVEAU JOUEUR --" << endl;
         cout << "Statut du serveur : " << responsePut.getStatus() << endl;
         cout << "Réponse du serveur : \n" << responsePut.getBody() << endl;
-        
+
         // on veut savoir si après s'être rajouté à la liste des joueurs
         // la partie est lancée
         Json::Reader reader;
         Json::Value reponse;
-        reader.parse(responsePut.getBody(),reponse);
-        
+        reader.parse(responsePut.getBody(), reponse);
+
         // si on est le premier joueur, on reste en attente du serveur
-        if (reponse["Game started"].asBool() == false)
-        {
+        if (reponse["Game started"].asBool() == false) {
             // Attente du lancement de la partie
             bool g = false;
-            while (!g)
-            {
+            while (!g) {
                 sf::Http::Request requestGetGame;
                 requestGetGame.setMethod(sf::Http::Request::Get);
                 requestGetGame.setUri("/game/2");
@@ -97,81 +92,82 @@ void livrable_42_network(string commande)
                 // on veut savoir si la partie est lancée
                 Json::Reader reader;
                 Json::Value reponseGetGame;
-                reader.parse(responseGetGame.getBody(),reponseGetGame);
-                
-                if (reponseGetGame["Game started"].asBool() == true)
-                {
+                reader.parse(responseGetGame.getBody(), reponseGetGame);
+
+                if (reponseGetGame["Game started"].asBool() == true) {
                     g = true;
                     cout << "-- LANCEMENT DE LA PARTIE --" << endl;
                 }
             }
-            
-            sf::Http::Request requestGetCmd;
-            requestGetCmd.setMethod(sf::Http::Request::Get);
-            requestGetCmd.setUri("/commands/1");
-            requestGetCmd.setHttpVersion(1, 1);
-            requestGetCmd.setField("Content-Type", "application/x-www-form-urlencoded");
-            // On envoie la requête au serveur
-            sf::Http::Response responseGetCmd = http.sendRequest(requestGetCmd);
-            cout << "Statut du serveur : " << responseGetCmd.getStatus() << endl;
-            cout << "Réponse du serveur : \n" << responseGetCmd.getBody() << endl;
-            
+
+
+
             // Attente de commande de la part du serveur
-            while(1)
-            {
-                
+            while (1) {
+                sf::Http::Request requestGetCmd;
+                requestGetCmd.setMethod(sf::Http::Request::Get);
+                requestGetCmd.setUri("/commands/1");
+                requestGetCmd.setHttpVersion(1, 1);
+                requestGetCmd.setField("Content-Type", "application/x-www-form-urlencoded");
+                // On envoie la requête au serveur
+                sf::Http::Response responseGetCmd = http.sendRequest(requestGetCmd);
+                //cout << "Statut du serveur : " << responseGetCmd.getStatus() << endl;
+                //cout << "Réponse du serveur : \n" << responseGetCmd.getBody() << endl;
+
+                Json::Reader reader;
+                Json::Value reponse;
+                reader.parse(responseGetCmd.getBody(), reponse);
+                if (reponse[1]["commande"].asInt() == 2) {
+                    cout << "ATTAQUE" << endl;
+                }
             }
         }
-        
+
         // si on est le deuxième joueur, on est celui qui lance la partie
         // et affiche la fenêtre
-        if (reponse["Game started"].asBool() == true)
-        {
+        if (reponse["Game started"].asBool() == true) {
             cout << "-- LANCEMENT DE LA PARTIE --" << endl;
-            
+
             // création AI, moteur et état
             HeuristicAI* AIPlayer = new HeuristicAI();
-            
+
             SuperEngine moteur;
             State& etat = moteur.getState();
-            
+
             InitBasicState* init = new InitBasicState();
             // on l'ajoute à la liste des commandes à exécuter par le moteur
-            moteur.addCommand((Command*)init);
+            moteur.addCommand((Command*) init);
             // on l'exécute
             moteur.update();
-            
+
             // création du thread qui fait le calcul du tour
             thread th(&routine_thread, AIPlayer, std::ref(moteur));
 
             ElementTabLayer Layer1(etat.getTerritoryBoard());
             ElementTabLayer Layer2(etat.getTeamBoard());
             StateLayer Layer3(etat);
-            
+
             // ouverture de la page du jeu
-            RenderWindow window(VideoMode(800,600,32),"Risk Fantasy | Unicorns VS Dragons",
+            RenderWindow window(VideoMode(800, 600, 32), "Risk Fantasy | Unicorns VS Dragons",
                     Style::Close | Style::Titlebar);
 
             // on fait tourner le programme tant que la fenêtre n'est pas fermée
-            while (window.isOpen())
-            {
+            while (window.isOpen()) {
                 Event event;
-                while (window.pollEvent(event))
-                {
+                while (window.pollEvent(event)) {
                     // fermeture de la fenêtre lorsque l'utilisateur le souhaite
-                    if (event.type == Event::Closed)
-                    {
+                    if (event.type == Event::Closed) {
                         window.close();
                     }
                 }
-                
+
                 // on verrouille le mutex pour que le thread ne cherche pas à
                 // modifier l'état, puisqu'on va l'afficher
-                std::lock_guard<std::mutex> lck (m);
+                std::lock_guard<std::mutex> lck(m);
 
                 // à chaque tour, on efface l'ancien rendu
                 window.clear(Color::Black);
-                
+
                 // on dessine la surface des territoires
                 Layer1.initSurface();
                 window.draw(*(Layer1.getSurface()));
@@ -186,20 +182,16 @@ void livrable_42_network(string commande)
 
                 // et on affiche le nouveau rendu
                 window.display();
-                
-                if (moteur.getState().isGameOver())
-                {
+
+                if (moteur.getState().isGameOver()) {
                     string strfinal;
-                    if(moteur.getState().getPlayer()==DRAGONS)
-                    {
-                        strfinal="UNICORNS";
-                    }
-                    else
-                    {
-                        strfinal="DRAGONS";
+                    if (moteur.getState().getPlayer() == DRAGONS) {
+                        strfinal = "UNICORNS";
+                    } else {
+                        strfinal = "DRAGONS";
                     }
 
-                    cout<< "GAME OVER : The winner is "<<strfinal<<endl;
+                    cout << "GAME OVER : The winner is " << strfinal << endl;
                     sleep(milliseconds(3000));
                     window.close();
                 }
@@ -207,7 +199,7 @@ void livrable_42_network(string commande)
             }
             th.join();
         }
-        
+
         /*
         // on crée l'état, le moteur, un reader pour lire le fichier
         Engine moteur;
@@ -370,10 +362,10 @@ void livrable_42_network(string commande)
         {
             throw runtime_error("Problème d'ouverture du fichier");
         }
-        */
-        
-        
-        
+         */
+
+
+
         /* LIVRABLE 4.2 */
         /*
         // Première requête : POST
@@ -450,7 +442,7 @@ void livrable_42_network(string commande)
         std::cout << "Statut du serveur : " << responseGet.getStatus() << std::endl;
         cout << "Les joueurs en ligne pour la partie sont : " << endl;
         std::cout << responseGet.getBody() << std::endl;
-        */
+         */
+    } else {
     }
-    else{}
 }
