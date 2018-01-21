@@ -30,10 +30,10 @@ mutex m;
 
 // routine du thread secondaire
 
-void routine_thread(HeuristicAI* AIPlayer, SuperEngine& moteur) {
+void routine_thread(HeuristicAI* AIPlayer, Engine& moteur) {
     // on attend 10s avant d'exécuter l'AI :
     // ça laisse le temps à la fenêtre d'affichage de s'ouvrir
-    sleep(milliseconds(10000));
+    sleep(milliseconds(5000));
     // tant que le jeu n'est pas fini
     while (!moteur.getState().isGameOver()) {
         // on verrouille le mutex pour qu'il n'y ait pas d'affichage pendant que
@@ -41,10 +41,9 @@ void routine_thread(HeuristicAI* AIPlayer, SuperEngine& moteur) {
         {
             std::lock_guard<std::mutex> lck(m);
             AIPlayer->run(moteur);
-            moteur.rollback();
         }
         // on attend 3s avant de passer au tour suivant : permet un affichage clair
-        sleep(milliseconds(3000));
+        sleep(milliseconds(1500));
     }
 }
 
@@ -99,27 +98,11 @@ void livrable_42_network(string commande) {
                     cout << "-- LANCEMENT DE LA PARTIE --" << endl;
                 }
             }
-
-
-
+            
             // Attente de commande de la part du serveur
-            while (1) {
-                sf::Http::Request requestGetCmd;
-                requestGetCmd.setMethod(sf::Http::Request::Get);
-                requestGetCmd.setUri("/commands/1");
-                requestGetCmd.setHttpVersion(1, 1);
-                requestGetCmd.setField("Content-Type", "application/x-www-form-urlencoded");
-                // On envoie la requête au serveur
-                sf::Http::Response responseGetCmd = http.sendRequest(requestGetCmd);
-                //cout << "Statut du serveur : " << responseGetCmd.getStatus() << endl;
-                //cout << "Réponse du serveur : \n" << responseGetCmd.getBody() << endl;
-
-                Json::Reader reader;
-                Json::Value reponse;
-                reader.parse(responseGetCmd.getBody(), reponse);
-                if (reponse[1]["commande"].asInt() == 2) {
-                    cout << "ATTAQUE" << endl;
-                }
+            while (1)
+            {
+                
             }
         }
 
@@ -131,7 +114,7 @@ void livrable_42_network(string commande) {
             // création AI, moteur et état
             HeuristicAI* AIPlayer = new HeuristicAI();
 
-            SuperEngine moteur;
+            Engine moteur;
             State& etat = moteur.getState();
 
             InitBasicState* init = new InitBasicState();

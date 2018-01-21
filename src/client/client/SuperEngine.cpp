@@ -16,9 +16,8 @@ using namespace sf;
 namespace client {
 
     // Operations
-    SuperEngine::SuperEngine (){
-        
-    }
+    SuperEngine::SuperEngine (){}
+    
     void SuperEngine::addCommand (engine::Command* cmd){
         m_currentCommands.push_back(std::unique_ptr<Command>(cmd));
         
@@ -50,7 +49,8 @@ namespace client {
         cout << "Réponse du serveur : \n" << responsePutCmd.getBody() << endl;
     }
     
-    std::stack<std::shared_ptr<engine::Action>> SuperEngine::update (){
+    std::stack<std::shared_ptr<engine::Action>> SuperEngine::update ()
+    {
         std::stack<shared_ptr<Action>> actions;
         if (m_currentCommands.size()!=0){
             for (int i=0; i<((int)(m_currentCommands.size())); i++)
@@ -77,8 +77,8 @@ namespace client {
         m_vectorStackActions.push_back(actions); // attention a vidé à l"nvers je  pense
         return actions;
     }
-    void SuperEngine::rollback (){ //rollback vertor de stacks
-        
+    void SuperEngine::rollback ()
+    {
         int nLast=(int)m_vectorStackActions[m_vectorStackActions.size()-1].size();
         std::stack<std::shared_ptr<engine::Action>> stackLast=m_vectorStackActions[m_vectorStackActions.size()-1];
         for (int k=0;k<nLast;k++){
